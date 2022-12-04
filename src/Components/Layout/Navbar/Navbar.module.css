@@ -1,5 +1,5 @@
 .HoverArea{
-  height:9vh;
+  height:8vh;
 
 }
 
@@ -8,6 +8,7 @@
   justify-content: center;
   background-color: rgba(119, 119, 193, 0.573);
   padding: 1vh 0;
+  height:8vh;
   width: 100%;
   position:absolute;
   top:-100%;
