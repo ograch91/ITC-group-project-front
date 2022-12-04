@@ -1,0 +1,27 @@
+.SettingsForm{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+}
+
+.row{
+  font-size: 1rem;
+  display: inline-flex;
+  justify-content: space-between;
+  margin-right: 4px;
+  width:50%;
+}
+
+
+
+.SettingsForm button:hover{
+  color: white;
+  transition: color 300ms ease;
+}
+
+.SettingsForm textarea:hover
+{
+cursor: text;
+}
