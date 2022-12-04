@@ -1,0 +1,13 @@
+.HomePage{
+  text-shadow: var(--textShadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height:100%;
+}
+
+.HomePage *{
+  border-radius: 6px;
+}
+

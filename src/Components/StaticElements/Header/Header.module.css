@@ -1,0 +1,9 @@
+.Header {
+  display: inline-flex;
+  justify-content: center;
+  width: 100%;
+  font-weight: 800;
+  font-size: 40px;
+  margin: 1vh 0;
+  text-shadow: var(--textShadow);
+}
