@@ -1,8 +1,8 @@
 import { useRef } from "react";
 import { Button } from "@mui/material";
-import styles from "./SettingsForm.module.css"
+import styles from "./ProfileSetting.module.css"
 
-export const SettingsForm = () => {
+export const ProfileSetting = () => {
 
   // const passwordChk = useRef(null);
   const hiddenFileInput = useRef(null);
@@ -48,7 +48,7 @@ export const SettingsForm = () => {
 
     //use put to edit user
   return (
-    <form className={styles.SettingsForm}>
+    <form className={styles.ProfileSetting}>
     <label>User Information</label>
     <div className={styles.row}>
       <span>Change user name</span>
