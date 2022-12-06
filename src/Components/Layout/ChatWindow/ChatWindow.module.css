@@ -1,0 +1,18 @@
+.ChatWindow {
+  display: flex;
+  flex-direction: row;
+  width:90%;
+  height:85%;
+}
+
+.MessageContainer{
+  background-color: gainsboro;
+  display: flex;
+  flex-direction: column;
+  padding:2rem;
+  width:80%;
+  height: 100%;
+}
+.MessageContainer h3 {
+  color:black;
+}
