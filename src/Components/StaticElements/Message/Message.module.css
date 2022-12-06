@@ -1,0 +1,36 @@
+.Message {
+  display: flex;
+  flex-direction: row;
+  color: white;
+  margin: 8px;
+  width: 100%;
+  padding: 2.5vh 1.5vw;
+  background-color: darkcyan;
+  align-items: center;
+}
+
+.Left{
+  display: flex;
+  align-items: center;
+
+  width: 90%;
+  margin-right:auto;
+}
+
+.Right{
+  margin-right: 1vw;
+}
+
+
+.Left span , .Left img{
+
+  margin-right: 1vw;
+}
+
+.Left img {
+  width:2rem;
+  height:2rem;
+  background-color: rgb(0, 0, 0);
+  border-radius: 20px;
+  border: none;
+}
