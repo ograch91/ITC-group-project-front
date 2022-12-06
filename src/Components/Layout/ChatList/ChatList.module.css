@@ -3,21 +3,16 @@
   flex-direction: column;
   height: 100%;
   width: 15rem;
-  margin: 1rem;
-
 }
 
 
 .ChatList ul{
-  display: flex;
-  align-content: center;
-  flex-direction: column;
-  background-color: rgb(218, 199, 174);
-  flex-wrap: wrap;
-  overflow-y: hidden;
-  overflow-x: scroll;
+  display: inline-block;
+  text-align: center;
+  background-color: rgb(113, 120, 219);
+  overflow-y: scroll;
   border: 1px black solid;
-  padding: 0.75rem;
+  padding: 0.5rem;
   width: 15rem;
   margin:0px;
 }
@@ -26,9 +21,10 @@
 display: inline-flex;
 justify-content: space-around;
 align-items: center;
-margin: 0 0 0.75rem;  
+margin: 0.025rem 0px;  
 width: 100%;
-height: min-content;
+height:2.25rem;
+
 }
 
 .ChatList li{
@@ -44,12 +40,12 @@ height: min-content;
   color:rgb(236, 41, 41);
 }
 
-.ChatList p{
-  margin: unset;
+.ChatList p , h2{
+  margin: 0;
 }
 
 .ChatList::-webkit-scrollbar {
-  height: 10px;
+  width: 10px;
 
 }
 
@@ -61,5 +57,5 @@ height: min-content;
 
 .ChatList::-webkit-scrollbar-thumb{
   border-radius: 4px;
-  background-color:rgb(248, 33, 0);
+  background-color:rgb(247, 29, 29);
 }

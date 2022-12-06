@@ -19,7 +19,7 @@ export const ChatList = ({ header, list, type }) => {
             const id = uuidv4();
             return (
               <div className={styles.chatItem} key={id} >
-              <li>User blah blah</li>
+              <li>User Random</li>
               <p>lastDate</p>
               </div>
             );
