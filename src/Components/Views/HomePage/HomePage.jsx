@@ -4,6 +4,7 @@ import { ContentWrapper } from "../../Layout/ContentWrapper/ContentWrapper";
 import { ChatWindow } from "../../Layout/ChatWindow/ChatWindow";
 import { ChatList } from "../../Layout/ChatList/ChatList";
 import styles from "./HomePage.module.css";
+import { SubmitMessage } from "../../ActiveElements/SubmitMessage/SubmitMessage";
 
 
 export const HomePage = () => {
@@ -14,7 +15,10 @@ export const HomePage = () => {
     <div className={styles.HomePage}>
     {isAuth? 
       <div className={styles.ChatWrapper}>
+      <div className={styles.ChatSection}>
         <ChatWindow/>
+        <SubmitMessage/>
+        </div>
         <ChatList/>
       </div>
       :
