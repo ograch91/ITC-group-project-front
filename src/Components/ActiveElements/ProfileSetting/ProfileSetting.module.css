@@ -1,4 +1,4 @@
-.SettingsForm{
+.ProfileSetting{
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -17,12 +17,12 @@
 
 
 
-.SettingsForm button:hover{
+.ProfileSetting button:hover{
   color: white;
   transition: color 300ms ease;
 }
 
-.SettingsForm textarea:hover
+.ProfileSetting textarea:hover
 {
 cursor: text;
 }
