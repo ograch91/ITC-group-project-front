@@ -1,0 +1,65 @@
+.ChatList {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 15rem;
+  margin: 1rem;
+
+}
+
+
+.ChatList ul{
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+  background-color: rgb(218, 199, 174);
+  flex-wrap: wrap;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  border: 1px black solid;
+  padding: 0.75rem;
+  width: 15rem;
+  margin:0px;
+}
+
+.ChatList .chatItem{
+display: inline-flex;
+justify-content: space-around;
+align-items: center;
+margin: 0 0 0.75rem;  
+width: 100%;
+height: min-content;
+}
+
+.ChatList li{
+  color: white;
+  height: fit-content;
+  padding: 0px;
+  list-style: none;
+}
+
+.ChatList li:hover{
+  transition: all 250ms ease-in;
+  cursor: pointer;
+  color:rgb(236, 41, 41);
+}
+
+.ChatList p{
+  margin: unset;
+}
+
+.ChatList::-webkit-scrollbar {
+  height: 10px;
+
+}
+
+.ChatList::-webkit-scrollbar-track-piece{
+  background-color: transparent;
+
+}
+
+
+.ChatList::-webkit-scrollbar-thumb{
+  border-radius: 4px;
+  background-color:rgb(248, 33, 0);
+}
