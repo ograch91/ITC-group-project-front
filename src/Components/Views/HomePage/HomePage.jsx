@@ -2,7 +2,9 @@ import { useState } from "react";
 import { Header } from "../../StaticElements/Header/Header";
 import { ContentWrapper } from "../../Layout/ContentWrapper/ContentWrapper";
 import { ChatWindow } from "../../Layout/ChatWindow/ChatWindow";
+import { ChatList } from "../../Layout/ChatList/ChatList";
 import styles from "./HomePage.module.css";
+
 
 export const HomePage = () => {
 
@@ -10,17 +12,18 @@ export const HomePage = () => {
 
   return (
     <div className={styles.HomePage}>
-    {isAuth?  <>  
-    {/* searchBar */}
-    {/* userList */}
-     <ChatWindow/>
-    </>: <>
+    {isAuth? 
+      <div className={styles.ChatWrapper}>
+        <ChatWindow/>
+        <ChatList/>
+      </div>
+      :
+      <>
     <Header title="Welcome Header"/>
     <ContentWrapper>
-      <h3>register</h3>
-      <h3>login</h3>
+      <h3>register/Signup</h3>
     </ContentWrapper>
-    </>
+      </>
     }
     </div>
   );

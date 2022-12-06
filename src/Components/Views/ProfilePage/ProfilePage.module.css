@@ -1,0 +1,21 @@
+.ProfilePage{
+display: flex;
+flex-direction: column;
+align-items: center;
+height: 100%;
+}
+
+.ProfilePage *{
+  border-radius: 6px;
+  border:none;
+
+}
+
+.ProfilePage input {
+  outline:none;
+}
+
+.ProfilePage button {
+  width:10vw;
+
+}
