@@ -5,6 +5,7 @@ import { ChatWindow } from "../../Layout/ChatWindow/ChatWindow";
 import { ChatList } from "../../Layout/ChatList/ChatList";
 import styles from "./HomePage.module.css";
 import { SubmitMessage } from "../../ActiveElements/SubmitMessage/SubmitMessage";
+import { Navbar } from "../../Layout/Navbar/Navbar";
 
 
 export const HomePage = () => {
@@ -13,6 +14,7 @@ export const HomePage = () => {
 
   return (
     <div className={styles.HomePage}>
+      <Navbar/>
     {isAuth? 
       <div className={styles.ChatWrapper}>
       <div className={styles.ChatSection}>
