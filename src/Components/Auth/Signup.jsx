@@ -9,7 +9,7 @@
 //  import { AuthModalContext } from '../AuthModalContext';
  import { useContext } from 'react';
  
- export const SignUp = () => {
+ export const Signup = () => {
   //  const [open, setOpen] = useContext(AuthModalContext);
   //  const handleClose = () => setOpen(false);
  
