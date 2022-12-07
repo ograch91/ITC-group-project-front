@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { Navbar } from './Components/Layout/Navbar/Navbar';
 import { HomePage } from './Components/Views/HomePage/HomePage';
 import { BeforeAuthTabs } from './Components/Views/BeforeAuthTabs';
@@ -6,7 +7,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 
 function App() {
-
+ 
   const[isAuth,setIsAuth] = useState(false);
 
   return (
