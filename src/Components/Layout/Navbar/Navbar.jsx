@@ -21,7 +21,7 @@ export const Navbar = () => {
       <div className={styles.between}>
         <img src={logo} alt="logo" />
         {/* when profile implement create new route */}
-        <Link to="/Setting">Profile</Link>
+        <Link to="/setting">Profile</Link>
         <Link to="/home">Home</Link>
         <Button onClick={()=>handleClick()} variant="text">Logout</Button>
       </div>
