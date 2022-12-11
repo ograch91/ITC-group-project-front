@@ -15,10 +15,12 @@ function App() {
     <div className="App">
     {isAuth && <Navbar/>}
       <Routes>
-        <Route path="/welcome" element={<BeforeAuthTabs />} />
-        <Route path="/home" element={<HomePage />} />
-        {/* 👇️ redirect to default when user goes to / */}
-        <Route path="/" element={<Navigate to="/welcome" />} />
+        <Route path="/welcome" element={!isAuth&&<BeforeAuthTabs />} />
+        <Route path="/home" element={isAuth&&<HomePage />} />
+        <Route path="/home" element={isAuth&&<HomePage />} />
+        <Route path="/" element={isAuth? <Navigate to="/home" /> : <Navigate to="/welcome" /> } />
+        {/* 👇️ redirect to default or possible 404 page when user goes to */}
+        <Route path="/*" element={isAuth?  <h2>404 page directing to HomePage</h2> :  <h2>404 page directing to to welcome Signin</h2>  } />
       </Routes>
     </div>
   );
