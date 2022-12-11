@@ -3,9 +3,12 @@ import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-import { useState } from 'react';
+import { useState ,useContext} from 'react';
 import { Signup } from '../Auth/Signup';
 import { Login } from '../Auth/Login';
+import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { NavigationStateContext } from '../../Context/NavigationStateContext';
 
 export const BeforeAuthTabs = () => {
   const style = {
@@ -24,6 +27,15 @@ export const BeforeAuthTabs = () => {
     setValue(newValue);
   };
 
+  //Routing for testing purposes
+  const{setIsAuth}= useContext(NavigationStateContext);
+  const navigate = useNavigate();
+
+  const handleSubmit =()=>{
+    setIsAuth(true);
+    return navigate("/home", { replace: true });
+  }
+
   return (
     // add welcome message bla bla
     <Box sx={style}>
@@ -32,6 +44,7 @@ export const BeforeAuthTabs = () => {
           <TabList onChange={handleChange} aria-label="lab API tabs example">
             <Tab label="Login" value="1" />
             <Tab label="SignUp" value="2" />
+            <Tab label="TestAuth" value="3" />
           </TabList>
         </Box>
         <TabPanel value="1">
@@ -39,6 +52,9 @@ export const BeforeAuthTabs = () => {
         </TabPanel>
         <TabPanel value="2">
           <Signup />
+        </TabPanel>
+        <TabPanel value="3">
+          <Button  onClick={() => handleSubmit()}>SetLogin</Button>
         </TabPanel>
       </TabContext>
     </Box>
