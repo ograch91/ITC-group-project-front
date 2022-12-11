@@ -3,7 +3,7 @@ import { createContext, useState } from "react";
 export const NavigationStateContext = createContext();
 
 export const NavigationStateProvider = ({ children }) => {
-  const [isAuth, setIsAuth] = useState(false);
+  const [isAuth, setIsAuth] = useState(true);
 
   const value = {
     isAuth,
