@@ -9,10 +9,11 @@
 //  import { AuthModalContext } from '../AuthModalContext';
  import { useContext } from 'react';
  
- export const Signup = () => {
+ export const Signup = (props) => {
   //  const [open, setOpen] = useContext(AuthModalContext);
   //  const handleClose = () => setOpen(false);
- 
+  const userDetails = props.userDetails || false;
+  
    const validationSchema = yup.object({
      email: yup
        .string('Enter your email')
@@ -32,8 +33,11 @@
  
    const formik = useFormik({
     initialValues: {
-      email: '',
+      email: userDetails?.email || '',
       password: '',
+      passwordConfirmation: '',
+      name: userDetails?.name || '',
+      phone: userDetails?.phone || '',
     },
     validationSchema: validationSchema,
     onSubmit: async values => {
