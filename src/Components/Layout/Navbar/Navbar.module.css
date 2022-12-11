@@ -35,7 +35,7 @@
   width:8vw;
 }
 
-.Navbar button {
+.Navbar a {
   cursor: pointer;
   color: white;
   background-color: transparent;
@@ -51,7 +51,7 @@
   box-shadow: none;
 }
 
-.Navbar button:hover {
+.Navbar a:hover {
   transition: background-color 300ms ease;
   color: rgb(28, 40, 132);
 }
