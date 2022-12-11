@@ -6,7 +6,7 @@ import { useContext, useEffect, useState } from 'react';
 import { ImageUploadModal } from './ImageUploadModal';
 import { useApi } from '../../Hooks/UseApi';
 import { FileUpload } from '../Firebase/FileUpload';
-import { EditProfileModal } from './EditProfileModal';
+// import { EditProfileModal } from './EditProfileModal';
 
 export const ProfileDetails = props => {
   const { user, userId, isOtherUser } = props;
@@ -33,9 +33,11 @@ export const ProfileDetails = props => {
         <div>
           {/* https://stackoverflow.com/questions/67104652/hover-effect-change-your-picture-with-icon-on-profile-picture */}
           <a onClick={handeOpenUpload}>
-            <img src={user.photo || './profile.png'} />
+          <img src={user.photo || './profile.png'} />
+            
             {!isOtherUser && <div>Edit Photo</div>}
           </a>
+          
         </div>
         <div>
           {isOtherUser ? (
@@ -63,7 +65,7 @@ export const ProfileDetails = props => {
         </Button>
         
       )}
-      <EditProfileModal openState={[edit, setEdit]} user={user}/>
+      {/* <EditProfileModal openState={[edit, setEdit]} user={user}/> */}
       <ImageUploadModal open={upload} setOpen={setUpload} />
     </div>
   );
