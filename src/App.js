@@ -5,7 +5,7 @@ import { HomePage } from './Components/Views/HomePage/HomePage';
 import { BeforeAuthTabs } from './Components/Views/BeforeAuthTabs';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
-import { NavigationStateContext } from './Context/NavigationStateContext';
+import { NavigationStateContext } from './ContextProviders/NavigationStateContext';
 
 function App() {
  

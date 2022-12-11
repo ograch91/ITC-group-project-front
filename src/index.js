@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import { NavigationStateProvider } from './Context/NavigationStateContext';
+import { NavigationStateProvider } from './ContextProviders/NavigationStateContext';
 import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

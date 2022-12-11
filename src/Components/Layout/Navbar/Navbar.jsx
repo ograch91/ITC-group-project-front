@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import { useContext } from "react";
 import { useNavigate,Link } from "react-router-dom";
 import logo from "../../../Assets/logo.png";
-import { NavigationStateContext } from "../../../Context/NavigationStateContext";
+import { NavigationStateContext } from "../../../ContextProviders/NavigationStateContext";
 import styles from "./Navbar.module.css";
 
 export const Navbar = () => {
@@ -23,7 +23,7 @@ export const Navbar = () => {
         {/* when profile implement create new route */}
         <Link to="/Setting">Profile</Link>
         <Link to="/home">Home</Link>
-        <Button onClick={()=>handleClick()}>Logout</Button>
+        <Button onClick={()=>handleClick()} variant="text">Logout</Button>
       </div>
     </div>
     </div>
