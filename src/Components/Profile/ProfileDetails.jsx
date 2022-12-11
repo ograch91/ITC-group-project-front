@@ -20,24 +20,30 @@ export const ProfileDetails = props => {
 
   // let data, isLoading, err;
   // useEffect(() => {
-    
+
   //   const {data_, isLoading_, err_} =  useApi('get', `users/${userId}`, 'user')
   //   data = data_;
   //   isLoading = isLoading_;
   //   err = err_;
   // }, []);
   // console.log(isLoading);
+  const hadnleFullSize = () => {
+    console.log('full size');
+    //todo: massimo add your logic here
+  }
   return (
     <div>
       <div className="container">
         <div>
+          <img src={user.photo || './profile.png'} />
+
           {/* https://stackoverflow.com/questions/67104652/hover-effect-change-your-picture-with-icon-on-profile-picture */}
           <a onClick={handeOpenUpload}>
-          <img src={user.photo || './profile.png'} />
-            
             {!isOtherUser && <div>Edit Photo</div>}
           </a>
-          
+          <a onClick={hadnleFullSize }>
+            {!isOtherUser && <div>show large profle photo</div>}
+          </a>
         </div>
         <div>
           {isOtherUser ? (
@@ -63,7 +69,6 @@ export const ProfileDetails = props => {
         >
           Edit Profile
         </Button>
-        
       )}
       {/* <EditProfileModal openState={[edit, setEdit]} user={user}/> */}
       <ImageUploadModal open={upload} setOpen={setUpload} />
