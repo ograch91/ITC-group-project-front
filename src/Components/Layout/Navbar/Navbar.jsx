@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import logo from "../../../Assets/logo.png";
 import { NavigationStateContext } from "../../../Context/NavigationStateContext";
 import styles from "./Navbar.module.css";
@@ -10,9 +10,9 @@ export const Navbar = () => {
   const{setIsAuth}=useContext(NavigationStateContext);
   const navigate = useNavigate();
 
-  const handeClick=()=>{
+  const handleClick=()=>{
     setIsAuth(false);
-    return navigate("/", { replace: true });
+    return navigate("/welcome", { replace: true });
   }
 
   return (
@@ -20,10 +20,10 @@ export const Navbar = () => {
     <div className={styles.Navbar}>
       <div className={styles.between}>
         <img src={logo} alt="logo" />
-        <Button>Profile</Button>
-        <Button>Home</Button>
-        <Button>Search</Button>
-        <Button onClick={()=>handeClick()}>Logout</Button>
+        {/* when profile implement create new route */}
+        <Link to="/Setting">Profile</Link>
+        <Link to="/home">Home</Link>
+        <Button onClick={()=>handleClick()}>Logout</Button>
       </div>
     </div>
     </div>
