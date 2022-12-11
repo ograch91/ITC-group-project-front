@@ -8,7 +8,7 @@ import { Signup } from '../Auth/Signup';
 import { Login } from '../Auth/Login';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { NavigationStateContext } from '../../Context/NavigationStateContext';
+import { NavigationStateContext } from '../../ContextProviders/NavigationStateContext';
 
 export const BeforeAuthTabs = () => {
   const style = {
