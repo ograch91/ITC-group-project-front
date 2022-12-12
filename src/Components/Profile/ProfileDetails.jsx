@@ -36,6 +36,7 @@ export const ProfileDetails = props => {
   //   err = err_;
   // }, []);
   // console.log(isLoading);
+  
   const ToClipboard = ({ text }) => {
     const handleClick = () => {
       navigator.clipboard.writeText(text);
@@ -48,6 +49,7 @@ export const ProfileDetails = props => {
       </span>
     );
   };
+
   return (
     <div>
       <div className="container">
