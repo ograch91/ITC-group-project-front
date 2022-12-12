@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import { useContext } from "react";
 import { useNavigate,Link } from "react-router-dom";
 import logo from "../../../Assets/logo.png";
-import { NavigationStateContext } from "../../../ContextProviders/NavigationStateContext";
+import { NavigationStateContext } from "../../../Context/NavigationStateContext";
 import styles from "./Navbar.module.css";
 
 export const Navbar = () => {

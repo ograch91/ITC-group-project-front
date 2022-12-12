@@ -7,13 +7,13 @@
  import 'yup-phone';
  import './Authed.css';
 //  import { AuthModalContext } from '../AuthModalContext';
- import { useContext } from 'react';
+ import { useContext, useState } from 'react';
  
  export const Signup = (props) => {
-  //  const [open, setOpen] = useContext(AuthModalContext);
-  //  const handleClose = () => setOpen(false);
+   const [open, setOpen] = props.openState;
+   const handleClose = () => setOpen(false);
   const userDetails = props.userDetails || false;
-  
+  const title = userDetails ? 'Update Profile' : 'Sign up';
    const validationSchema = yup.object({
      email: yup
        .string('Enter your email')
@@ -64,7 +64,7 @@
  
    return (
      <div>
-       <h1>Sign Up</h1>
+       <h1>{title}</h1>
        <form onSubmit={formik.handleSubmit}>
          <TextField
            fullWidth
@@ -144,9 +144,9 @@
              color="error"
              variant="outlined"
              size="large"
-             type="submit"
+             type="button"
              startIcon={<BackIcon />}
-            //  onClick={handleClose}
+             onClick={handleClose}
            >
              Cancel
            </Button>

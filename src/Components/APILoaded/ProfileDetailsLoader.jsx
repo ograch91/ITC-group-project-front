@@ -10,7 +10,6 @@ export const ProfileDetailsLoader = props => {
 
   const onRender = data => {
    
-    console.log(data);
     
     return (
       <ProfileDetails

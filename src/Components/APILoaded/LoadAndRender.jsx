@@ -10,7 +10,6 @@ export const LoadAndRender = ({
 }) => {
   //mixed
   const { data, isLoading, err } = useApi(method, path, args);
-  console.log('LoadAndRender', data, isLoading, err);
   //shared
   if (err) {
     if (onErr) {
