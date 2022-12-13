@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { useNavigate,Link } from "react-router-dom";
-import { NavigationStateContext } from "../../../ContextProviders/NavigationStateContext";
+import { NavigationStateContext } from "../../../Context/NavigationStateContext";
 import logo from "../../../Assets/logo.png";
 import styles from "./Navbar.module.css";
 
@@ -10,16 +10,10 @@ export const Navbar = () => {
   const{setIsAuth}=useContext(NavigationStateContext);
   const navigate = useNavigate();
 
-  // const [isOver,setIsOver] = useState(false);
-  
 
   const handleClick=()=>{
     setIsAuth(false);
     return navigate("/welcome", { replace: true });
-  }
-
-  const handleNav = ()=>{
-  //  return setIsOver(!isOver);
   }
 
   return (
