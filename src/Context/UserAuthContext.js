@@ -9,8 +9,8 @@ export const UserAuthProvider = props => {
   const init = {
     user: null, // user details object
     isAuth: false, // boolean
-    isAdmin: false, // boolean
     token: null, // token string
+    loadingDone: false, // boolean
   };
   const [auth, setAuth] = useState(init);
   const localSetAuth = newAuth => {

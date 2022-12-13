@@ -1,9 +1,12 @@
+import { useContext } from 'react';
+import { UserAuthContext } from '../../Context/UserAuthContext';
 import { useApi } from '../../Hooks/UseApi';
 import { ProfileDetails } from '../Profile/ProfileDetails';
 import { LoadAndRender } from './LoadAndRender';
 
 export const ProfileDetailsLoader = props => {
-  const currentUser = 'b4ff715b-ac9f-4cc1-8ef8-34331abc1668';
+  const [auth, setAuth] = useContext(UserAuthContext);
+  const currentUser = auth?.user?.id;
   const userId = props.id || currentUser;
   const path = `users/${userId}`;
   // const { data, isLoading, err } = useApi(method, path, args);
