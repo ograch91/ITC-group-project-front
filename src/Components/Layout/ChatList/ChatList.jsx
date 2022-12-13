@@ -27,7 +27,7 @@ export const ChatList = ({ header, list, type }) => {
   return (
     <div className={styles.ChatList}>
       <ul className={styles.ChatList}>
-        <SubHeader text="Current Chats" />
+        <SubHeader text="Available Chats" />
         {chatList.length > 0 ? (
           chatList.map(listItem => {
             const id = uuidv4();
