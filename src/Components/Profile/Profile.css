@@ -18,3 +18,7 @@ img {
 .hover:hover{
   cursor: pointer;
 }
+
+.edit-profile > button:hover {
+  background-color: unset;
+}
