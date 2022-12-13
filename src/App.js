@@ -1,4 +1,3 @@
-import './App.css';
 import * as React from 'react';
 import { useContext } from 'react';
 import { Navbar } from './Components/Layout/Navbar/Navbar';
@@ -8,6 +7,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { NavigationStateContext } from './Context/NavigationStateContext';
 import { ProfilePage } from './Components/Views/ProfilePage/ProfilePage';
 import { GlobalAppAlert } from './Components/StaticElements/GlobalAppAlert';
+import './App.css';
 
 function App() {
   const { isAuth } = useContext(NavigationStateContext);
@@ -17,9 +17,8 @@ function App() {
       {isAuth && <Navbar />}
       <Routes>
         <Route path="/welcome" element={!isAuth && <BeforeAuthTabs />} />
-        <Route path="/home" element={isAuth && <HomePage />} />
-        <Route path="/setting" element={<ProfilePage />} />
-        {/* <Route path="/setting" element={isAuth&&<Profile />} /> */}
+        <Route path="/home" element={isAuth? <HomePage /> : <Navigate to="/welcome" />   } />
+        <Route path="/setting" element={isAuth? <ProfilePage/> : <Navigate to="/welcome" />} />
         <Route
           path="/"
           element={
