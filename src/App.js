@@ -18,7 +18,7 @@ function App() {
       <Routes>
         <Route path="/welcome" element={!isAuth && <BeforeAuthTabs />} />
         <Route path="/home" element={isAuth? <HomePage /> : <Navigate to="/welcome" />   } />
-        <Route path="/setting" element={isAuth? <ProfilePage/> : <Navigate to="/welcome" />} />
+        <Route path="/profile" element={isAuth? <ProfilePage/> : <Navigate to="/welcome" />} />
         <Route
           path="/"
           element={
