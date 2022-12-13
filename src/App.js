@@ -74,6 +74,7 @@ function App() {
     <div className="App">
       {isAuth && <Navbar />}
       <Routes>
+
         <Route path="/welcome" element={<BeforeAuthTabs />} />
         <Route
           path="/home"
