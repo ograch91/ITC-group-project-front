@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { SubHeader } from '../../StaticElements/SubHeader/SubHeader';
 import { v4 as uuidv4 } from 'uuid';
-import styles from '../ChatList/ChatList.module.css';
 import { Button, Modal } from '@mui/material';
-import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 import { Box } from '@mui/system';
 import { NewChatDialog } from '../NewChat/NewChatDialog';
+import { SearchField } from '../../ActiveElements/SearchField/SearchField';
+import styles from '../ChatList/ChatList.module.css';
+import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 
 export const ChatList = ({ header, list, type }) => {
   const [open, setOpen] = useState(false);
@@ -26,6 +27,7 @@ export const ChatList = ({ header, list, type }) => {
 
   return (
     <div className={styles.ChatList}>
+      <SearchField/>
       <ul className={styles.ChatList}>
         <SubHeader text="Available Chats" />
         {chatList.length > 0 ? (
