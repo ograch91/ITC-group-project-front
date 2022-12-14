@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useContext } from 'react';
+import { useContext ,useEffect} from 'react';
 import { Navbar } from './Components/Layout/Navbar/Navbar';
 import { HomePage } from './Components/Views/HomePage/HomePage';
 import { BeforeAuthTabs } from './Components/Views/BeforeAuthTabs';
@@ -20,21 +20,20 @@ import { AlertOnAppContext } from './Context/AlertOnAppContext';
 
 function App() {
   const { showAppAlert } = useContext(AlertOnAppContext);
-
   const [auth, setAuth] = useContext(UserAuthContext);
   const location = useLocation();
 
   const isAuth = auth?.isAuth;
   const navigate = useNavigate();
 
-  React.useEffect(() => {
+useEffect(() => {
     const loadAuth = async () => {
       const savedAuth = await localforage.getItem('auth');
-      if (!savedAuth || !savedAuth.token) {
-        setAuth({ ...auth, loadingDone: true });
-        navigate('/welcome', { replace: true });
-        return;
-      }
+      // if (!savedAuth || !savedAuth.token) {
+      //   setAuth({ ...auth, loadingDone: true });
+      //   navigate('/welcome', { replace: true });
+      //   return;
+      // }
       const options = {
         method: 'GET',
         headers: {
@@ -50,12 +49,12 @@ function App() {
       }
       setAuth(savedAuth);
       if (savedAuth.isAuth && location.pathname === '/welcome') {
-        // showAppAlert(`Welcome back ${auth.user.name}!`, 'success')
+        showAppAlert(`Welcome back ${auth.user.name}!`, 'success')
         navigate('/home', { replace: true });
       }
-      if (!savedAuth.isAuth && location.pathname !== '/welcome') {
-        navigate('/welcome', { replace: true });
-      }
+      // if (!savedAuth.isAuth && location.pathname !== '/welcome') {
+      //   navigate('/welcome', { replace: true });
+      // }
     };
     loadAuth();
   }, []);
@@ -70,6 +69,7 @@ function App() {
       </Backdrop>
     );
   }
+
   return (
     <div className="App">
       {isAuth && <Navbar />}
