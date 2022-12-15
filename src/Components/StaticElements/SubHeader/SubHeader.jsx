@@ -1,7 +1,7 @@
 import styles from "./SubHeader.module.css"
 
-export const SubHeader = ({text}) => {
+export const SubHeader = ({children}) => {
   return (
-    <h2 className={styles.SubHeader}>{text}</h2>
+    <h2 className={styles.SubHeader}>{children}</h2>
   )
 }
