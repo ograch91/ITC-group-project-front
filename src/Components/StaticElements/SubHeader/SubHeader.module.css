@@ -1,6 +1,10 @@
 .SubHeader{
   display: inline-flex;
   justify-content: center;
+}
+
+.clickable{
   align-items: center;
+  display: inline-flex;
   color: black;
 }

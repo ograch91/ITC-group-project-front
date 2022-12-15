@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 import { Message } from "../../StaticElements/Message/Message";
 import { v4 as uuidv4 } from "uuid";
 import { SubHeader } from "../../StaticElements/SubHeader/SubHeader";
-import { LoadAndRender } from "../../APILoaded/LoadAndRender";
+// import { LoadAndRender } from "../../APILoaded/LoadAndRender";
 import styles from "./ChatWindow.module.css";
 
 export const ChatWindow = () => {
@@ -28,17 +28,17 @@ export const ChatWindow = () => {
     },
   ]);
 
-  let id = 0;
-
-  <LoadAndRender />;
+  const handleClick = () => {
+    console.log("Modal pop up");
+  };
 
   return (
     <div className={styles.ChatWindow}>
       <div className={styles.MessageContainer}>
-        <SubHeader>
+        <SubHeader func ={handleClick}>
           <img></img>UserName
         </SubHeader>
-        <LoadAndRender method="get" />
+        {/* <LoadAndRender method="get" /> */}
         {chatList.length > 0 ? (
           chatList.map((chat) => {
             return <Message key={chat.id} {...chat} />;
