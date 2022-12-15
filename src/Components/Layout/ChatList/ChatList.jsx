@@ -1,40 +1,41 @@
-import { useState } from 'react';
-import { SubHeader } from '../../StaticElements/SubHeader/SubHeader';
-import { v4 as uuidv4 } from 'uuid';
-import { Button, Modal } from '@mui/material';
-import { Box } from '@mui/system';
-import { NewChatDialog } from '../NewChat/NewChatDialog';
-import { SearchField } from '../../ActiveElements/SearchField/SearchField';
-import styles from '../ChatList/ChatList.module.css';
-import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
+import { useState } from "react";
+import { SubHeader } from "../../StaticElements/SubHeader/SubHeader";
+import { v4 as uuidv4 } from "uuid";
+import { Button, Modal } from "@mui/material";
+import { Box } from "@mui/system";
+import { NewChatDialog } from "../NewChat/NewChatDialog";
+import { SearchField } from "../../ActiveElements/SearchField/SearchField";
+import styles from "../ChatList/ChatList.module.css";
+import HistoryEduIcon from "@mui/icons-material/HistoryEdu";
 
 export const ChatList = ({ header, list, type }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const [chatList, setChatList] = useState(['s', 'a', 'c']);
+  const [chatList, setChatList] = useState(["s", "a", "c"]);
   const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
     width: 400,
-    bgcolor: 'white',
+    bgcolor: "white",
     boxShadow: 24,
     p: 4,
   };
 
   return (
     <div className={styles.ChatList}>
-      <SearchField/>
+      <SearchField />
       <ul className={styles.ChatList}>
         <SubHeader text="Available Chats" />
         {chatList.length > 0 ? (
-          chatList.map(listItem => {
+          chatList.map((listItem) => {
             const id = uuidv4();
             return (
               <div className={styles.chatItem} key={id}>
+                <img></img>
                 <li>User Random</li>
                 <p>lastDate</p>
               </div>
@@ -46,7 +47,7 @@ export const ChatList = ({ header, list, type }) => {
       </ul>
       <Button
         onClick={handleOpen}
-        sx={{ width: '100%', maxWidth: 360 }}
+        sx={{ width: "100%", maxWidth: 360 }}
         // disabled={!checked || checked.length == 0}
         variant="contained"
         type="button"
@@ -63,7 +64,7 @@ export const ChatList = ({ header, list, type }) => {
         keepMounted
       >
         <Box sx={style}>
-          <NewChatDialog/>
+          <NewChatDialog />
         </Box>
         {/* {!isoUser ? <BeforeAuthTabs /> : <EditAuthTabs />} */}
       </Modal>
