@@ -1,21 +1,23 @@
-import './Profile.css';
-
-import Button from '@mui/material/Button';
-import LoginIcon from '@mui/icons-material/Login';
+// import Button from '@mui/material/Button';
+// import LoginIcon from '@mui/icons-material/Login';
 // import { AuthModalContext } from '../../Context/AuthModalContext';
-import { useContext, useEffect, useState } from 'react';
-import { ImageUploadModal } from './ImageUploadModal';
-import { useApi } from '../../Hooks/UseApi';
-import { FileUpload } from '../Firebase/FileUpload';
-import { EditProfileModal } from './EditProfileModal';
-import PhotoIcon from '@mui/icons-material/MonochromePhotos';
-import EditHuman from '@mui/icons-material/ManageAccounts';
-import LargePhoto from '@mui/icons-material/ZoomOutMap';
-import { IconButton, Tooltip } from '@mui/material';
-import AlertOnWindow from '../Firebase/AlertOnWindow';
-import { AlertOnAppContext } from '../../Context/AlertOnAppContext';
+// import AlertOnWindow from '../Firebase/AlertOnWindow';
+// import { useApi } from '../../Hooks/UseApi';
+// import { FileUpload } from '../Firebase/FileUpload';
+import { useContext, useEffect, useState } from "react";
+import { ImageUploadModal } from "./ImageUploadModal";
+import { EditProfileModal } from "./EditProfileModal";
+import PhotoIcon from "@mui/icons-material/MonochromePhotos";
+import EditHuman from "@mui/icons-material/ManageAccounts";
+import LargePhoto from "@mui/icons-material/ZoomOutMap";
+import { IconButton, Tooltip } from "@mui/material";
+import { AlertOnAppContext } from "../../Context/AlertOnAppContext";
+import { Modal } from "../Modal/Modal";
+import "./Profile.css";
 
-export const ProfileDetails = props => {
+export const ProfileDetails = (props) => {
+  const [openModal, setOpenModal] = useState(false);
+
   const { showAppAlert } = useContext(AlertOnAppContext);
 
   const { user, userId, isOtherUser } = props;
@@ -36,11 +38,11 @@ export const ProfileDetails = props => {
   //   err = err_;
   // }, []);
   // console.log(isLoading);
-  
+
   const ToClipboard = ({ text }) => {
     const handleClick = () => {
       navigator.clipboard.writeText(text);
-      showAppAlert('Copied to clipboard: ' + text, 'success');
+      showAppAlert("Copied to clipboard: " + text, "success");
     };
 
     return (
@@ -54,7 +56,10 @@ export const ProfileDetails = props => {
     <div>
       <div className="container">
         <div>
-          <img src={user.photo || './profile.png'} />
+          <img
+            src={user.photo || "./profile.png"}
+          
+          />
         </div>
         <div>
           {isOtherUser ? (
@@ -66,7 +71,7 @@ export const ProfileDetails = props => {
             Name: <ToClipboard text={user.name} />
           </div>
           <div>
-            Email: <ToClipboard text={user.email} />{' '}
+            Email: <ToClipboard text={user.email} />{" "}
           </div>
           <div>
             Phone: <ToClipboard text={user.phone} />
@@ -74,9 +79,9 @@ export const ProfileDetails = props => {
         </div>
       </div>
       <div className="edit-profile">
-        <Tooltip title="Full Size Photo">
-          <IconButton>
-            <LargePhoto />
+        <Tooltip title="Full Size Photo" >
+          <IconButton onClick={() =>setOpenModal(true)} >
+            <LargePhoto  />
           </IconButton>
         </Tooltip>
         <Tooltip title="Edit Photo">
@@ -96,6 +101,11 @@ export const ProfileDetails = props => {
         <EditProfileModal openState={editState} user={user} />
         <ImageUploadModal open={upload} setOpen={setUpload} />
       </div>
+        <Modal
+          image={user.photo}
+          open={openModal}
+          onClose={() => setOpenModal(false)}
+        />
     </div>
   );
 };

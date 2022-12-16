@@ -7,13 +7,10 @@
 
 
 .ChatList ul{
-  display: inline-block;
-  text-align: center;
   background-color: rgb(113, 120, 219);
   overflow-y: scroll;
   border: 1px black solid;
   padding: 0.5rem;
-  width: 15rem;
   margin:0px;
 }
 
@@ -32,6 +29,15 @@ height:2.25rem;
   height: fit-content;
   padding: 0px;
   list-style: none;
+}
+
+
+.ChatList img {
+  width:2.25rem;
+  height:2.25rem;
+  background-color: rgb(0, 0, 0);
+  border-radius: 2.25rem;
+  border: none;
 }
 
 .ChatList li:hover{

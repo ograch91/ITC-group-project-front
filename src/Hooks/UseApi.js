@@ -1,9 +1,11 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { UserAuthContext } from '../Context/UserAuthContext';
 
-const baseUrl = 'http://localhost:4000';
+export const baseUrl = 'http://localhost:4000';
 
 export const useApi = (method, path, args) => {
+  const [auth, setAuth] = useContext(UserAuthContext);
   const [isLoading, setIsLoading] = useState(true);
   const [err, setError] = useState('');
   const [data, setData] = useState(null);
@@ -29,8 +31,7 @@ export const useApi = (method, path, args) => {
       setIsLoading(true);
 
       // const token = auth?.token; todo:
-      const token =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlhdCI6MTY3MDc5NjA0MCwiZXhwIjoxNjcwNzk5NjQwfQ.bUs7Cn9Wjcy5s6S9WMpGEz0Mxj8i9ViXwXJJIDgFgzg';
+      const token = auth?.token;
       const options = {
         headers: {
           'Content-Type': 'application/json',

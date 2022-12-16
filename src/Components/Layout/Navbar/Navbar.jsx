@@ -1,31 +1,33 @@
 import { Button } from "@mui/material";
 import { useContext } from "react";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { UserAuthContext } from "../../../Context/UserAuthContext";
+import localforage from "localforage";
 import logo from "../../../Assets/logo.png";
-import { NavigationStateContext } from "../../../Context/NavigationStateContext";
 import styles from "./Navbar.module.css";
 
 export const Navbar = () => {
-
-  const{setIsAuth}=useContext(NavigationStateContext);
+  const [auth, setAuth] = useContext(UserAuthContext);
   const navigate = useNavigate();
 
-  const handleClick=()=>{
-    setIsAuth(false);
+  const handleLogout = () => {
+    setAuth({ ...auth, user: null, isAuth: false, token: null });
+    localforage.removeItem("auth");
     return navigate("/welcome", { replace: true });
-  }
+  };
 
   return (
     <div className={styles.HoverArea}>
-    <div className={styles.Navbar}>
-      <div className={styles.between}>
-        <img src={logo} alt="logo" />
-        {/* when profile implement create new route */}
-        <Link to="/setting">Profile</Link>
-        <Link to="/home">Home</Link>
-        <Button onClick={()=>handleClick()} variant="text">Logout</Button>
+      <div className={styles.Navbar}>
+        <div className={styles.between}>
+          <img src={logo} alt="logo" />
+          <Link to="/profile">Profile</Link>
+          <Link to="/home">Home</Link>
+          <Button onClick={() => handleLogout()} variant="text">
+            Logout
+          </Button>
+        </div>
       </div>
-    </div>
     </div>
   );
 };
