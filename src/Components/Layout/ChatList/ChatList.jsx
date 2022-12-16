@@ -11,34 +11,28 @@ import axios from "axios";
 import styles from "../ChatList/ChatList.module.css";
 
 export const ChatList = ({ header, list, type }) => {
-
   const [open, setOpen] = useState(false);
- 
-  const modalToggle = () =>{
+
+  const modalToggle = () => {
     setOpen(!open);
-  }
+  };
 
   const [chatList, setChatList] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await axios.get(`${baseUrl}/users/getall`);
-      console.log('data',data.data.data);
+      console.log("data", data.data.data);
       const chats = data.data.data;
 
       setChatList(chats);
     };
     fetchData();
 
-    return (()=>{
+    return () => {
       setChatList([]);
-    })
+    };
   }, []);
-
-
-
-
-
 
   const style = {
     position: "absolute",
