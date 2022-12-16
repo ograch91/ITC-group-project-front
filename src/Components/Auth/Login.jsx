@@ -3,13 +3,15 @@ import { useFormik } from 'formik';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import LoginIcon from '@mui/icons-material/Login';
-import BackIcon from '@mui/icons-material/ArrowBack';
 import './Authed.css';
 import { useContext, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { UserAuthContext } from '../../Context/UserAuthContext';
 
+
 export const Login = () => {
+  const defUser = process.env.REACT_APP_defualt_user;
+  const defPass = process.env.REACT_APP_defualt_pass;
   const [auth, setAuth] = useContext(UserAuthContext);
   const [loged, setLoged] = useState(false);
   const navigate = useNavigate();
@@ -43,8 +45,8 @@ export const Login = () => {
 
   const formik = useFormik({
     initialValues: {
-      email: '',
-      password: '',
+      email: defUser ||'',
+      password: defPass || '',
     },
     validationSchema: validationSchema,
     onSubmit: sendToServer,
@@ -89,7 +91,7 @@ export const Login = () => {
           >
             Login
           </Button>
-          <Button
+          {/* <Button
             color="error"
             variant="outlined"
             size="large"
@@ -98,7 +100,7 @@ export const Login = () => {
             //  onClick={handleClose}
           >
             Cancel
-          </Button>
+          </Button> */}
         </div>
       </form>
       {loged && <Navigate to="/home" />}
