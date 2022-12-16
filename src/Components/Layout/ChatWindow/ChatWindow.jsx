@@ -1,45 +1,33 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import { Message } from "../../StaticElements/Message/Message";
 import { v4 as uuidv4 } from "uuid";
 import { SubHeader } from "../../StaticElements/SubHeader/SubHeader";
-// import { LoadAndRender } from "../../APILoaded/LoadAndRender";
 import { baseUrl } from "../../../Hooks/UseApi";
 import axios from "axios";
 import styles from "./ChatWindow.module.css";
 
 export const ChatWindow = () => {
-  // const [chatList, setChatList] = useState([
-  //   {
-  //     id: uuidv4(),
-  //     sender: "mosh",
-  //     dateSent: "03.02.01",
-  //     content: "blah blah",
-  //   },
-  //   {
-  //     id: uuidv4(),
-  //     sender: "moshJunior",
-  //     dateSent: "03.05.21",
-  //     content: "Yada Yada",
-  //   },
-  //   {
-  //     id: uuidv4(),
-  //     sender: "zitisn",
-  //     dateSent: "33.55.42",
-  //     content: "Illum Ipsum...",
-  //   },
-  // ]);
 
-  useEffect(()=>{
+  
+  const [messageList, setMessageList] = useState([]);
+  const [currentChat,setCurrentChat] =useState("cfa29b17-4079-4fbb-a050-428bb2af5c12");
+  // const [currentChat,setCurrentChat] =useState("");
 
-    const fetchData = async () =>{
-    
-    const data = await axios.get(`${baseUrl}/chats/dfa29b17-4079-4fbb-a050-428bb2af5c12`);
-    console.log('data',data);
-    }
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await axios.get(`${baseUrl}/messages/getChat/${currentChat}`);
+
+      const newMessages = data.data.data;
+
+      setMessageList(newMessages);
+    };
     fetchData();
 
-  },[])
+    return (()=>{
+      setMessageList([]);
+    })
+  }, []);
 
   const handleClick = () => {
     console.log("Modal pop up");
@@ -47,18 +35,15 @@ export const ChatWindow = () => {
 
   return (
     <div className={styles.ChatWindow}>
-      <div className={styles.MessageContainer}>
-        <SubHeader func ={handleClick}>
+        <SubHeader func={handleClick}>
           <img></img>UserName
         </SubHeader>
-        {/* <LoadAndRender method="get" /> */}
-        {/* {data.length > 0 ? (
-          data.map((chat) => {
-            return <Message key={chat.id} {...chat} />;
-          })
-        ) : (
-          <Button>Search For Users</Button>
-        )} */}
+      <div className={styles.MessageContainer}>
+        {messageList? 
+           messageList.map((message) => {
+              return <Message key={uuidv4()} {...message} />;
+            })
+          : ( <h3>No Messages</h3>)}
       </div>
     </div>
   );

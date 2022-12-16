@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Message.module.css";
 
-export const Message = ({ sender, dateSent, content }) => {
+export const Message = ({ sender, datesent, content }) => {
   const handleSubmit = () => {
     console.log("activate user modal");
   };
@@ -14,7 +14,7 @@ export const Message = ({ sender, dateSent, content }) => {
         </span>
         <span>{content}</span>
       </div>
-      <div className={styles.right}>{dateSent}</div>
+      <div className={styles.right}>{datesent}</div>
     </div>
   );
 };
