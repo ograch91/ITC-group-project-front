@@ -1,19 +1,45 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SubHeader } from "../../StaticElements/SubHeader/SubHeader";
 import { v4 as uuidv4 } from "uuid";
 import { Button, Modal } from "@mui/material";
 import { Box } from "@mui/system";
 import { NewChatDialog } from "../NewChat/NewChatDialog";
 import { SearchField } from "../../ActiveElements/SearchField/SearchField";
-import styles from "../ChatList/ChatList.module.css";
 import HistoryEduIcon from "@mui/icons-material/HistoryEdu";
+import { baseUrl } from "../../../Hooks/UseApi";
+import axios from "axios";
+import styles from "../ChatList/ChatList.module.css";
 
 export const ChatList = ({ header, list, type }) => {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
-  const [chatList, setChatList] = useState(["s", "a", "c"]);
+  const [open, setOpen] = useState(false);
+ 
+  const modalToggle = () =>{
+    setOpen(!open);
+  }
+
+  const [chatList, setChatList] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await axios.get(`${baseUrl}/users/getall`);
+      console.log('data',data.data.data);
+      const chats = data.data.data;
+
+      setChatList(chats);
+    };
+    fetchData();
+
+    return (()=>{
+      setChatList([]);
+    })
+  }, []);
+
+
+
+
+
+
   const style = {
     position: "absolute",
     top: "50%",
@@ -30,13 +56,13 @@ export const ChatList = ({ header, list, type }) => {
       <SearchField />
       <ul className={styles.ChatList}>
         <SubHeader text="Available Chats" />
-        {chatList.length > 0 ? (
+        {chatList ? (
           chatList.map((listItem) => {
             const id = uuidv4();
             return (
               <div className={styles.chatItem} key={id}>
-                <img></img>
-                <li>User Random</li>
+                <img src={listItem.photo}></img>
+                <li>{listItem.name}</li>
                 <p>lastDate</p>
               </div>
             );
@@ -46,7 +72,7 @@ export const ChatList = ({ header, list, type }) => {
         )}
       </ul>
       <Button
-        onClick={handleOpen}
+        onClick={modalToggle}
         sx={{ width: "100%", maxWidth: 360 }}
         // disabled={!checked || checked.length == 0}
         variant="contained"
@@ -58,7 +84,7 @@ export const ChatList = ({ header, list, type }) => {
       </Button>
       <Modal
         open={open}
-        onClose={handleClose}
+        onClose={modalToggle}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         keepMounted
