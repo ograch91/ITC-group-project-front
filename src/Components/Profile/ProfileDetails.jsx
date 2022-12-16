@@ -58,7 +58,7 @@ export const ProfileDetails = (props) => {
         <div>
           <img
             src={user.photo || "./profile.png"}
-            onClick={() => setOpenModal(true)}
+          
           />
         </div>
         <div>
@@ -79,9 +79,9 @@ export const ProfileDetails = (props) => {
         </div>
       </div>
       <div className="edit-profile">
-        <Tooltip title="Full Size Photo">
-          <IconButton>
-            <LargePhoto />
+        <Tooltip title="Full Size Photo" >
+          <IconButton onClick={() =>setOpenModal(true)} >
+            <LargePhoto  />
           </IconButton>
         </Tooltip>
         <Tooltip title="Edit Photo">
