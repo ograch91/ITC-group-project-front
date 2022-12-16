@@ -1,0 +1,53 @@
+* {
+    margin: 0;
+    padding: 0
+}
+
+
+.overlay {
+    background-color: rgba(0, 0, 0, 0.70);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+.modalContainer {
+    max-width: 600px;
+    /* width: 100%; */
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    /* background-color: #ffffff; */
+    box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.80);
+}
+
+img {
+    width: 250px;
+    object-fit: cover;
+}
+
+.closeBtn {
+    position: fixed;
+    top: 8px;
+    right: 8px;
+    color: azure;
+    cursor: pointer
+}
+
+@media screen and (max-width: 500px) {
+    .modalContainer {
+        top: 0;
+        left: 0;
+        transform: none;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.5);
+
+    }
+
+    img {
+        width: 100%;
+    }
+}
