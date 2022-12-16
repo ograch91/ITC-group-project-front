@@ -17,6 +17,7 @@ export const ChatList = ({ header, list, type }) => {
     setOpen(!open);
   };
 
+  const {setCurrentChat}=useContext(currentChatContext);
   const [chatList, setChatList] = useState([]);
 
   useEffect(() => {
@@ -45,6 +46,12 @@ export const ChatList = ({ header, list, type }) => {
     p: 4,
   };
 
+  const changeChat =(e)=>{
+    const currentChat = e.currentTarget.value;
+    console.log('currentChat',currentChat);
+    // setCurrentChat()
+  }
+
   return (
     <div className={styles.ChatList}>
       <SearchField />
@@ -56,7 +63,7 @@ export const ChatList = ({ header, list, type }) => {
             return (
               <div className={styles.chatItem} key={id}>
                 <img src={listItem.photo}></img>
-                <li>{listItem.name}</li>
+                <li onClick={(e)=>changeChat(e)}>{listItem.name}</li>
                 <p>lastDate</p>
               </div>
             );
