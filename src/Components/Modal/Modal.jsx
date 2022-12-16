@@ -1,17 +1,17 @@
 import React from 'react'
-import styles from '../Modal/Modal.css';
+import styles from '../Modal/Modal.module.css';
 
 
-const Modal = ({ open, onClose, image }) => {
+export const Modal = ({ open, onClose, image }) => {
     if (!open) return null
 
     return (
         <>
-            <div className='overlay' onClick={onClose}>Modal
+            <div className={styles.overlay} onClick={onClose}>Modal
                 <div onClick={(e) => {
                     e.stopPropagation()
-                }} className="modalContainer">
-                    <p onClick={onClose} className='closeBtn'>X</p>
+                }} className={styles.modalContainer}>
+                    <p onClick={onClose} className={styles.closeBtn}>X</p>
                     <img src={image}></img>
                 </div>
             </div>
@@ -20,4 +20,3 @@ const Modal = ({ open, onClose, image }) => {
     )
 }
 
-export default Modal
