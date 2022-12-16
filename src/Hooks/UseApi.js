@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import { UserAuthContext } from '../Context/UserAuthContext';
 
-const baseUrl = 'http://localhost:4000';
+export const baseUrl = 'http://localhost:4000';
 
 export const useApi = (method, path, args) => {
   const [auth, setAuth] = useContext(UserAuthContext);
