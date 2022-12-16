@@ -7,7 +7,7 @@ export const Modal = ({ open, onClose, image }) => {
 
     return (
         <>
-            <div className={styles.overlay} onClick={onClose}>Modal
+            <div className={styles.overlay} onClick={onClose}>
                 <div onClick={(e) => {
                     e.stopPropagation()
                 }} className={styles.modalContainer}>
