@@ -9,25 +9,26 @@
 .ChatList ul{
   background-color: rgb(113, 120, 219);
   overflow-y: scroll;
-  border: 1px black solid;
+  /* border: 1px black solid; */
+  box-shadow: var(--boxShadow);
   padding: 0.5rem;
   margin:0px;
 }
 
 .ChatList .chatItem{
 display: inline-flex;
-justify-content: space-around;
+justify-content: space-between;
 align-items: center;
-margin: 0.025rem 0px;  
+margin: 0.25rem 0px;  
 width: 100%;
 height:2.25rem;
 
 }
 
 .ChatList li{
-  color: white;
-  height: fit-content;
-  padding: 0px;
+  color: rgb(249, 249, 249);
+  margin-left: 1rem;
+  margin-right: auto;
   list-style: none;
 }
 
