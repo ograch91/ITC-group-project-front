@@ -1,27 +1,65 @@
-import './Profile.css';
-import Button from '@mui/material/Button';
-import LoginIcon from '@mui/icons-material/Login';
+// import Button from '@mui/material/Button';
+// import LoginIcon from '@mui/icons-material/Login';
 // import { AuthModalContext } from '../../Context/AuthModalContext';
-import { useContext, useState } from 'react';
-import { ImageUploadModal } from './ImageUploadModal';
+// import AlertOnWindow from '../Firebase/AlertOnWindow';
+// import { useApi } from '../../Hooks/UseApi';
+// import { FileUpload } from '../Firebase/FileUpload';
+import { useContext, useEffect, useState } from "react";
+import { ImageUploadModal } from "./ImageUploadModal";
+import { EditProfileModal } from "./EditProfileModal";
+import PhotoIcon from "@mui/icons-material/MonochromePhotos";
+import EditHuman from "@mui/icons-material/ManageAccounts";
+import LargePhoto from "@mui/icons-material/ZoomOutMap";
+import { IconButton, Tooltip } from "@mui/material";
+import { AlertOnAppContext } from "../../Context/AlertOnAppContext";
+import { Modal } from "../Modal/Modal";
+import "./Profile.css";
 
-export const ProfileDetails = props => {
+export const ProfileDetails = (props) => {
+  const [openModal, setOpenModal] = useState(false);
+
+  const { showAppAlert } = useContext(AlertOnAppContext);
+
   const { user, userId, isOtherUser } = props;
-  // const [edit, setEdit] = useContext(AuthModalContext);
+  const editState = useState(false);
+  const [edit, setEdit] = editState;
   const [upload, setUpload] = useState(false);
+  // const handeOpenUpload = () => console.log("upload");;
   const handeOpenUpload = () => !isOtherUser && setUpload(true);
 
-  // const handleOpenEdit = () => setEdit(true);
+  const handleOpenEdit = () => setEdit(true);
+
+  // let data, isLoading, err;
+  // useEffect(() => {
+
+  //   const {data_, isLoading_, err_} =  useApi('get', `users/${userId}`, 'user')
+  //   data = data_;
+  //   isLoading = isLoading_;
+  //   err = err_;
+  // }, []);
+  // console.log(isLoading);
+
+  const ToClipboard = ({ text }) => {
+    const handleClick = () => {
+      navigator.clipboard.writeText(text);
+      showAppAlert("Copied to clipboard: " + text, "success");
+    };
+
+    return (
+      <span onClick={handleClick} className="hover">
+        {text}
+      </span>
+    );
+  };
 
   return (
     <div>
       <div className="container">
         <div>
-          {/* https://stackoverflow.com/questions/67104652/hover-effect-change-your-picture-with-icon-on-profile-picture */}
-          <a onClick={handeOpenUpload}>
-            <img src={user.image || './profile.png'} />
-            {!isOtherUser && <div>Edit Photo</div>}
-          </a>
+          <img
+            src={user.photo || "./profile.png"}
+          
+          />
         </div>
         <div>
           {isOtherUser ? (
@@ -29,27 +67,45 @@ export const ProfileDetails = props => {
           ) : (
             <p>Your Profile ({user.name})</p>
           )}
-          <div>Name: {user.name}</div>
-          <div>Email: {user.email}</div>
-          <div>Phone: {user.phone}</div>
+          <div>
+            Name: <ToClipboard text={user.name} />
+          </div>
+          <div>
+            Email: <ToClipboard text={user.email} />{" "}
+          </div>
+          <div>
+            Phone: <ToClipboard text={user.phone} />
+          </div>
         </div>
       </div>
-      {!isOtherUser && (
-        <Button
-          className="submit-button"
-          color="primary"
-          variant="contained"
-          type="submit"
-          size="large"
-          endIcon={<LoginIcon />}
-          // onClick={handleOpenEdit}
-          // disabled={isOtherUser}
-        >
-          Edit Profile
-        </Button>
-      )}
+      <div className="edit-profile">
+        <Tooltip title="Full Size Photo" >
+          <IconButton onClick={() =>setOpenModal(true)} >
+            <LargePhoto  />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Edit Photo">
+          <IconButton onClick={handeOpenUpload}>
+            <PhotoIcon />
+          </IconButton>
+        </Tooltip>
 
-      {/* <ImageUploadModal open={upload} setOpen={setUpload} /> */}
+        {!isOtherUser && (
+          <Tooltip title="Edit Profile">
+            <IconButton onClick={handleOpenEdit}>
+              <EditHuman />
+            </IconButton>
+          </Tooltip>
+        )}
+
+        <EditProfileModal openState={editState} user={user} />
+        <ImageUploadModal open={upload} setOpen={setUpload} />
+      </div>
+        <Modal
+          image={user.photo}
+          open={openModal}
+          onClose={() => setOpenModal(false)}
+        />
     </div>
   );
 };

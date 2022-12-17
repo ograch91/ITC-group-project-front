@@ -1,42 +1,50 @@
-import { useState } from "react";
-import { Button } from "@mui/material";
+import { useContext, useEffect, useState } from "react";
 import { Message } from "../../StaticElements/Message/Message";
 import { v4 as uuidv4 } from "uuid";
-import styles from "./ChatWindow.module.css";
 import { SubHeader } from "../../StaticElements/SubHeader/SubHeader";
-
+import { baseUrl } from "../../../Hooks/UseApi";
+import axios from "axios";
+import styles from "./ChatWindow.module.css";
+import { currentChatContext } from "../../../Context/CurrentChatContext";
 
 export const ChatWindow = () => {
 
-  const [chatList,setChatList ] = useState([{
-    id:uuidv4(),
-    sender:'mosh',
-    dateSent:"03.02.01",
-    content:"blah blah",
-  },{
-    id:uuidv4(),
-    sender:'moshJunior',
-    dateSent:"03.05.21",
-    content:"Yada Yada",
-  },{
-    id:uuidv4(),
-    sender:'zitisn',
-    dateSent:"33.55.42",
-    content:"Illum Ipsum...",
-  }]);
+  const {currentChat}=useContext(currentChatContext);
+  const [messageList, setMessageList] = useState([]);
+  // const [currentChat,setCurrentChat] =useState("cfa29b17-4079-4fbb-a050-428bb2af5c12");
+  // const [currentChat,setCurrentChat] =useState("");
 
-  let id =0;
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await axios.get(`${baseUrl}/messages/getChat/${currentChat}`);
+
+      const newMessages = data.data.data;
+
+      setMessageList(newMessages);
+    };
+    fetchData();
+
+    return (()=>{
+      setMessageList([]);
+    })
+  }, []);
+
+  const handleClick = () => {
+    console.log("Modal pop up");
+  };
 
   return (
     <div className={styles.ChatWindow}>
-    <div className={styles.MessageContainer}>
-    <SubHeader text="Current Chat"/>
-      {chatList.length>0? (chatList.map((chat) => {
-          return <Message key={chat.id} {...chat} />;
-        })
-      ) : (<Button>Search For Users</Button>   
-      )}
-    </div>
+        <SubHeader func={handleClick}>
+          <img></img>UserName
+        </SubHeader>
+      <div className={styles.MessageContainer}>
+        {messageList? 
+           messageList.map((message) => {
+              return <Message key={uuidv4()} {...message} />;
+            })
+          : ( <h3>No Messages</h3>)}
+      </div>
     </div>
   );
 };

@@ -1,0 +1,6 @@
+.SearchField{
+  background-color: white;
+  box-shadow: var(--boxShadow);
+
+  width: 100%;
+}

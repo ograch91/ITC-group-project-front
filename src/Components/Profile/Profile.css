@@ -9,3 +9,16 @@ img {
   height: 150px;
   border-radius: 50%;
 }
+
+.edit-profile{
+  display: flex;
+  justify-content: center;
+}
+
+.hover:hover{
+  cursor: pointer;
+}
+
+.edit-profile > button:hover {
+  background-color: unset;
+}

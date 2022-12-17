@@ -15,7 +15,7 @@ export const FileUpload = props => {
   const openState = React.useState(false);
   const [message, setMessage] = useState('');
   const [alertType, setAlertType] = useState('info');
-  const { endpoint } = props;
+
   // const [auth, setAuth] = useContext(UserAuthContext);
 
   // State to store uploaded file
@@ -89,19 +89,23 @@ export const FileUpload = props => {
     setOpen(true);
   };
 
-  // const updateToBackend = async imgurl => {
-  //   const url = `https://petadoption-back.herokuapp.com/${endpoint}`;
-  //   const options = {
-  //     method: 'PUT',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       Authorization: auth?.token || '',
-  //     },
-  //     body: JSON.stringify({ image: imgurl }),
-  //   };
-  //   const resp = await fetch(url, options);
-  //   return resp.ok;
-  // };
+  const updateToBackend = async imgurl => {
+    const url = `http://localhost:4000/users/setphoto`;
+     // const token = auth?.token; todo:
+    const token =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlhdCI6MTY3MDc5NjA0MCwiZXhwIjoxNjcwNzk5NjQwfQ.bUs7Cn9Wjcy5s6S9WMpGEz0Mxj8i9ViXwXJJIDgFgzg';
+ 
+    const options = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token|| '',
+      },
+      body: JSON.stringify({ photo: imgurl }),
+    };
+    const resp = await fetch(url, options);
+    return resp.ok;
+  };
 
   const handleUpload = () => {
     // if (!file) {
@@ -125,13 +129,13 @@ export const FileUpload = props => {
       async () => {
         const url = await getDownloadURL(uploadTask.snapshot.ref);
         console.log(url);
-        // const ok = await updateToBackend(url);
-        // if (!ok) {
-        // updateUploadStatus('error');
-        //   alert('Image upload failed');
-        //   return;
-        // }
-        // setAuth({ ...auth, user: { ...auth.user, image: url } });
+        const ok = await updateToBackend(url);
+        if (!ok) {
+        updateUploadStatus('error');
+          alert('Image upload failed');
+          return;
+        }
+        // setAuth({ ...auth, user: { ...auth.user, photo: url } });
         updateUploadStatus('success');
       }
     );
