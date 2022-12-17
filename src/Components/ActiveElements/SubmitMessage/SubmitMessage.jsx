@@ -20,15 +20,15 @@ export const SubmitMessage = () => {
   });
   
   const handleSubmit =(e,message)=>{
-    console.log('message handle',message);
     e.preventDefault();
     let date = new Date();
     date = date.toLocaleString();
-    setMessage((message)=> { return {...message, datesent: date}});
-    axios.post(`${baseUrl}/messages/`,{message}).
+    const newMessage = {...message, datesent: date};
+    axios.post(`${baseUrl}/messages/`,{newMessage}).
     catch(function (error) {
       console.log(error);
     });
+    setMessage({...message,datesent:"",content:""});
   }
 
   return (
