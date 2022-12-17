@@ -24,12 +24,14 @@ export const SubmitMessage = () => {
     let date = new Date();
     date = date.toLocaleString();
     const newMessage = {...message, datesent: date};
-    axios.post(`${baseUrl}/messages/`,{newMessage}).
+    axios.post(`${baseUrl}/messages/`,newMessage).
     catch(function (error) {
       console.log(error);
     });
     setMessage({...message,datesent:"",content:""});
   }
+
+  //add disable feature to button if no chatid 
 
   return (
     <div className={styles.SubmitMessage}>
