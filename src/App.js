@@ -29,34 +29,39 @@ function App() {
 
   React.useEffect(() => {
     const loadAuth = async () => {
-      const savedAuth = await localforage.getItem('auth');
-      if (!savedAuth || !savedAuth.token) {
+      try {
+        const savedAuth = await localforage.getItem('auth');
+        if (!savedAuth || !savedAuth.token) {
+          setAuth({ ...auth, loadingDone: true });
+          navigate('/welcome', { replace: true });
+          return;
+        }
+        const options = {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: savedAuth.token,
+          },
+        };
+        const resp = await fetch('http://localhost:4000/users/ping', options);
+        if (!resp.ok) {
+          setAuth({ ...auth, loadingDone: true });
+          navigate('/welcome', { replace: true });
+          return;
+        }
+        setAuth(savedAuth);
+        if (savedAuth.isAuth && location.pathname === '/welcome') {
+          // showAppAlert(`Welcome back ${auth.user.name}!`, 'success')
+          navigate('/home', { replace: true });
+        }
+        if (!savedAuth.isAuth && location.pathname !== '/welcome') {
+          navigate('/welcome', { replace: true });
+        }
+      } catch (err) {
         setAuth({ ...auth, loadingDone: true });
-        navigate('/welcome', { replace: true });
-        return;
-      }
-      const options = {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: savedAuth.token,
-        },
-      };
-      const resp = await fetch('http://localhost:4000/users/ping', options);
-      if (!resp.ok) {
-        setAuth({ ...auth, loadingDone: true });
-        navigate('/welcome', { replace: true });
-        return;
-      }
-      setAuth(savedAuth);
-      if (savedAuth.isAuth && location.pathname === '/welcome') {
-        // showAppAlert(`Welcome back ${auth.user.name}!`, 'success')
-        navigate('/home', { replace: true });
-      }
-      if (!savedAuth.isAuth && location.pathname !== '/welcome') {
-        navigate('/welcome', { replace: true });
       }
     };
+
     loadAuth();
   }, []);
 
@@ -74,7 +79,6 @@ function App() {
     <div className="App">
       {isAuth && <Navbar />}
       <Routes>
-
         <Route path="/welcome" element={<BeforeAuthTabs />} />
         <Route
           path="/home"
