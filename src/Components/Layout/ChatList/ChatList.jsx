@@ -1,13 +1,14 @@
 import { useEffect, useState ,useContext} from "react";
 import { SubHeader } from "../../StaticElements/SubHeader/SubHeader";
-import { v4 as uuidv4 } from "uuid";
 import { Button, Modal } from "@mui/material";
 import { Box } from "@mui/system";
 import { NewChatDialog } from "../NewChat/NewChatDialog";
 import { SearchField } from "../../ActiveElements/SearchField/SearchField";
 import HistoryEduIcon from "@mui/icons-material/HistoryEdu";
-import { baseUrl } from "../../../Hooks/UseApi";
 import { currentChatContext } from "../../../Context/CurrentChatContext";
+import localforage from "localforage";
+import { v4 as uuidv4 } from "uuid";
+import { baseUrl } from "../../../Hooks/UseApi";
 import axios from "axios";
 import styles from "../ChatList/ChatList.module.css";
 
@@ -19,12 +20,22 @@ export const ChatList = ({ header, list, type }) => {
   };
 
   const {setCurrentChat}=useContext(currentChatContext);
+
   const [chatList, setChatList] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await axios.get(`${baseUrl}/users/getall`);
-      console.log("data", data.data.data);
+  useEffect( () => {
+   const fetchData = async () => {
+
+      const savedAuth =  await localforage.getItem('auth');
+
+      const options = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: savedAuth.token ,
+        }
+      }
+
+      const data = await axios.get(`${baseUrl}/users/getall`,options);
       const chats = data.data.data;
 
       setChatList(chats);
