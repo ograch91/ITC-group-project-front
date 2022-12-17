@@ -17,7 +17,6 @@ import "./Profile.css";
 
 export const ProfileDetails = (props) => {
   const [openModal, setOpenModal] = useState(false);
-
   const { showAppAlert } = useContext(AlertOnAppContext);
 
   const { user, userId, isOtherUser } = props;

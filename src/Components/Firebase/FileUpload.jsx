@@ -6,10 +6,12 @@ import * as React from 'react';
 import { green } from '@mui/material/colors';
 import UploadButton from './UploadButton';
 import AlertOnWindow from './AlertOnWindow';
+import { UserAuthContext } from '../../Context/UserAuthContext';
 // import { UserAuthContext } from '../Context/UserAuthContext';
 const { v4: uuidv4 } = require('uuid');
 
 export const FileUpload = props => {
+  const [auth, setAuth] = React.useContext(UserAuthContext);
   const loadingState = React.useState(false);
   const successState = React.useState(false);
   const openState = React.useState(false);
@@ -92,8 +94,7 @@ export const FileUpload = props => {
   const updateToBackend = async imgurl => {
     const url = `http://localhost:4000/users/setphoto`;
      // const token = auth?.token; todo:
-    const token =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlhdCI6MTY3MDc5NjA0MCwiZXhwIjoxNjcwNzk5NjQwfQ.bUs7Cn9Wjcy5s6S9WMpGEz0Mxj8i9ViXwXJJIDgFgzg';
+    const token = auth?.token;
  
     const options = {
       method: 'PUT',
@@ -137,6 +138,7 @@ export const FileUpload = props => {
         }
         // setAuth({ ...auth, user: { ...auth.user, photo: url } });
         updateUploadStatus('success');
+        setAuth({ ...auth, user: { ...auth.user, photo: url } });
       }
     );
   };
