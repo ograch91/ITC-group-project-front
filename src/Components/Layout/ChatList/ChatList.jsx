@@ -47,10 +47,9 @@ export const ChatList = ({ header, list, type }) => {
     p: 4,
   };
 
-  const changeChat =(e)=>{
-    const currentChat = e.currentTarget.value;
-    console.log('currentChat',currentChat);
-    // setCurrentChat()
+  const changeChat =(chatId)=>{
+    console.log('chatId',chatId);
+    // setCurrentChat(chatId);
   }
 
   return (
@@ -64,7 +63,7 @@ export const ChatList = ({ header, list, type }) => {
             return (
               <div className={styles.chatItem} key={id}>
                 <img src={listItem.photo}></img>
-                <li onClick={(e)=>changeChat(e)}>{listItem.name}</li>
+                <li onClick={()=>changeChat(listItem.chatId)}>{listItem.name}</li>
                 <p>lastDate</p>
               </div>
             );
