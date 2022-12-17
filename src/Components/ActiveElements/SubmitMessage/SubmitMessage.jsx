@@ -1,16 +1,30 @@
 import { Button } from "@mui/material";
-import React, { useContext, useState }  from "react";
+import React, { useContext, useEffect, useRef, useState }  from "react";
 import { v4 as uuidv4 } from "uuid";
-import axios from "axios";
 import { baseUrl } from "../../../Hooks/UseApi";
-import styles from "./SubmitMessage.module.css";
 import { currentChatContext } from "../../../Context/CurrentChatContext";
+import axios from "axios";
+import styles from "./SubmitMessage.module.css";
+
 
 
 export const SubmitMessage = () => {
 
   const {currentChat} = useContext(currentChatContext);
+  const{isDisable}=useRef(false);
   
+  useEffect(()=>{
+    if(currentChat.length>0){
+      isDisable.current=false;
+    }
+    isDisable.current=true;
+
+    return (()=>{
+      isDisable.current=true;
+    })
+  },[currentChat])
+
+
   const[message,setMessage]=useState({
     id:uuidv4(),
     sender:'mosh',
@@ -46,7 +60,7 @@ export const SubmitMessage = () => {
             }
        
       />
-      <Button onClick={(e)=>handleSubmit(e,message)}>Send Message</Button>
+      <Button onClick={(e)=>handleSubmit(e,message)} disable={isDisable.current? true:false }>Send Message</Button>
     </div>
   );
 };
