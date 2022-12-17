@@ -1,7 +1,7 @@
 .SubmitMessage {
   display: flex;
   flex-direction: column;
-  background-color: bisque;
+  background-color: rgb(254, 254, 254);
   align-items: center;
   width:100%;
   padding: 0.75rem;
@@ -9,6 +9,8 @@
 }
 
 .SubmitMessage textarea {
+  background-color: rgb(127, 127, 245);
+  color: black;
   width: 100%;
   height: 10vh;
   resize: none;
@@ -17,15 +19,21 @@
   border: none;
 }
 
+.SubmitMessage ::placeholder{
+  color: black;
+  text-shadow: var(--textShadow);
+
+}
+
+
 .SubmitMessage button {
   color: white;
   height: 1.5rem;
   margin-top: 10px;
-  background-color: rgb(42, 39, 39);
+  background-color: rgb(127, 127, 245);
 }
 
 .SubmitMessage button:hover {
   transition: all 300ms ease-in;
-  color: rgb(223, 39, 39);
-  background-color: rgb(216, 200, 200);
+  background-color: rgb(49, 49, 155);
 }
