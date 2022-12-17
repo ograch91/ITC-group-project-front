@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState ,useContext} from "react";
 import { SubHeader } from "../../StaticElements/SubHeader/SubHeader";
 import { v4 as uuidv4 } from "uuid";
 import { Button, Modal } from "@mui/material";
@@ -7,6 +7,7 @@ import { NewChatDialog } from "../NewChat/NewChatDialog";
 import { SearchField } from "../../ActiveElements/SearchField/SearchField";
 import HistoryEduIcon from "@mui/icons-material/HistoryEdu";
 import { baseUrl } from "../../../Hooks/UseApi";
+import { currentChatContext } from "../../../Context/CurrentChatContext";
 import axios from "axios";
 import styles from "../ChatList/ChatList.module.css";
 
