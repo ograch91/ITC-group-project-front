@@ -23,7 +23,6 @@ export const ProfileDetails = (props) => {
   const editState = useState(false);
   const [edit, setEdit] = editState;
   const [upload, setUpload] = useState(false);
-  // const handeOpenUpload = () => console.log("upload");;
   const handeOpenUpload = () => !isOtherUser && setUpload(true);
 
   const handleOpenEdit = () => setEdit(true);

@@ -11,10 +11,6 @@ export const useApi = (method, path, args) => {
   const [data, setData] = useState(null);
 
   const verifyPayload = resp => {
-    // if (!resp.ok) {
-    //   console.log('resp is not ok ', resp);
-    //   throw new Error(resp.error);
-    // }
     const payload = resp.data;
     if (!payload.success) {
       console.log('payload is not success ', payload);
