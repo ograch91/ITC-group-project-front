@@ -5,10 +5,12 @@ import styles from './HomePage.module.css';
 import { CurrentChatProvider } from '../../../Context/CurrentChatContext';
 import { useContext, useEffect, useRef } from 'react';
 import { UserAuthContext } from '../../../Context/UserAuthContext';
+import { AlertOnAppContext } from '../../../Context/AlertOnAppContext';
 
 export const HomePage = () => {
+
+  const { showAppAlert } = useContext(AlertOnAppContext);
   const [auth, setAuth] = useContext(UserAuthContext);
-  // console.log(document.cookie);
   const ws = useRef();
   const wsUrl = 'ws://localhost:8080';
 
@@ -23,17 +25,25 @@ export const HomePage = () => {
     // Opening the ws connection
     ws.current.onopen = () => {
       console.log('Connection opened');
+      showAppAlert('Connected to messaging server', 'success')
       // setConnectionOpen(true);
     };
     // Listening on ws new added messages
     ws.current.onmessage = event => {
+      console.log(event.data);
       const data = JSON.parse(event.data);
-      console.log(data);
       // setMessages((_messages) => [..._messages, data]);
     };
 
+    ws.current.onclose = () => {
+      showAppAlert('Disconnected from messaging server', 'info')
+      console.log('Connection closed');
+      // setConnectionOpen(false);
+    }
+
     return () => {
       console.log('Cleaning up...');
+
       ws.current.close();
     };
   }, []);
