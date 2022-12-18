@@ -29,11 +29,22 @@ export const ChatWindow = () => {
           Authorization: savedAuth.token ,
         }
       }
-      const data = await axios.get(`${baseUrl}/messages/getChat/${currentChat}`,options);
+      const data = await axios.get(`${baseUrl}/chats/starterpack/`,options);
 
-      const newMessages = data.data.data;
 
-      setMessageList(newMessages);
+      const dataStructure = data.data.data;
+      const chatsCurrentUsers = data.data.data.chats[0].participants[0];
+      const chatLastMessageDate = data.data.data.messagesPerChat[0].messages[0].datesent;
+      const chatMessageContent = data.data.data.messagesPerChat[0].messages[0].content;
+
+      
+      console.log('dataStructure ChatWindow',dataStructure);
+      console.log('chatLastMessageDate ChatWindow',chatLastMessageDate);
+      console.log('chatsCurrentUsers ChatWindow',chatsCurrentUsers);
+      console.log('chatMessageContent ChatWindow',chatMessageContent);
+
+
+      // setMessageList(newMessages);
     };
     fetchData();
 
@@ -52,12 +63,15 @@ export const ChatWindow = () => {
           <img></img>UserName
         </SubHeader>
       <div className={styles.MessageContainer}>
+        <Message key={uuidv4()} content="blahblah" datesent="2424234" sender="mosh" />
+      </div>
+      {/* <div className={styles.MessageContainer}>
         {messageList? 
            messageList.map((message) => {
               return <Message key={uuidv4()} {...message} />;
             })
           : ( <h3>No Messages</h3>)}
-      </div>
+      </div> */}
     </div>
   );
 };
