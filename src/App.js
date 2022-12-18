@@ -17,6 +17,7 @@ import { UserAuthContext } from './Context/UserAuthContext';
 import localforage from 'localforage';
 import { Backdrop, CircularProgress } from '@mui/material';
 import { AlertOnAppContext } from './Context/AlertOnAppContext';
+import { useEffect } from 'react';
 
 function App() {
   const { showAppAlert } = useContext(AlertOnAppContext);
@@ -27,7 +28,7 @@ function App() {
   const isAuth = auth?.isAuth;
   const navigate = useNavigate();
 
-  React.useEffect(() => {
+  useEffect(() => {
     const loadAuth = async () => {
       try {
         const savedAuth = await localforage.getItem('auth');
