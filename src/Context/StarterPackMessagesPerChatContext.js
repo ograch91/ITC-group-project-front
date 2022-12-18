@@ -34,8 +34,8 @@ export const StaStarterPackMessagesPerChatProvider = ({ children }) => {
   }, []);
 
   const value = {
-    starterPackChats,
-    setStarterPackChats,
+    starterPackMessagesPerChat,
+    setStarterPackMessagesPerChat,
   };
 
   return (
