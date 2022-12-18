@@ -1,53 +1,46 @@
 import { Button } from "@mui/material";
-import React, { useContext, useEffect, useRef, useState }  from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { baseUrl } from "../../../Hooks/UseApi";
 import { currentChatContext } from "../../../Context/CurrentChatContext";
 import axios from "axios";
 import styles from "./SubmitMessage.module.css";
 
-
-
 export const SubmitMessage = () => {
+  const { currentChat } = useContext(currentChatContext);
+  const isDisable = useRef(false);
 
-  const {currentChat} = useContext(currentChatContext);
-  const isDisable=useRef(false);
-  
-  useEffect(()=>{
+  useEffect(() => {
     console.log(currentChat.length);
-    if(currentChat.length>0){
-     isDisable.current=false;
-    }else{
-      isDisable.current=true;
+    if (currentChat.length > 0) {
+      isDisable.current = false;
+    } else {
+      isDisable.current = true;
     }
+    return () => {
+      isDisable.current = true;
+    };
+  }, [currentChat]);
 
-    return (()=>{
-      isDisable.current=true;
-    })
-  },[currentChat])
-
-
-  const[message,setMessage]=useState({
-    id:uuidv4(),
-    sender:'mosh',
-    chatid:currentChat,
-    datesent:"",
-    content:""
-  });
   
-  const handleSubmit =(e,message)=>{
+  const [message, setMessage] = useState({
+    id: uuidv4(),
+    sender: "mosh",
+    chatid: currentChat,
+    datesent: "",
+    content: "",
+  });
+
+  const handleSubmit = (e, message) => {
     e.preventDefault();
     let date = new Date();
     date = date.toLocaleString();
-    const newMessage = {...message, datesent: date};
-    axios.post(`${baseUrl}/messages/`,newMessage).
-    catch(function (error) {
+    const newMessage = { ...message, datesent: date };
+    axios.post(`${baseUrl}/messages/`, newMessage).catch(function (error) {
       console.log(error);
     });
-    setMessage({...message,datesent:"",content:""});
-  }
-
-  //add disable feature to button if no chatid 
+    setMessage({ ...message, datesent: "", content: "" });
+  };
 
   return (
     <div className={styles.SubmitMessage}>
@@ -57,12 +50,16 @@ export const SubmitMessage = () => {
         value={message.content}
         onChange={(e) =>
           setMessage((message) => {
-              return { ...message, content: e.target.value };
-            })
-            }
-       
+            return { ...message, content: e.target.value };
+          })
+        }
       />
-      <Button onClick={(e)=>handleSubmit(e,message)} disabled={isDisable.current? true:false }>Send Message</Button>
+      <Button
+        onClick={(e) => handleSubmit(e, message)}
+        disabled={isDisable.current ? true : false}
+      >
+        Send Message
+      </Button>
     </div>
   );
 };
