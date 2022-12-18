@@ -64,7 +64,7 @@ export const ChatWindow = () => {
           <img></img>UserName
         </SubHeader>
       <div className={styles.MessageContainer}>
-        <Message key={uuidv4()} content="blahblah" datesent="2424234" sender="mosh" />
+        <Message key={uuidv4()} content="bla2" datesent="2424234" sender="mosh" />
       </div>
       {/* <div className={styles.MessageContainer}>
         {messageList? 

@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+import { UserAuthContext } from "../../../Context/UserAuthContext";
 import styles from "./Message.module.css";
 
 export const Message = ({ sender, datesent, content }) => {
+  const [auth, setAuth] = useContext(UserAuthContext);
+  const senderId = auth?.user?.id;
+  
   const handleSubmit = () => {
     console.log("activate user modal");
   };
