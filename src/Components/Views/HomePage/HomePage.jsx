@@ -1,3 +1,4 @@
+
 import { ChatWindow } from '../../Layout/ChatWindow/ChatWindow';
 import { ChatList } from '../../Layout/ChatList/ChatList';
 import { SubmitMessage } from '../../ActiveElements/SubmitMessage/SubmitMessage';
@@ -6,6 +7,10 @@ import { CurrentChatProvider } from '../../../Context/CurrentChatContext';
 import { useContext, useEffect, useRef } from 'react';
 import { UserAuthContext } from '../../../Context/UserAuthContext';
 import { AlertOnAppContext } from '../../../Context/AlertOnAppContext';
+import { StarterPackChatsProvider } from "../../../Context/StarterPackChatsContext";
+import { StarterPackOtherUsersProvider } from "../../../Context/StarterPackOtherUsersContext";
+import { StaStarterPackMessagesPerChatProvider } from "../../../Context/StarterPackMessagesPerChatContext";
+
 
 export const HomePage = () => {
 
@@ -51,13 +56,21 @@ export const HomePage = () => {
   return (
     <div className={styles.HomePage}>
       <CurrentChatProvider>
-        <div className={styles.ChatWrapper}>
-          <div className={styles.ChatSection}>
-            <ChatWindow />
-            <SubmitMessage />
-          </div>
-          <ChatList />
+
+      <StarterPackChatsProvider>
+      <StaStarterPackMessagesPerChatProvider>
+      <StarterPackOtherUsersProvider>
+      <div className={styles.ChatWrapper}>
+      <div className={styles.ChatSection}>
+        <ChatWindow/>
+        <SubmitMessage/>
         </div>
+        <ChatList/>
+      </div>
+      </StarterPackOtherUsersProvider>
+      </StaStarterPackMessagesPerChatProvider>
+      </StarterPackChatsProvider>
+
       </CurrentChatProvider>
     </div>
   );
