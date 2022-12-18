@@ -11,13 +11,15 @@ import styles from "./SubmitMessage.module.css";
 export const SubmitMessage = () => {
 
   const {currentChat} = useContext(currentChatContext);
-  const{isDisable}=useRef(false);
+  const isDisable=useRef(false);
   
   useEffect(()=>{
+    console.log(currentChat.length);
     if(currentChat.length>0){
-      isDisable.current=false;
+     isDisable.current=false;
+    }else{
+      isDisable.current=true;
     }
-    isDisable.current=true;
 
     return (()=>{
       isDisable.current=true;
@@ -60,7 +62,7 @@ export const SubmitMessage = () => {
             }
        
       />
-      <Button onClick={(e)=>handleSubmit(e,message)} disable={isDisable.current? true:false }>Send Message</Button>
+      <Button onClick={(e)=>handleSubmit(e,message)} disabled={isDisable.current? true:false }>Send Message</Button>
     </div>
   );
 };
