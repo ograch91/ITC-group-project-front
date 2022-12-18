@@ -1,4 +1,3 @@
-
 import { ChatWindow } from '../../Layout/ChatWindow/ChatWindow';
 import { ChatList } from '../../Layout/ChatList/ChatList';
 import { SubmitMessage } from '../../ActiveElements/SubmitMessage/SubmitMessage';
@@ -7,19 +6,15 @@ import { CurrentChatProvider } from '../../../Context/CurrentChatContext';
 import { useContext, useEffect, useRef } from 'react';
 import { UserAuthContext } from '../../../Context/UserAuthContext';
 import { AlertOnAppContext } from '../../../Context/AlertOnAppContext';
-import { StarterPackChatsProvider } from "../../../Context/StarterPackChatsContext";
-import { StarterPackOtherUsersProvider } from "../../../Context/StarterPackOtherUsersContext";
-import { StaStarterPackMessagesPerChatProvider } from "../../../Context/StarterPackMessagesPerChatContext";
-
+import { MainDataProvider } from '../../../Context/MainDataContext';
 
 export const HomePage = () => {
-
   const { showAppAlert } = useContext(AlertOnAppContext);
   const [auth, setAuth] = useContext(UserAuthContext);
-  const ws = useRef();
-  const wsUrl = 'ws://localhost:8080';
 
-  useEffect(() => {
+  const ws = useRef();
+
+  const connectToSocket = () => {
     if (!auth?.token) {
       console.log('No token');
       return;
@@ -30,7 +25,7 @@ export const HomePage = () => {
     // Opening the ws connection
     ws.current.onopen = () => {
       console.log('Connection opened');
-      showAppAlert('Connected to messaging server', 'success')
+      showAppAlert('Connected to messaging server', 'success');
       // setConnectionOpen(true);
     };
     // Listening on ws new added messages
@@ -39,38 +34,37 @@ export const HomePage = () => {
       const data = JSON.parse(event.data);
       // setMessages((_messages) => [..._messages, data]);
     };
-
     ws.current.onclose = () => {
-      showAppAlert('Disconnected from messaging server', 'info')
+      showAppAlert('Disconnected from messaging server', 'info');
       console.log('Connection closed');
       // setConnectionOpen(false);
-    }
-
-    return () => {
-      console.log('Cleaning up...');
-
-      ws.current.close();
     };
+  };
+
+  const disconnectFromSocket = () => {
+    console.log('Cleaning up...');
+    ws.current.close();
+  };
+
+
+  useEffect(() => {
+
+    connectToSocket();
+    return disconnectFromSocket;
   }, []);
 
   return (
     <div className={styles.HomePage}>
       <CurrentChatProvider>
-
-      <StarterPackChatsProvider>
-      <StaStarterPackMessagesPerChatProvider>
-      <StarterPackOtherUsersProvider>
-      <div className={styles.ChatWrapper}>
-      <div className={styles.ChatSection}>
-        <ChatWindow/>
-        <SubmitMessage/>
-        </div>
-        <ChatList/>
-      </div>
-      </StarterPackOtherUsersProvider>
-      </StaStarterPackMessagesPerChatProvider>
-      </StarterPackChatsProvider>
-
+        <MainDataProvider>
+              <div className={styles.ChatWrapper}>
+                <div className={styles.ChatSection}>
+                  <ChatWindow />
+                  <SubmitMessage />
+                </div>
+                <ChatList />
+              </div>
+        </MainDataProvider>
       </CurrentChatProvider>
     </div>
   );
