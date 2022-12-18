@@ -30,10 +30,11 @@
   color: white;
   height: 1.5rem;
   margin-top: 10px;
-  background-color: rgb(127, 127, 245);
+  background-color: #0c78f3;
 }
 
 .SubmitMessage button:hover {
+  color: white;
   transition: all 300ms ease-in;
   background-color: rgb(49, 49, 155);
 }
