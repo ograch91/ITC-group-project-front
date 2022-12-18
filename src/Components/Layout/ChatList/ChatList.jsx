@@ -42,10 +42,10 @@ export const ChatList = ({ header, list, type }) => {
       const chatUserPhotos = data.data.data.otherUsers[0].photo;
       const chatsCurrentUsers = data.data.data.chats[0].participants[0];
 
-      console.log('dataStructure',dataStructure);
-      console.log('chatLastMessageDate',chatLastMessageDate);
-      console.log('chatsCurrentUsers',chatsCurrentUsers);
-      console.log('chatUserPhotos',chatUserPhotos);
+      // console.log('dataStructure',dataStructure);
+      // console.log('chatLastMessageDate',chatLastMessageDate);
+      // console.log('chatsCurrentUsers',chatsCurrentUsers);
+      // console.log('chatUserPhotos',chatUserPhotos);
 
       // setChatList(chats);
     };
