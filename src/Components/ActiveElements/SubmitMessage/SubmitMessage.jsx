@@ -11,8 +11,7 @@ export const SubmitMessage = () => {
   const isDisable = useRef(false);
 
   useEffect(() => {
-    console.log(currentChat.length);
-    if (currentChat.length > 0) {
+    if (currentChat) {
       isDisable.current = false;
     } else {
       isDisable.current = true;
@@ -22,7 +21,6 @@ export const SubmitMessage = () => {
     };
   }, [currentChat]);
 
-  
   const [message, setMessage] = useState({
     id: uuidv4(),
     sender: "mosh",
@@ -56,7 +54,9 @@ export const SubmitMessage = () => {
       />
       <Button
         onClick={(e) => handleSubmit(e, message)}
-        disabled={isDisable.current ? true : false}
+        disabled={
+          isDisable.current ? true : message.content.length > 0 ? false : true
+        }
       >
         Send Message
       </Button>
