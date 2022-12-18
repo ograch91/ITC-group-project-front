@@ -35,10 +35,19 @@ export const ChatList = ({ header, list, type }) => {
         }
       }
 
-      const data = await axios.get(`${baseUrl}/users/getall`,options);
-      const chats = data.data.data;
+      const data = await axios.get(`${baseUrl}/chats/starterpack/`,options);
 
-      setChatList(chats);
+      const dataStructure = data.data.data;
+      const chatLastMessageDate = data.data.data.messagesPerChat[0].messages[0].datesent;
+      const chatUserPhotos = data.data.data.otherUsers[0].photo;
+      const chatsCurrentUsers = data.data.data.chats[0].participants[0];
+
+      console.log('dataStructure',dataStructure);
+      console.log('chatLastMessageDate',chatLastMessageDate);
+      console.log('chatsCurrentUsers',chatsCurrentUsers);
+      console.log('chatUserPhotos',chatUserPhotos);
+
+      // setChatList(chats);
     };
     fetchData();
 
@@ -68,7 +77,12 @@ export const ChatList = ({ header, list, type }) => {
       <SearchField />
       <ul className={styles.ChatList}>
         <SubHeader text="Available Chats" />
-        {chatList ? (
+        <div className={styles.chatItem}>
+                <img></img>
+                <li>chatsCurrentUser</li>
+                <p>LastDate</p>
+              </div>
+        {/* {chatList ? (
           chatList.map((listItem) => {
             const id = uuidv4();
             return (
@@ -81,7 +95,7 @@ export const ChatList = ({ header, list, type }) => {
           })
         ) : (
           <h3>loading...</h3>
-        )}
+        )} */}
       </ul>
       <Button
         onClick={modalToggle}
