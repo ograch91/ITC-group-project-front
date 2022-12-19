@@ -19,15 +19,17 @@ export const Navbar = () => {
   };
 
   return (
-    <div className={styles.HoverArea} /* onMouseEnter={()=>{isHover.current=true; console.log(isHover.current);}}  onMouseLeave={()=>{isHover.current=false; console.log(isHover.current);}}*/>
-      <div className={styles.Navbar}>
-        <div className={styles.between}>
-          <img src={logo} alt="logo" />
-          <Link to="/profile">Profile</Link>
-          <Link to="/home">Home</Link>
-          <Button onClick={() => handleLogout()} variant="text">
-            Logout
-          </Button>
+    <div className={styles.placeholder}>
+      <div className={styles.HoverArea}>
+        <div className={styles.Navbar}>
+          <div className={styles.between}>
+            <img src={logo} alt="logo" />
+            <Link to="/profile">Profile</Link>
+            <Link to="/home">Home</Link>
+            <Button onClick={() => handleLogout()} variant="text">
+              Logout
+            </Button>
+          </div>
         </div>
       </div>
     </div>
