@@ -1,6 +1,14 @@
-.HoverArea{
-  /* background-color: rgb(190, 190, 235); */
+.placeholder{
   height:12vh;
+}
+
+.HoverArea{
+  background-color: rgb(190, 190, 235);
+  position: absolute;
+  height:10vh;
+  width: 100%;
+  top:-9%;
+  box-shadow: var(--boxShadow);
 }
 
 .Navbar {
@@ -8,35 +16,16 @@
   justify-content: center;
   background-color: rgba(119, 119, 193, 0.573);
   padding: 1vh 0;
-  height:8vh;
   width: 100%;
   height:9vh;
-  position:absolute;
-  top:-100%;
+  position:relative;
   border-radius: 0px;
   box-shadow: var(--boxShadow);
 }
 
-/* .red{
-  display: flex;
-  justify-content: center;
-  background-color: rgba(244, 7, 7, 0.573);
-  padding: 1vh 0;
-  height:8vh;
-  width: 100%;
-  height:9vh;
-  position:absolute;
-  top:-100%;
-  border-radius: 0px;
-  box-shadow: var(--boxShadow);
-} */
- 
-
-
 .HoverArea:hover {
-  /* background-color: rgba(203, 93, 30, 0.573); */
   transition: transform 300ms ease-out;
-  transform: translateY(100%);
+  transform: translateY(90%);
 }
 
 .between {
