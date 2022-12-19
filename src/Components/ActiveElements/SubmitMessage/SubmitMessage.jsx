@@ -1,12 +1,11 @@
-import { Button } from '@mui/material';
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import { baseUrl } from '../../../Hooks/UseApi';
-import { currentChatContext } from '../../../Context/CurrentChatContext';
-import styles from './SubmitMessage.module.css';
-import { UserAuthContext } from '../../../Context/UserAuthContext';
+import { Button } from "@mui/material";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { baseUrl } from "../../../Hooks/UseApi";
+import { currentChatContext } from "../../../Context/CurrentChatContext";
+import styles from "./SubmitMessage.module.css";
+import { UserAuthContext } from "../../../Context/UserAuthContext";
 // import { date } from 'yup/lib/locale';
-import { AlertOnAppContext } from '../../../Context/AlertOnAppContext';
-
+import { AlertOnAppContext } from "../../../Context/AlertOnAppContext";
 
 export const SubmitMessage = () => {
   const { showAppAlert } = useContext(AlertOnAppContext);
@@ -17,9 +16,9 @@ export const SubmitMessage = () => {
   const isDisable = useRef(false);
 
   useEffect(() => {
+    if (currentChat.chatDisplaying) {
     //console.log("currentChat.chatDisplaying",currentChat.chatDisplaying);
     //console.log("isDisable.current",isDisable.current);
-    if (currentChat.chatDisplaying) {
       isDisable.current = false;
     } else {
       isDisable.current = true;
@@ -33,32 +32,35 @@ export const SubmitMessage = () => {
     sender: auth?.user?.id,
     chatid: currentChat.chatid,
     datesent: Date.now(),
-    content: '',
+    content: "",
   });
- 
+
   const handleSubmit = async (e, message) => {
     e.preventDefault();
-    const newMessage = { ...message,chatid:currentChat.chatid, datesent: Date.now() };
+    const newMessage = {
+      ...message,
+      chatid: currentChat.chatid,
+      datesent: Date.now(),
+    };
     const options = {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: auth?.token || '',
+        "Content-Type": "application/json",
+        Authorization: auth?.token || "",
       },
       body: JSON.stringify(newMessage),
     };
-    try{
+    try {
       const resp = await fetch(`${baseUrl}/messages/`, options);
       if (!resp.ok) {
-        showAppAlert('Couldnt send message apologies', 'error');
+        showAppAlert("Couldnt send message apologies", "error");
         return;
       }
-      setMessage({ ...message, datesent: '', content: '' });
-    }catch(err){
-      showAppAlert('Couldnt send message apologies', 'error');
+      setMessage({ ...message, datesent: "", content: "" });
+    } catch (err) {
+      showAppAlert("Couldnt send message apologies", "error");
       return;
     }
-    
   };
 
   return (
@@ -67,14 +69,14 @@ export const SubmitMessage = () => {
         className={styles.form}
         placeholder="What you have in mind..."
         value={message.content}
-        onChange={e =>
-          setMessage(message => {
+        onChange={(e) =>
+          setMessage((message) => {
             return { ...message, content: e.target.value };
           })
         }
       />
       <Button
-        onClick={e => handleSubmit(e, message)}
+        onClick={(e) => handleSubmit(e, message)}
         disabled={
           isDisable.current ? true : message.content.length > 0 ? false : true
         }
