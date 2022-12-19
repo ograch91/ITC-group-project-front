@@ -8,16 +8,13 @@ import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 import { MainDataContext } from '../../../Context/MainDataContext';
 import { currentChatContext } from '../../../Context/CurrentChatContext';
 import styles from '../ChatList/ChatList.module.css';
+import moment from 'moment';
+import { ChatListItem } from './ChatListItem';
 
-export const ChatList = ({ header, list, type }) => {
+export const ChatList = () => {
   const [open, setOpen] = useState(false);
   const mainData = useContext(MainDataContext);
   const chatList = mainData?.data.chats;
-  // //console.log('chatList',chatList);
-  const messagesPerChat = mainData?.data.messagesPerChat;
-  let index = 0;
-
-  const { currentChat, setCurrentChat } = useContext(currentChatContext);
 
   const modalToggle = () => {
     setOpen(!open);
@@ -34,22 +31,6 @@ export const ChatList = ({ header, list, type }) => {
     p: 4,
   };
 
-  const changeChat = (photo, name, chatId) => {
-    
-    // //console.log("type chatId", typeof chatId);
-    // //console.log(" chatId",  chatId);
-    setCurrentChat(currentChat => {
-      return {
-        ...currentChat,
-        userPhoto: photo,
-        userName: name,
-        chatid: chatId,
-        chatDisplaying: true,
-      };
-    });
-    
-  };
-  // //console.log(chat);
   return (
     <div className={styles.ChatList}>
       <SearchField />
@@ -57,47 +38,7 @@ export const ChatList = ({ header, list, type }) => {
         <SubHeader text="Available Chats" />
         {chatList ? (
           chatList.map(chat => {
-            const { id } = chat;
-            {
-              /* //console.log('chat',index,chat); 
-            //console.log('chat id',index,id);
-            //console.log('chat participants',index,chat.participants);  */
-            }
-            const otherUserId = mainData.getters.getOtherUserId(chat.id);
-            {
-              /* //console.log('otherUserId',index,otherUserId); */
-            }
-            const chatWithUser =
-              mainData.getters.getOtherUserDetails(otherUserId);
-            {
-              /* //console.log('otherUserDetails',index,chatWithUser);   */
-            }
-            let lastMsg = '';
-            messagesPerChat?.map(message => {
-              if (message.chatId === chat.id) {
-                lastMsg = mainData.getters.getMessagesForChat(message.id);
-                if (lastMsg.length == 0) return;
-                lastMsg = lastMsg[lastMsg.length-1]?.datesent;
-              }
-            });
-            lastMsg = parseInt(lastMsg);
-            let h = new Date(lastMsg).getHours();
-            let m = new Date(lastMsg).getMinutes();
-            lastMsg = `${h}:${m}`;
-            index++;
-            return (
-              <div className={styles.chatItem} key={id}>
-                <img src={chatWithUser.photo}></img>
-                <li
-                  onClick={() =>
-                    changeChat(chatWithUser.photo, chatWithUser.name, chat.id)
-                  } 
-                >
-                  {chatWithUser.name}
-                </li>
-                <p>{lastMsg}</p>
-              </div>
-            );
+            return <ChatListItem key={chat.id} chat={chat} />
           })
         ) : (
           <h3>loading...</h3>
