@@ -33,7 +33,7 @@ export const ChatList = ({ header, list, type }) => {
   };
 
   const changeChat =(chatId)=>{
-    console.log('chatId',chatId);
+    // console.log('chatId',chatId);
     // setCurrentChat(chatId);
   }
 
@@ -44,7 +44,7 @@ export const ChatList = ({ header, list, type }) => {
         <SubHeader text="Available Chats" />
         {chatList ? (
           chatList.map((chat) => {
-            console.log(mainData,'mainData');
+            {/* console.log(mainData,'mainData'); */}
             const { id } = chat;
             const otherUserId = mainData.getters.getOtherUserId(id);
             const chatWithUser = mainData.getters.getOtherUserDetails(otherUserId);
