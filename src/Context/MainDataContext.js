@@ -2,12 +2,14 @@ import { createContext, useState, useEffect, useContext } from 'react';
 import { baseUrl } from '../Hooks/UseApi';
 import { UserAuthContext } from './UserAuthContext';
 import { AlertOnAppContext } from './AlertOnAppContext';
+import { currentChatContext } from './CurrentChatContext';
 
 export const MainDataContext = createContext();
 
 export const MainDataProvider = ({ children }) => {
   const [auth, setAuth] = useContext(UserAuthContext);
   const { showAppAlert } = useContext(AlertOnAppContext);
+  const { currentChat, setCurrentChat } = useContext(currentChatContext);
 
   const [chats, setChats] = useState([]);
   const [otherUsers, setOtherUsers] = useState([]);
@@ -36,12 +38,25 @@ export const MainDataProvider = ({ children }) => {
       setChats(data?.chats);
       setOtherUsers(data?.otherUsers);
       setMessagesPerChat(data?.messagesPerChat);
+      if(data?.messagesPerChat && data?.messagesPerChat.length > 0){
+        setCurrentChat(currentChat => {
+          return {
+            ...currentChat,
+            chatid: data?.messagesPerChat[0].chatId,
+            chatDisplaying: true,
+          };
+        });
+  
+      }
     };
     fetchData();
   }, []);
 
   const getMessagesForChat = chatId => {
-    return messagesPerChat?.find(chat => chat.chatid === chatId)?.messages || [];
+    const result = messagesPerChat?.find(chat => chat.chatId === chatId)?.messages || [];
+    //console.log('result', result, chatId);
+    
+    return result
   };
 
   const getOtherUserDetails = userId => {
