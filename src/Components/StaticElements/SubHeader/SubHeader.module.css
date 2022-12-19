@@ -2,13 +2,20 @@
   display: inline-flex;
   justify-content: center;
   text-shadow: var(--textShadow);
-
 }
 
 .clickable{
-  align-items: center;
-  padding-bottom: 0.5rem;
+  align-items: center; 
+  padding: 0.25rem 0 0.25rem;
   display: inline-flex;
   color: black;
   text-shadow: var(--textShadow);
+}
+
+.SubHeader h2{
+  display: inline-flex;
+  justify-content: center;
+  text-align: center;
+  width:100%;
+  height:3rem;
 }

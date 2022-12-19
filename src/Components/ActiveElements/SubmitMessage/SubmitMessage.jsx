@@ -1,22 +1,25 @@
 import { Button } from '@mui/material';
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { baseUrl } from '../../../Hooks/UseApi';
 import { currentChatContext } from '../../../Context/CurrentChatContext';
-import axios from 'axios';
 import styles from './SubmitMessage.module.css';
 import { UserAuthContext } from '../../../Context/UserAuthContext';
-import { date } from 'yup/lib/locale';
+// import { date } from 'yup/lib/locale';
 import { AlertOnAppContext } from '../../../Context/AlertOnAppContext';
+
+
 export const SubmitMessage = () => {
   const { showAppAlert } = useContext(AlertOnAppContext);
   const { currentChat } = useContext(currentChatContext);
+  // console.log('currentChat.chatid',currentChat.chatid);
   const [auth, setAuth] = useContext(UserAuthContext);
 
   const isDisable = useRef(false);
 
   useEffect(() => {
-    if (currentChat) {
+    console.log("currentChat.chatDisplaying",currentChat.chatDisplaying);
+    console.log("isDisable.current",isDisable.current);
+    if (currentChat.chatDisplaying) {
       isDisable.current = false;
     } else {
       isDisable.current = true;
@@ -28,16 +31,14 @@ export const SubmitMessage = () => {
 
   const [message, setMessage] = useState({
     sender: auth?.user?.id,
-    chatid: currentChat,
+    chatid: currentChat.chatid,
     datesent: Date.now(),
     content: '',
   });
  
   const handleSubmit = async (e, message) => {
     e.preventDefault();
-    // let date = new Date();
-    // date = date.toLocaleString();
-    const newMessage = { ...message, datesent: Date.now() };
+    const newMessage = { ...message,chatid:currentChat.chatid, datesent: Date.now() };
     const options = {
       method: 'POST',
       headers: {

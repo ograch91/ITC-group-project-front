@@ -13,11 +13,11 @@ export const ChatList = ({ header, list, type }) => {
   const [open, setOpen] = useState(false);
   const mainData = useContext(MainDataContext);
   const chatList = mainData?.data.chats;
-  console.log('chatList',chatList);
+  // console.log('chatList',chatList);
   const messagesPerChat = mainData?.data.messagesPerChat;
   let index = 0;
 
-  const { setCurrentChat } = useContext(currentChatContext);
+  const { currentChat, setCurrentChat } = useContext(currentChatContext);
 
   const modalToggle = () => {
     setOpen(!open);
@@ -34,9 +34,18 @@ export const ChatList = ({ header, list, type }) => {
     p: 4,
   };
 
-  const changeChat = (chatId) => {
-    console.log("chatId", chatId);
-    setCurrentChat(chatId);
+  const changeChat = (photo, name, chatId) => {
+    // console.log("type chatId", typeof chatId);
+    // console.log(" chatId",  chatId);
+    setCurrentChat((currentChat) => {
+      return {
+        ...currentChat,
+        userPhoto: photo,
+        userName: name,
+        chatid:chatId,
+        chatDisplaying:true,
+      };
+    });
   };
 
   return (
@@ -47,13 +56,20 @@ export const ChatList = ({ header, list, type }) => {
         {chatList ? (
           chatList.map((chat) => {
             const { id } = chat;
-            console.log('chat',index,chat);
+            {
+              /* console.log('chat',index,chat); 
             console.log('chat id',index,id);
-            console.log('chat participants',index,chat.participants);
-              const otherUserId = mainData.getters.getOtherUserId(chat.id);
-            console.log('otherUserId',index,otherUserId);
-            const  chatWithUser = mainData.getters.getOtherUserDetails(otherUserId);
-              console.log('chatWithUser',index,chatWithUser);  
+            console.log('chat participants',index,chat.participants);  */
+            }
+            const otherUserId = mainData.getters.getOtherUserId(chat.id);
+            {
+              /* console.log('otherUserId',index,otherUserId); */
+            }
+            const chatWithUser =
+              mainData.getters.getOtherUserDetails(otherUserId);
+            {
+              /* console.log('otherUserDetails',index,chatWithUser);   */
+            }
             let lastMsg = "";
             messagesPerChat.map((message) => {
               if (message.chatId === chat.id) {
@@ -65,16 +81,21 @@ export const ChatList = ({ header, list, type }) => {
             let h = new Date(lastMsg).getHours();
             let m = new Date(lastMsg).getMinutes();
             lastMsg = `${h}:${m}`;
-
             index++;
             return (
               <div className={styles.chatItem} key={id}>
                 <img src={chatWithUser.photo}></img>
-                <li onClick={() => changeChat(chat.id)}>{chatWithUser.name}</li>
+                <li
+                  onClick={() =>
+                    changeChat(chatWithUser.photo, chatWithUser.name, chat.id)
+                  }
+                >
+                  {chatWithUser.name}
+                </li>
                 <p>{lastMsg}</p>
               </div>
             );
-            })
+          })
         ) : (
           <h3>loading...</h3>
         )}

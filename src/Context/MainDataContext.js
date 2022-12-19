@@ -50,14 +50,14 @@ export const MainDataProvider = ({ children }) => {
 
   // for groups?
   const getChatParticipants = chatId => {
-    // console.log(chatId);
     const chat = chats?.find(chat => chat.id === chatId);
     return chat?.participants || [];
   };
 
   const getOtherUserId = chatId => {
     const participants = getChatParticipants(chatId);
-    const otherUserId = participants?.find(id => id !== auth?.id);
+    const otherUserId = participants?.find(id => 
+       id !== auth?.user.id );
     return otherUserId;
   };
 
