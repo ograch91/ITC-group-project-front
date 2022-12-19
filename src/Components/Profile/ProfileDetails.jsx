@@ -35,7 +35,7 @@ export const ProfileDetails = (props) => {
   //   isLoading = isLoading_;
   //   err = err_;
   // }, []);
-  // console.log(isLoading);
+  // //console.log(isLoading);
 
   const ToClipboard = ({ text }) => {
     const handleClick = () => {

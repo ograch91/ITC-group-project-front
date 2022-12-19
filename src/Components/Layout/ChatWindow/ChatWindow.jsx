@@ -1,58 +1,51 @@
-import { useContext, useRef } from "react";
-import { Message } from "../../StaticElements/Message/Message";
-import { SubHeader } from "../../StaticElements/SubHeader/SubHeader";
-import { currentChatContext } from "../../../Context/CurrentChatContext";
-import styles from "./ChatWindow.module.css";
-import { MainDataContext } from "../../../Context/MainDataContext";
+import { useContext, useEffect } from 'react';
+import { Message } from '../../StaticElements/Message/Message';
+import { SubHeader } from '../../StaticElements/SubHeader/SubHeader';
+import { currentChatContext } from '../../../Context/CurrentChatContext';
+import styles from './ChatWindow.module.css';
+import { MainDataContext } from '../../../Context/MainDataContext';
 
 export const ChatWindow = () => {
   const { currentChat } = useContext(currentChatContext);
   const mainData = useContext(MainDataContext);
   const messageList = mainData?.data.messagesPerChat;
+  const messagesPerChat = mainData?.data.messagesPerChat;
   const otherUsers = mainData?.data.otherUsers;
-  const isChat = useRef(false);
 
-  const nestedMessages = [];
+  useEffect(() => {}, []);
+  const chatId = currentChat.chatid;
+  const headerId = mainData.getters.getOtherUserId(chatId);
+  const headerDetails = mainData.getters.getOtherUserDetails(headerId);
 
-  messageList.forEach((messages) => {
-    if (messages.chatId === currentChat.chatid) {
-      messages.messages.forEach((message) => {
-        nestedMessages.push(message);
-      });
-    }
-  });
+  const messagesForCurrentChat = messagesPerChat?.find(
+    chat => chat.chatId === chatId
+  )?.messages;
 
   const handleClick = () => {
-    console.log("Modal pop up");
+    console.log('Modal pop up');
   };
 
   return (
     <div className={styles.ChatWindow}>
       <SubHeader func={handleClick}>
-        {isChat.current ? (
+        {headerDetails ? (
           <>
-            <img src={currentChat.userPhoto} alt="user photo"></img>
-            {currentChat.userName}{" "}
+            <img src={headerDetails.photo} alt="user photo"></img>
+            <span>{headerDetails.name}</span>
           </>
         ) : (
           <div className={styles.noimage}>Welcome!</div>
         )}
       </SubHeader>
       <div className={styles.MessageContainer}>
-        {currentChat.chatid ? (
-          nestedMessages.map((message) => {
-            let sender = "";
-            otherUsers.map((user) => {
-              if (user.id === message.sender) {
-                return (sender = user.name);
-              }
-            });
-            isChat.current = true;
-            return <Message key={message._id} userName={sender} {...message} />;
+        {
+          !messagesForCurrentChat
+            ? 'No messages yet - start a conversation!'
+            :
+          messagesForCurrentChat?.map(message => {
+            return <Message key={message._id} {...message} />;
           })
-        ) : (
-          <h3>No Messages</h3>
-        )}
+        }
       </div>
     </div>
   );

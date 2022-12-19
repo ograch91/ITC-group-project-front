@@ -27,10 +27,3 @@
 .user {
   font-weight: bold;
 }
-
-.user:hover{
-  transition: all 250ms ease-in;
-  color:rgb(255, 42, 9);
-  cursor: pointer;
-
-}

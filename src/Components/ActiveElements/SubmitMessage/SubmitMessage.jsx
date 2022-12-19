@@ -10,14 +10,15 @@ import { AlertOnAppContext } from "../../../Context/AlertOnAppContext";
 export const SubmitMessage = () => {
   const { showAppAlert } = useContext(AlertOnAppContext);
   const { currentChat } = useContext(currentChatContext);
+  // //console.log('currentChat.chatid',currentChat.chatid);
   const [auth, setAuth] = useContext(UserAuthContext);
 
   const isDisable = useRef(false);
 
   useEffect(() => {
-    console.log("currentChat.chatDisplaying", currentChat.chatDisplaying);
-    console.log("isDisable.current", isDisable.current);
     if (currentChat.chatDisplaying) {
+    //console.log("currentChat.chatDisplaying",currentChat.chatDisplaying);
+    //console.log("isDisable.current",isDisable.current);
       isDisable.current = false;
     } else {
       isDisable.current = true;
