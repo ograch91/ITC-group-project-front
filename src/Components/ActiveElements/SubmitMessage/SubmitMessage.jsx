@@ -6,12 +6,14 @@ import styles from "./SubmitMessage.module.css";
 import { UserAuthContext } from "../../../Context/UserAuthContext";
 // import { date } from 'yup/lib/locale';
 import { AlertOnAppContext } from "../../../Context/AlertOnAppContext";
+import { MainDataContext } from "../../../Context/MainDataContext";
 
 export const SubmitMessage = () => {
   const { showAppAlert } = useContext(AlertOnAppContext);
   const { currentChat } = useContext(currentChatContext);
   // //console.log('currentChat.chatid',currentChat.chatid);
   const [auth, setAuth] = useContext(UserAuthContext);
+  const mainData = useContext(MainDataContext);
 
   const isDisable = useRef(false);
 
@@ -42,6 +44,8 @@ export const SubmitMessage = () => {
       chatid: currentChat.chatid,
       datesent: Date.now(),
     };
+    console.log(newMessage, mainData.data?.messagesPerChat);
+
     const options = {
       method: "POST",
       headers: {

@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useContext } from 'react';
+import { createContext, useState, useEffect, useContext, useRef } from 'react';
 import { baseUrl } from '../Hooks/UseApi';
 import { UserAuthContext } from './UserAuthContext';
 import { AlertOnAppContext } from './AlertOnAppContext';
@@ -18,6 +18,11 @@ export const MainDataProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchData = async () => {
+      if (!auth?.isAuth || !auth.loadingDone) {
+        console.log('not authed, not fetching data');
+        return;
+      }
+
       const options = {
         method: 'GET',
         headers: {
@@ -38,6 +43,9 @@ export const MainDataProvider = ({ children }) => {
       setChats(data?.chats);
       setOtherUsers(data?.otherUsers);
       setMessagesPerChat(data?.messagesPerChat);
+
+      console.log('data.messagesPerChat', data?.messagesPerChat);
+
       if(data?.messagesPerChat && data?.messagesPerChat.length > 0){
         setCurrentChat(currentChat => {
           return {
@@ -50,7 +58,7 @@ export const MainDataProvider = ({ children }) => {
       }
     };
     fetchData();
-  }, []);
+  }, [auth]);
 
   const getMessagesForChat = chatId => {
     const result = messagesPerChat?.find(chat => chat.chatId === chatId)?.messages || [];

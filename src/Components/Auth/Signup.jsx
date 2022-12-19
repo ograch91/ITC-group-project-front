@@ -8,9 +8,11 @@ import LoginIcon from '@mui/icons-material/Login';
 import BackIcon from '@mui/icons-material/ArrowBack';
 import { useContext } from 'react';
 import { AlertOnAppContext } from '../../Context/AlertOnAppContext';
+import { UserAuthContext } from '../../Context/UserAuthContext';
 
 export const Signup = props => {
   const { showAppAlert } = useContext(AlertOnAppContext);
+  const [auth] = useContext(UserAuthContext);
 
   const userDetails = props.userDetails || false;
   const endpoint = userDetails ? 'update' : 'signup';
@@ -52,8 +54,11 @@ export const Signup = props => {
 
   const sendToServer = async values => {
     const options = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: userDetails ? 'PUT' : 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: auth?.token || '',
+      },
       body: JSON.stringify(values),
     };
     try {
