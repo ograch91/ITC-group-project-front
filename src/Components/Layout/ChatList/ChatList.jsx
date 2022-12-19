@@ -7,17 +7,15 @@ import { SearchField } from "../../ActiveElements/SearchField/SearchField";
 import HistoryEduIcon from "@mui/icons-material/HistoryEdu";
 import styles from "../ChatList/ChatList.module.css";
 import { MainDataContext } from "../../../Context/MainDataContext";
-import { currentChatContext } from "../../../Context/CurrentChatContext";
 
 export const ChatList = ({ header, list, type }) => {
   const [open, setOpen] = useState(false);
   const mainData = useContext(MainDataContext)
   const chatList = mainData?.data.chats;
-  const otherUsers = mainData?.data.otherUsers;
+  const messagesPerChat = mainData?.data.messagesPerChat;
 
   // const [currentChat, setCurrentChat] = useContext(currentChatContext);
   
-  console.log('data for chat list',chatList, otherUsers);
 
   const modalToggle = () => {
     setOpen(!open);
@@ -35,7 +33,7 @@ export const ChatList = ({ header, list, type }) => {
   };
 
   const changeChat =(chatId)=>{
-    console.log('chatId',chatId);
+    // console.log('chatId',chatId);
     // setCurrentChat(chatId);
   }
 
@@ -44,22 +42,31 @@ export const ChatList = ({ header, list, type }) => {
       <SearchField />
       <ul className={styles.ChatList}>
         <SubHeader text="Available Chats" />
-        <div className={styles.chatItem}>
-                <img></img>
-                <li>chatsCurrentUser</li>
-                <p>LastDate</p>
-              </div>
         {chatList ? (
           chatList.map((chat) => {
+            {/* console.log(mainData,'mainData'); */}
             const { id } = chat;
-            const otherUserId = mainData.getters.getOtherUserId(chat.id)
-            const chatWithUser = mainData.getters.getOtherUserDetails(otherUserId)
-            console.log('chatWithUser',chatWithUser);
+            const otherUserId = mainData.getters.getOtherUserId(id);
+            const chatWithUser = mainData.getters.getOtherUserDetails(otherUserId);
+            let lastMsg = "";
+            let index = 0;
+            messagesPerChat.map((message)=>{ 
+              if(message.chatId === chat.id){
+                lastMsg = mainData.getters.getMessagesForChat(message.id);
+              lastMsg =lastMsg[index].datesent;
+              }
+              index++;
+            })
+            lastMsg = parseInt(lastMsg);
+            let h = new Date(lastMsg).getHours();
+            console.log('h',h);
+            let m = new Date(lastMsg).getMinutes();
+            lastMsg = `${h}:${m}`;
             return (
               <div className={styles.chatItem} key={id}>
                 <img src={chatWithUser.photo}></img>
                 <li onClick={()=>changeChat(chat.id)}>{chatWithUser.name}</li>
-                <p>lastDate</p>
+                <p>{lastMsg}</p>
               </div>
             );
           })

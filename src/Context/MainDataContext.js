@@ -50,7 +50,7 @@ export const MainDataProvider = ({ children }) => {
 
   // for groups?
   const getChatParticipants = chatId => {
-    console.log(chatId);
+    // console.log(chatId);
     const chat = chats?.find(chat => chat.id === chatId);
     return chat?.participants || [];
   };

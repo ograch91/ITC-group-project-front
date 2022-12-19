@@ -10,7 +10,6 @@ export const ChatWindow = () => {
   const { currentChat } = useContext(currentChatContext);
   const mainData = useContext(MainDataContext)
   const messageList = mainData?.getters.getMessagesForChat(currentChat);
-  console.log('selected chat msg:', messageList);
   
   const handleClick = () => {
     console.log('Modal pop up');
@@ -21,21 +20,21 @@ export const ChatWindow = () => {
       <SubHeader func={handleClick}>
         <img></img>UserName
       </SubHeader>
-      <div className={styles.MessageContainer}>
-        <Message
+      {/* <div className={styles.MessageContainer}>
+         <Message
           key={uuidv4()}
-          content="bla2"
+           content="bla2" 
           datesent="2424234"
           sender="mosh"
-        />
-      </div>
-      {/* <div className={styles.MessageContainer}>
+        /> 
+      </div> */}
+      <div className={styles.MessageContainer}>
         {messageList? 
            messageList.map((message) => {
               return <Message key={uuidv4()} {...message} />;
             })
           : ( <h3>No Messages</h3>)}
-      </div> */}
+      </div>
     </div>
   );
 };
