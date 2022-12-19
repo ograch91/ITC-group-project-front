@@ -34,9 +34,9 @@ export const ChatWindow = () => {
       </SubHeader>
       <div className={styles.MessageContainer}>
         {messageList.map((messages) => {
-          console.log("messages", messages);
+          {/* console.log("messages", messages);
           console.log("currentChat.chatId", currentChat.chatid);
-          console.log("isChat.current", isChat.current);
+          console.log("isChat.current", isChat.current); */}
           if (
             messages.chatId === currentChat.chatid 
           ) {
