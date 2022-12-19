@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { UserAuthContext } from "../../../Context/UserAuthContext";
 import styles from "./Message.module.css";
 
-export const Message = ({ sender, datesent, content }) => {
+export const Message = ({ userName, datesent, content }) => {
 
   const [auth, setAuth] = useContext(UserAuthContext);
   const senderId = auth?.user?.id;
@@ -17,7 +17,7 @@ export const Message = ({ sender, datesent, content }) => {
     <div className={styles.Message}>
       <div className={styles.Left}>
         <span className={styles.user} onClick={() => handleSubmit()}>
-          {sender}
+          {userName}
         </span>
         <span>{content}</span>
       </div>

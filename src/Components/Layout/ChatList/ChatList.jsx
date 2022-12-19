@@ -13,7 +13,9 @@ export const ChatList = ({ header, list, type }) => {
   const [open, setOpen] = useState(false);
   const mainData = useContext(MainDataContext);
   const chatList = mainData?.data.chats;
+  console.log('chatList',chatList);
   const messagesPerChat = mainData?.data.messagesPerChat;
+  let index = 0;
 
   const { setCurrentChat } = useContext(currentChatContext);
 
@@ -45,22 +47,26 @@ export const ChatList = ({ header, list, type }) => {
         {chatList ? (
           chatList.map((chat) => {
             const { id } = chat;
-            const otherUserId = mainData.getters.getOtherUserId(id);
-            const chatWithUser =
-              mainData.getters.getOtherUserDetails(otherUserId);
+            console.log('chat',index,chat);
+            console.log('chat id',index,id);
+            console.log('chat participants',index,chat.participants);
+              const otherUserId = mainData.getters.getOtherUserId(chat.id);
+            console.log('otherUserId',index,otherUserId);
+            const  chatWithUser = mainData.getters.getOtherUserDetails(otherUserId);
+              console.log('chatWithUser',index,chatWithUser);  
             let lastMsg = "";
-            let index = 0;
             messagesPerChat.map((message) => {
               if (message.chatId === chat.id) {
                 lastMsg = mainData.getters.getMessagesForChat(message.id);
                 lastMsg = lastMsg[index].datesent;
               }
-              index++;
             });
             lastMsg = parseInt(lastMsg);
             let h = new Date(lastMsg).getHours();
             let m = new Date(lastMsg).getMinutes();
             lastMsg = `${h}:${m}`;
+
+            index++;
             return (
               <div className={styles.chatItem} key={id}>
                 <img src={chatWithUser.photo}></img>
@@ -68,7 +74,7 @@ export const ChatList = ({ header, list, type }) => {
                 <p>{lastMsg}</p>
               </div>
             );
-          })
+            })
         ) : (
           <h3>loading...</h3>
         )}
