@@ -13,7 +13,6 @@ export const ChatList = ({ header, list, type }) => {
   const [open, setOpen] = useState(false);
   const mainData = useContext(MainDataContext);
   const chatList = mainData?.data.chats;
-  // console.log('chatList',chatList);
   const messagesPerChat = mainData?.data.messagesPerChat;
   let index = 0;
 
@@ -35,15 +34,13 @@ export const ChatList = ({ header, list, type }) => {
   };
 
   const changeChat = (photo, name, chatId) => {
-    // console.log("type chatId", typeof chatId);
-    // console.log(" chatId",  chatId);
     setCurrentChat((currentChat) => {
       return {
         ...currentChat,
         userPhoto: photo,
         userName: name,
-        chatid:chatId,
-        chatDisplaying:true,
+        chatid: chatId,
+        chatDisplaying: true,
       };
     });
   };
@@ -56,20 +53,9 @@ export const ChatList = ({ header, list, type }) => {
         {chatList ? (
           chatList.map((chat) => {
             const { id } = chat;
-            {
-              /* console.log('chat',index,chat); 
-            console.log('chat id',index,id);
-            console.log('chat participants',index,chat.participants);  */
-            }
             const otherUserId = mainData.getters.getOtherUserId(chat.id);
-            {
-              /* console.log('otherUserId',index,otherUserId); */
-            }
             const chatWithUser =
               mainData.getters.getOtherUserDetails(otherUserId);
-            {
-              /* console.log('otherUserDetails',index,chatWithUser);   */
-            }
             let lastMsg = "";
             messagesPerChat.map((message) => {
               if (message.chatId === chat.id) {
