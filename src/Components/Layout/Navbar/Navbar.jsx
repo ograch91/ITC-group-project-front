@@ -19,8 +19,8 @@ export const Navbar = () => {
   };
 
   return (
-    <div className={styles.HoverArea} onMouseEnter={()=>{isHover.current=true; console.log(isHover.current);}} onMouseLeave={()=>{isHover.current=false; console.log(isHover.current);}}>
-      <div className={isHover.current? styles.red :styles.Navbar}>
+    <div className={styles.HoverArea} /* onMouseEnter={()=>{isHover.current=true; console.log(isHover.current);}}  onMouseLeave={()=>{isHover.current=false; console.log(isHover.current);}}*/>
+      <div className={styles.Navbar}>
         <div className={styles.between}>
           <img src={logo} alt="logo" />
           <Link to="/profile">Profile</Link>

@@ -1,5 +1,5 @@
 .HoverArea{
-  background-color: rgb(190, 190, 235);
+  /* background-color: rgb(190, 190, 235); */
   height:12vh;
 }
 
@@ -12,12 +12,12 @@
   width: 100%;
   height:9vh;
   position:absolute;
-  /* top:-100%; */
+  top:-100%;
   border-radius: 0px;
   box-shadow: var(--boxShadow);
 }
 
-.red{
+/* .red{
   display: flex;
   justify-content: center;
   background-color: rgba(244, 7, 7, 0.573);
@@ -26,18 +26,18 @@
   width: 100%;
   height:9vh;
   position:absolute;
-  /* top:-100%; */
+  top:-100%;
   border-radius: 0px;
   box-shadow: var(--boxShadow);
-}
+} */
  
 
 
-/* .HoverArea:hover {
-  background-color: rgba(203, 93, 30, 0.573);
+.HoverArea:hover {
+  /* background-color: rgba(203, 93, 30, 0.573); */
   transition: transform 300ms ease-out;
   transform: translateY(100%);
-} */
+}
 
 .between {
   display: flex;
