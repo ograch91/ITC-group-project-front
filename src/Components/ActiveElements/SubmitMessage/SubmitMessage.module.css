@@ -22,7 +22,6 @@
 .SubmitMessage ::placeholder{
   color: black;
   text-shadow: var(--textShadow);
-
 }
 
 .SubmitMessage button {
