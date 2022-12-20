@@ -1,6 +1,5 @@
 .SearchField{
-  background-color: white;
+  background-color: rgb(233, 244, 244);
   box-shadow: var(--boxShadowInset);
-
   /* width: 100%; */
 }
