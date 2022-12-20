@@ -75,7 +75,6 @@ export const ChatList = () => {
 
   return (
     <div className={styles.ChatList}>
-      <SearchField />
       <ul className={styles.ChatListDisplay}>
         <SubHeader text="Available Conversations" />
         {chatList ? (
