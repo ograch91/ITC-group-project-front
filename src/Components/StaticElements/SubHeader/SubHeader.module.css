@@ -2,11 +2,11 @@
   display: inline-flex;
   justify-content: center;
   text-shadow: var(--textShadow);
+  padding: 0.25rem 0 0.25rem;
 }
 
 .clickable{
   align-items: center; 
-  padding: 0.25rem 0 0.25rem;
   display: inline-flex;
   color: black;
   text-shadow: var(--textShadow);

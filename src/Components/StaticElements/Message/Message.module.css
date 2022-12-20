@@ -19,11 +19,12 @@
   margin-right: 1vw;
 }
 
-
 .Left span , .Left img{
   margin-right: 1vw;
 }
 
 .user {
+  color: rgb(249, 249, 249);
   font-weight: bold;
+  text-shadow: var(--textShadow);
 }
