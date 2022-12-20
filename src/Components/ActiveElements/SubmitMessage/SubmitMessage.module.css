@@ -3,32 +3,43 @@
   flex-direction: column;
   background-color: rgb(254, 254, 254);
   align-items: center;
-  width:100%;
+  height: 25%;
   padding: 0.75rem;
   box-shadow: var(--boxShadow);
 }
 
-.SubmitMessage textarea {
-  background-color: rgba(119, 119, 193);
-  color: black;
+.textArea {
+  position: relative;
   width: 100%;
-  height: 10vh;
+  height: 100%;
+}
+
+.SubmitMessage textarea {
+  background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+  color:black;
+  width: 100%;
+  height: 100%;
   resize: none;
   outline: none;
-  padding: 5px;
+  padding: 0.5rem;
   border: none;
   text-shadow: var(--textShadow);
+  box-shadow: var(--boxShadowInset);
+  font-size: large;
 }
 
 .SubmitMessage ::placeholder{
-  color: black;
+  color: black;  
   text-shadow: var(--textShadow);
+  font-size: large;
 }
 
 .SubmitMessage button {
   color: white;
+  position: relative;
+  left: 80%;
+  bottom: 42%;
   height: 1.5rem;
-  margin-top: 10px;
   background-color: #0c78f3;
 }
 

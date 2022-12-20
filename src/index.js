@@ -6,6 +6,7 @@ import { AlertOnAppProvider } from './Context/AlertOnAppContext';
 import { CurrentChatProvider } from './Context/CurrentChatContext';
 import { MainDataProvider } from './Context/MainDataContext';
 import { UserAuthProvider } from './Context/UserAuthContext';
+import { CurrentPageProvider } from './Context/CurrentPageContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,7 +16,9 @@ root.render(
         <UserAuthProvider>
           <CurrentChatProvider>
             <MainDataProvider>
+            <CurrentPageProvider>
               <App />
+            </CurrentPageProvider>
             </MainDataProvider>
           </CurrentChatProvider>
         </UserAuthProvider>

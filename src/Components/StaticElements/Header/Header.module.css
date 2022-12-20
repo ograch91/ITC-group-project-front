@@ -1,4 +1,11 @@
-.Header {
+.Header{
+  display: inline-flex;
+  justify-content: center;
+}
+
+
+
+.Header h2 {
   display: inline-flex;
   justify-content: center;
   width: 100%;

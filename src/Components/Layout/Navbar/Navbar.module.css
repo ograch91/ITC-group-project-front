@@ -8,7 +8,6 @@
   position: absolute;
   height:10vh;
   width: 100%;
-  top:-9%;
   box-shadow: var(--boxShadow);
 }
 
@@ -22,11 +21,6 @@
   position:relative;
   border-radius: 0px;
   box-shadow: var(--boxShadow);
-}
-
-.HoverArea:hover {
-  transition: transform 300ms ease-out;
-  transform: translateY(90%);
 }
 
 .between {
@@ -47,6 +41,7 @@
 .between a , .between button {
   cursor: pointer;
   color: white;
+  text-shadow: var(--textShadow);
   background-color: transparent;
   display: flex;
   border: none;

@@ -35,7 +35,7 @@ export const ChatWindow = () => {
   return (
     <div className={styles.ChatWindow}>
       <SubHeader func={handleClick}>
-        {headerDetails ? (
+        {chatId ? (
           <>
             <img src={headerDetails.photo} alt="user photo"></img>
             <span>{headerDetails.name}</span>
@@ -47,7 +47,7 @@ export const ChatWindow = () => {
       <div className={styles.MessageContainer}>
         {
           !messagesForCurrentChat
-            ? 'No messages yet - start a conversation!'
+            ? <h3 key={0}>No messages yet - start a conversation!</h3>
             :
           messagesForCurrentChat?.map(message => {
             return <Message key={message.id} {...message} />;

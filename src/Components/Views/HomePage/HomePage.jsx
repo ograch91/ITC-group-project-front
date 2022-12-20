@@ -2,19 +2,28 @@ import { ChatWindow } from '../../Layout/ChatWindow/ChatWindow';
 import { ChatList } from '../../Layout/ChatList/ChatList';
 import { SubmitMessage } from '../../ActiveElements/SubmitMessage/SubmitMessage';
 import styles from './HomePage.module.css';
-import { CurrentChatProvider } from '../../../Context/CurrentChatContext';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { UserAuthContext } from '../../../Context/UserAuthContext';
 import { AlertOnAppContext } from '../../../Context/AlertOnAppContext';
 import {
   MainDataContext,
-  MainDataProvider,
 } from '../../../Context/MainDataContext';
+import { Header } from '../../StaticElements/Header/Header';
+import { currentPageContext } from '../../../Context/CurrentPageContext';
+import { useEventCallback } from '@mui/material';
 
 export const HomePage = () => {
   const { showAppAlert } = useContext(AlertOnAppContext);
+  const{currentPage,setCurrentPage}=useContext(currentPageContext);
   const [auth, setAuth] = useContext(UserAuthContext);
   const mainData = useContext(MainDataContext);
+
+  useEffect(()=>{
+    setCurrentPage((currentPage)=>{return {...currentPage,Chat:true}});
+    return(()=>{
+      setCurrentPage((currentPage)=>{return {...currentPage,Chat:false}});
+    })
+  },[])
 
   const ws = useState();
 
@@ -28,25 +37,24 @@ export const HomePage = () => {
     ws.current = new WebSocket('ws://localhost:4000');
     // Opening the ws connection
     ws.current.onopen = () => {
-      console.log('Connection opened');
+      // console.log('Connection opened');
       showAppAlert('Connected to messaging server', 'success');
       // setConnectionOpen(true);
     };
     // Listening on ws new added messages
     ws.current.onmessage = event => {
-      console.log(event.data, auth);
+      // console.log(event.data, auth);
       const data = JSON.parse(event.data);
-      console.log("WSSSS", mainData.data?.messagesPerChat, data, )
+      // console.log("WSSSS", mainData.data?.messagesPerChat, data, )
       updateChatMessages(data);
       // setMessages((_messages) => [..._messages, data]);
     };
     ws.current.onclose = () => {
       showAppAlert('Disconnected from messaging server', 'info');
-      console.log('Connection closed');
+      // console.log('Connection closed');
       // setConnectionOpen(false);
     };
-    console.log('ws.current', ws
-    );
+    // console.log('ws.current', ws);
   };
 
   const updateChatMessages = (newMessage) => {
@@ -82,7 +90,7 @@ export const HomePage = () => {
 
 
   const disconnectFromSocket = () => {
-    console.log('Cleaning up...');
+    // console.log('Cleaning up...');
     ws.current.close();
   };
 
@@ -93,6 +101,7 @@ export const HomePage = () => {
 
   return (
     <div className={styles.HomePage}>
+    <Header title={`Welcome ${auth.user.name}`}/>
       <div className={styles.ChatWrapper}>
         <div className={styles.ChatSection}>
           <ChatWindow />

@@ -63,7 +63,7 @@ export const ProfileDetails = (props) => {
           {isOtherUser ? (
             <p>{user.name}'s Profile</p>
           ) : (
-            <p>Your Profile ({user.name})</p>
+            <p>{`Your Profile ${user.name}`}</p>
           )}
           <div>
             Name: <ToClipboard text={user.name} />
