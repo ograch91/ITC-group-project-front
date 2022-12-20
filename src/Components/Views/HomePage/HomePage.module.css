@@ -1,29 +1,44 @@
-.HomePage{
+.HomePage {
   text-shadow: var(--textShadow);
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  height:90%;
+  height: 90%;
 }
 
-.HomePage *{
+.HomePage * {
   border-radius: 6px;
 }
 
-.ChatWrapper{
+.ChatWrapper {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  padding:1rem;
+  padding: 1rem;
   height: 88%;
   width: 100%;
 }
 
-.ChatSection{
+.ChatSection {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   width: 50%;
   height: 100%;
+}
+
+@media (max-width: 700px) {
+
+
+  .ChatWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .ChatSection {
+    margin-top: 180px;
+  }
 }

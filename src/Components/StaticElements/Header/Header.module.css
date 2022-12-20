@@ -1,4 +1,4 @@
-.Header{
+.Header {
   display: inline-flex;
   justify-content: center;
 }
@@ -13,4 +13,10 @@
   font-size: 40px;
   margin: 1vh 0;
   text-shadow: var(--textShadow);
+}
+
+@media (max-width: 700px) {
+  .Header {
+    display: none;
+  }
 }

@@ -1,4 +1,4 @@
-.SubHeader{
+.SubHeader {
   display: inline-flex;
   justify-content: center;
   text-shadow: var(--textShadow);
@@ -6,15 +6,22 @@
 
 }
 
-.clickable{
-  align-items: center; 
+.clickable {
+  align-items: center;
   display: inline-flex;
   color: black;
   text-shadow: var(--textShadow);
 }
 
-.SubHeader h2{
+.SubHeader h2 {
   display: inline-flex;
   justify-content: center;
   text-align: center;
+}
+
+@media (max-width: 700px) {
+  .SubHeader {
+    padding: 20px;
+    /* display: none; */
+  }
 }
