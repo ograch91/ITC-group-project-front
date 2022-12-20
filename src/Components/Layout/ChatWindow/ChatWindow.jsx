@@ -29,8 +29,8 @@ export const ChatWindow = () => {
   const messagesEnd = useRef();
 
   const scrollToBottom = () => {
-    messagesEnd.scrollIntoView({ behavior: "smooth" });
-  }
+    messagesEnd.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <div className={styles.ChatWindow}>
@@ -45,14 +45,13 @@ export const ChatWindow = () => {
         )}
       </SubHeader>
       <div className={styles.MessageContainer}>
-        {
-          !messagesForCurrentChat
-            ? <h3 key={0}>No messages yet - start a conversation!</h3>
-            :
+        {!messagesForCurrentChat ? (
+          <h3 key={0}>No messages yet - start a conversation!</h3>
+        ) : (
           messagesForCurrentChat?.map(message => {
             return <Message key={message.id} {...message} />;
           })
-        }
+        )}
         <ScrollToBottom />
       </div>
     </div>

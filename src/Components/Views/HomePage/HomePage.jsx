@@ -37,20 +37,20 @@ export const HomePage = () => {
     ws.current = new WebSocket('ws://localhost:4000');
     // Opening the ws connection
     ws.current.onopen = () => {
-      // console.log('Connection opened');
+      console.log('Connection opened');
       showAppAlert('Connected to messaging server', 'success');
       // setConnectionOpen(true);
     };
     // Listening on ws new added messages
     ws.current.onmessage = event => {
-      // console.log(event.data, auth);
       const data = JSON.parse(event.data);
       // console.log("WSSSS", mainData.data?.messagesPerChat, data, )
       updateChatMessages(data);
       // setMessages((_messages) => [..._messages, data]);
     };
     ws.current.onclose = () => {
-      showAppAlert('Disconnected from messaging server', 'info');
+      console.log('Cleaning up...')
+      showAppAlert('Disconnected from server - Please refresh the page', 'error', 120000);
       // console.log('Connection closed');
       // setConnectionOpen(false);
     };
@@ -69,12 +69,18 @@ export const HomePage = () => {
     const chatIndex = current.findIndex(chat => chat.chatId === newMessage?.chatid);
     const chatMessagesObj = current?.[chatIndex] || null;
     if (!chatMessagesObj) {
-      console.warn('chat not found, cannot add msg', newMessage);
+      console.warn('Chat not found, cannot add msg', newMessage);
       return;
     }
 
     const currentMessageListForChat = messagesPerChat[chatIndex].messages;
     // console.log(currentMessageListForChat);
+
+    const messageAlreadyExists = currentMessageListForChat?.find(msg => msg.id === newMessage.id);
+    if (messageAlreadyExists) {
+      console.warn('Message already exists, skipping add msg', newMessage);
+      return;
+    }
 
     const udpatedMessageList = [...currentMessageListForChat, newMessage];
     udpatedMessageList.sort((a, b) => a.id - b.id);
@@ -90,7 +96,7 @@ export const HomePage = () => {
 
 
   const disconnectFromSocket = () => {
-    // console.log('Cleaning up...');
+    console.log('Cleaning up...');
     ws.current.close();
   };
 
