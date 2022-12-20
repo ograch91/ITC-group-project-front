@@ -3,7 +3,7 @@ import { useContext, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { UserAuthContext } from "../../../Context/UserAuthContext";
 import localforage from "localforage";
-import logo from "../../../Assets/logo.png";
+import logo from "../../../Assets/NewLogo.png";
 import styles from "./Navbar.module.css";
 
 export const Navbar = () => {
