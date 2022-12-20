@@ -39,6 +39,10 @@ export const SubmitMessage = () => {
 
   const handleSubmit = async (e, message) => {
     e.preventDefault();
+    await sendToServer();
+  };
+  
+  const sendToServer = async (message) => {
     const newMessage = {
       ...message,
       chatid: currentChat.chatid,
@@ -65,7 +69,7 @@ export const SubmitMessage = () => {
       showAppAlert("Couldnt send message apologies", "error");
       return;
     }
-  };
+  }
 
   return (
     <div className={styles.SubmitMessage}>

@@ -60,7 +60,7 @@ export const ChatList = () => {
     mainData.refs.messagesPerChat_valRef.current = updated;
   }
 
-
+  const DEBUG_ADD_MESSAGE = false;  // set true to show button for adding message (login admin, chat w/ jerry)
   const addMsg = () => {
     updateChatMessages({
       chatid: 'dfa29b17-4079-4fbb-a050-428bb2af5c12',
@@ -95,7 +95,8 @@ export const ChatList = () => {
       >
         New Chat
       </Button>
-      <Button
+      {DEBUG_ADD_MESSAGE &&
+       (<Button
         onClick={addMsg}
         sx={{ width: '100%', maxWidth: 360 }}
         // disabled={!checked || checked.length == 0}
@@ -105,8 +106,7 @@ export const ChatList = () => {
         endIcon={<HistoryEduIcon />}
       >
         add msg
-      </Button>
-      </div>
+      </Button>) }
       <Modal
         open={open}
         onClose={modalToggle}
@@ -119,6 +119,7 @@ export const ChatList = () => {
         </Box>
         {/* {!isoUser ? <BeforeAuthTabs /> : <EditAuthTabs />} */}
       </Modal>
+    </div>
     </div>
   );
 };
