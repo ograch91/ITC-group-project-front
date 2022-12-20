@@ -6,7 +6,6 @@
   width:100%;
   height:80%;
   box-shadow: var(--boxShadow);
-
 }
 
 .MessageContainer{
@@ -15,7 +14,8 @@
   flex-direction: column;
   padding:0.2rem;
   width:100%;
-  height: 100%;
+  min-height:55vh ;
+  max-height: 55vh;
   overflow-y: scroll;
 }
 .MessageContainer h3 {
@@ -40,7 +40,6 @@
   justify-content: center;
   width:3rem;
   height:3rem;
-  
 }
 
 .MessageContainer::-webkit-scrollbar {
@@ -50,7 +49,6 @@
 .MessageContainer::-webkit-scrollbar-track-piece{
   background-color: transparent;
 }
-
 
 .MessageContainer::-webkit-scrollbar-thumb{
   border-radius: 4px;
