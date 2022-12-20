@@ -4,7 +4,7 @@ import MuiAlert from '@mui/material/Alert';
 import { useEffect, useState } from 'react';
 
 export default function AlertOnWindow(props) {
-  const { openState, message, alertType } = props;
+  const { openState, message, alertType, timeToDisp } = props;
   const [open, setOpen] = openState;
 
   const handleClose = (event, reason) => {
@@ -21,7 +21,7 @@ export default function AlertOnWindow(props) {
     clearTimeout(timer);
     const timeout = setTimeout(() => {
       setOpen(false);
-    }, 5000);
+    },timeToDisp || 5000);
     setTimer(timeout);
     // Cleanup function
     return () => clearTimeout(timeout);
