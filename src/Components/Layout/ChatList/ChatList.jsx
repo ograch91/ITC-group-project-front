@@ -12,6 +12,9 @@ import { NewChatDataLoader } from '../NewChat/NewChatDataLoader';
 
 export const ChatList = () => {
   const [open, setOpen] = useState(false);
+  const closeModal = () => {
+    setOpen(false);
+  };
   const mainData = useContext(MainDataContext);
   const chatList = mainData?.data.chats;
 
@@ -30,7 +33,7 @@ export const ChatList = () => {
     p: 4,
   };
 
-  const updateChatMessages = (newMessage) => {
+  const updateChatMessages = newMessage => {
     // const [messagesPerChat, setMessagesPerChat] = mainData.data?.messagesPerChat.current;
     // console.log(newMessage);
     const messagesPerChat = mainData.refs?.messagesPerChat_valRef?.current;
@@ -39,7 +42,9 @@ export const ChatList = () => {
     const current = messagesPerChat || [];
     // console.log(current);
     // console.log(current,newMessage, mainData.data?.messagesPerChat);
-    const chatIndex = current.findIndex(chat => chat.chatId === newMessage?.chatid);
+    const chatIndex = current.findIndex(
+      chat => chat.chatId === newMessage?.chatid
+    );
     const chatMessagesObj = current?.[chatIndex] || null;
     if (!chatMessagesObj) {
       console.warn('chat not found, cannot add msg', newMessage);
@@ -55,13 +60,13 @@ export const ChatList = () => {
 
     messagesPerChat[chatIndex].messages = udpatedMessageList;
 
-    const updated = [...messagesPerChat]
+    const updated = [...messagesPerChat];
     // console.log(current,updated);
     setMessagesPerChat(updated);
     mainData.refs.messagesPerChat_valRef.current = updated;
-  }
+  };
 
-  const DEBUG_ADD_MESSAGE = false;  // set true to show button for adding message (login admin, chat w/ jerry)
+  const DEBUG_ADD_MESSAGE = false; // set true to show button for adding message (login admin, chat w/ jerry)
   const addMsg = () => {
     updateChatMessages({
       chatid: 'dfa29b17-4079-4fbb-a050-428bb2af5c12',
@@ -69,8 +74,8 @@ export const ChatList = () => {
       sender: 'b4ff715b-ac9f-4cc1-8ef8-34331abc1668',
       datesent: Date.now(),
       id: Date.now().toString(),
-    })
-  }
+    });
+  };
 
   return (
     <div className={styles.ChatList}>
@@ -78,49 +83,48 @@ export const ChatList = () => {
         <SubHeader text="Available Conversations" />
         {chatList ? (
           chatList.map(chat => {
-            return <ChatListItem key={chat.id} chat={chat} />
+            return <ChatListItem key={chat.id} chat={chat} />;
           })
         ) : (
           <h3>loading...</h3>
         )}
       </ul>
       <div className={styles.listButtons}>
-      <Button
-        onClick={modalToggle}
-        sx={{ width: '100%', maxWidth: 360 }}
-        // disabled={!checked || checked.length == 0}
-        variant="contained"
-        type="button"
-        size="large"
-        endIcon={<HistoryEduIcon />}
-      >
-        New Chat
-      </Button>
-      {DEBUG_ADD_MESSAGE && false &&
-       (<Button
-        onClick={addMsg}
-        sx={{ width: '100%', maxWidth: 360 }}
-        // disabled={!checked || checked.length == 0}
-        variant="contained"
-        type="button"
-        size="large"
-        endIcon={<HistoryEduIcon />}
-      >
-        add msg
-      </Button>) }
-      <Modal
-        open={open}
-        onClose={modalToggle}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        keepMounted
-      >
-        <Box sx={style}>
-          {open && (<NewChatDataLoader />)}
-        </Box>
-        {/* {!isoUser ? <BeforeAuthTabs /> : <EditAuthTabs />} */}
-      </Modal>
-    </div>
+        <Button
+          onClick={modalToggle}
+          sx={{ width: '100%', maxWidth: 360 }}
+          // disabled={!checked || checked.length == 0}
+          variant="contained"
+          type="button"
+          size="large"
+          endIcon={<HistoryEduIcon />}
+        >
+          New Chat
+        </Button>
+        {DEBUG_ADD_MESSAGE && false && (
+          <Button
+            onClick={addMsg}
+            sx={{ width: '100%', maxWidth: 360 }}
+            // disabled={!checked || checked.length == 0}
+            variant="contained"
+            type="button"
+            size="large"
+            endIcon={<HistoryEduIcon />}
+          >
+            add msg
+          </Button>
+        )}
+        <Modal
+          open={open}
+          onClose={modalToggle}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+          keepMounted
+        >
+          <Box sx={style}>{open && <NewChatDataLoader closeModal={closeModal} />}</Box>
+          {/* {!isoUser ? <BeforeAuthTabs /> : <EditAuthTabs />} */}
+        </Modal>
+      </div>
     </div>
   );
 };

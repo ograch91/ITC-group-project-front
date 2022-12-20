@@ -12,11 +12,16 @@ export const MainDataProvider = ({ children }) => {
   const { currentChat, setCurrentChat } = useContext(currentChatContext);
 
   const [chats, setChats] = useState([]);
+  const chats_valRef = useRef(chats);
+
   const [otherUsers, setOtherUsers] = useState([]);
-  // const [groups , setGroups] = useState([]);
+  const users_valRef = useRef(otherUsers);
+
   const [messagesPerChat, setMessagesPerChat] = useState([]);
   const messagesPerChat_valRef = useRef(messagesPerChat);
 
+  // const [groups , setGroups] = useState([]);
+  // const groups_valRef = useRef(groups);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,8 +50,10 @@ export const MainDataProvider = ({ children }) => {
       setChats(data?.chats);
       setOtherUsers(data?.otherUsers);
       setMessagesPerChat(data?.messagesPerChat);
+      
       messagesPerChat_valRef.current = data?.messagesPerChat;
-
+      chats_valRef.current = data?.chats;
+      users_valRef.current = data?.otherUsers;
       // console.log('data.messagesPerChat', data?.messagesPerChat);
 
       if(data?.messagesPerChat && data?.messagesPerChat.length > 0){
@@ -71,7 +78,8 @@ export const MainDataProvider = ({ children }) => {
   };
 
   const getOtherUserDetails = userId => {
-    return otherUsers?.find(user => user.id === userId) || {};
+    const current = users_valRef.current;
+    return current?.find(user => user.id === userId) || {};
   };
 
   // for groups?
@@ -106,6 +114,8 @@ export const MainDataProvider = ({ children }) => {
     },
     refs: {
       messagesPerChat_valRef,
+      chats_valRef,
+      users_valRef,
     }
   };
 

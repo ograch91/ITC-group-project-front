@@ -3,7 +3,8 @@ import { UserAuthContext } from '../../../Context/UserAuthContext';
 import { LoadAndRender } from '../../APILoaded/LoadAndRender';
 import { NewChatDialog } from './NewChatDialog';
 
-export const NewChatDataLoader = () => {
+export const NewChatDataLoader = (props) => {
+  const { closeModal } = props;
   const [auth, setAuth] = useContext(UserAuthContext);
 
   const path = `users/getall`;
@@ -14,7 +15,7 @@ export const NewChatDataLoader = () => {
 
   const onRender = data => {
     const filteredData = removeCurrentUser(data);
-    return <NewChatDialog users={filteredData} />;
+    return <NewChatDialog users={filteredData} closeModal={closeModal} />;
   };
 
   return (

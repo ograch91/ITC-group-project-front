@@ -11,14 +11,16 @@ import ForumIcon from '@mui/icons-material/Forum';
 import AlertOnWindow from '../../Firebase/AlertOnWindow';
 import './NewChatDialog.css';
 import { UserAuthContext } from '../../../Context/UserAuthContext';
+import { currentChatContext } from '../../../Context/CurrentChatContext';
 
 export const NewChatDialog = props => {
-  const { users } = props;
+  const { users, closeModal } = props;
   const openState = useState(false);
   const [message, setMessage] = useState('');
   const [alertType, setAlertType] = useState('info');
   const [open, setOpen] = openState;
   const [auth, setAuth] = useContext(UserAuthContext);
+  const { currentChat, setCurrentChat } = useContext(currentChatContext);
 
   const showAlert = (message, type) => {
     setMessage(message);
@@ -80,9 +82,8 @@ export const NewChatDialog = props => {
       options
     );
 
-    const data = await response.json();
-    console.log('sendToServerNewChat data', data);
-    return data;
+    const payload = await response.json();
+    return payload?.data?.createdId;
   };
 
   const startNew = async () => {
@@ -103,7 +104,9 @@ export const NewChatDialog = props => {
       // todo: add code here for backend "start new chat with 1:1 user"
       const user = users.find(u => u.id === checked[0]);
       showAlert('Starting a new chat with ' + user?.name || 'Someone');
-      await sendToServerNewChat(user);
+      const newId = await sendToServerNewChat(user);
+      setCurrentChat({ ...currentChat, chatid: newId });
+      setTimeout(closeModal, 1500);
       return showAlert(
         'Starting a new chat with ' + user?.name || 'Someone',
         'success'

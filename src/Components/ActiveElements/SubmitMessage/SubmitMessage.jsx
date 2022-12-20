@@ -1,4 +1,5 @@
 import { Button } from "@mui/material";
+import SendIcon from '@mui/icons-material/Send';
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { baseUrl } from "../../../Hooks/UseApi";
 import { currentChatContext } from "../../../Context/CurrentChatContext";
@@ -95,9 +96,18 @@ export const SubmitMessage = () => {
         disabled={
           isDisable.current ? true : message.content.length > 0 ? false : true
         }
+        endIcon={<SendIcon />}
       >
-        Send Message
+        Send
       </Button>
+      {/* <Stack direction="row" spacing={2}>
+      <Button variant="outlined" startIcon={<DeleteIcon />}>
+        Delete
+      </Button>
+      <Button variant="contained" endIcon={<SendIcon />}>
+        Send
+      </Button>
+    </Stack> */}
     </div>
     </div>
   );

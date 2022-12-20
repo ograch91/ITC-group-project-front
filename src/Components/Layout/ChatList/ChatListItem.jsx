@@ -15,7 +15,8 @@ export const ChatListItem = ({ chat }) => {
 
   const otherUserId = mainData.getters.getOtherUserId(chat.id);
   const chatWithUser = mainData.getters.getOtherUserDetails(otherUserId);
-
+  console.log(chatWithUser, otherUserId);
+  console.log(mainData.data.otherUsers);
   const messages = mainData.getters.getMessagesForChat(chat.id);
   const lastMessage = messages[messages.length - 1];
 
@@ -35,15 +36,13 @@ export const ChatListItem = ({ chat }) => {
   };
 
   return (
-    <div className={styles.chatItem} key={id}>
-      <img src={chatWithUser.photo}></img>
-      <li
-        onClick={() =>
-          changeChat(chatWithUser.photo, chatWithUser.name, chat.id)
-        }
-      >
-        {chatWithUser.name}
-      </li>
+    <div
+      className={styles.chatItem}
+      key={id}
+      onClick={() => changeChat(chatWithUser.photo, chatWithUser.name, chat.id)}
+    >
+      <img src={chatWithUser.photo ||  "./profile.png"}></img>
+      <li>{chatWithUser.name}</li>
       <p>{timeToDisplay}</p>
     </div>
   );
