@@ -6,7 +6,6 @@
   width:100%;
   height:80%;
   box-shadow: var(--boxShadow);
-
 }
 
 .MessageContainer{
@@ -41,7 +40,6 @@
   justify-content: center;
   width:3rem;
   height:3rem;
-  
 }
 
 .MessageContainer::-webkit-scrollbar {
