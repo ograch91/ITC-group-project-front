@@ -39,7 +39,7 @@ export const SubmitMessage = () => {
 
   const handleSubmit = async (e, message) => {
     e.preventDefault();
-    await sendToServer();
+    await sendToServer(message);
   };
   
   const sendToServer = async (message) => {
@@ -70,7 +70,12 @@ export const SubmitMessage = () => {
       return;
     }
   }
-
+  const onEnterPress = (e) => {
+    if(e.keyCode == 13 && e.shiftKey == false) {
+      e.preventDefault();
+      handleSubmit(e, message)
+    }
+  }
   return (
     <div className={styles.SubmitMessage}>
     <div className={styles.textArea}>
@@ -83,6 +88,7 @@ export const SubmitMessage = () => {
             return { ...message, content: e.target.value };
           })
         }
+        onKeyDown={onEnterPress}
       />
       <Button
         onClick={(e) => handleSubmit(e, message)}
