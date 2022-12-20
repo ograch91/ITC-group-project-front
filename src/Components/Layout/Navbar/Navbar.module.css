@@ -39,8 +39,9 @@
 }
 
 .between img {
-  height:8vh;
-  width: auto;
+  height:auto;
+  width: 5vw;
+  border-radius: 0 ;
 }
 
 .between a , .between button {
