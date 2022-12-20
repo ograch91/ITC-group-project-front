@@ -7,6 +7,7 @@ import { green } from '@mui/material/colors';
 import UploadButton from './UploadButton';
 import AlertOnWindow from './AlertOnWindow';
 import { UserAuthContext } from '../../Context/UserAuthContext';
+import { Tooltip } from '@mui/material';
 // import { UserAuthContext } from '../Context/UserAuthContext';
 const { v4: uuidv4 } = require('uuid');
 
@@ -169,13 +170,18 @@ export const FileUpload = props => {
           onChange={handleFileSelect}
         />
       </Button>
-
+      <Tooltip title="Click to save">
+      <div>
       <UploadButton
         handleButtonClick={handleUpload}
         loadingState={loadingState}
         successState={successState}
         isButtonDisabled={isButtonDisabled}
+        label="click to upload"
       />
+      </div>
+      </Tooltip>
+
       <AlertOnWindow
         openState={openState}
         message={message}

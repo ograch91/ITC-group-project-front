@@ -5,7 +5,7 @@ export const Header = ({ title }) => {
   return (
   
     <div className={styles.Header}>
-      <span>{title}</span>
+      <h2>{title}</h2>
     </div>
   );
 };

@@ -47,7 +47,7 @@ export const MainDataProvider = ({ children }) => {
       setMessagesPerChat(data?.messagesPerChat);
       messagesPerChat_valRef.current = data?.messagesPerChat;
 
-      console.log('data.messagesPerChat', data?.messagesPerChat);
+      // console.log('data.messagesPerChat', data?.messagesPerChat);
 
       if(data?.messagesPerChat && data?.messagesPerChat.length > 0){
         setCurrentChat(currentChat => {

@@ -76,7 +76,7 @@ export const ChatList = () => {
   return (
     <div className={styles.ChatList}>
       <SearchField />
-      <ul className={styles.ChatList}>
+      <ul className={styles.ChatListDisplay}>
         <SubHeader text="Available Chats" />
         {chatList ? (
           chatList.map(chat => {

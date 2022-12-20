@@ -24,7 +24,7 @@
 }
 
 .user {
-  color: rgb(249, 249, 249);
+  color:white;
   font-weight: bold;
   text-shadow: var(--textShadow);
 }

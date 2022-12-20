@@ -69,6 +69,7 @@ export const SubmitMessage = () => {
 
   return (
     <div className={styles.SubmitMessage}>
+    <div className={styles.textArea}>
       <textarea
         className={styles.form}
         placeholder="What you have in mind..."
@@ -87,6 +88,7 @@ export const SubmitMessage = () => {
       >
         Send Message
       </Button>
+    </div>
     </div>
   );
 };
