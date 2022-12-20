@@ -96,7 +96,7 @@ export const ChatList = () => {
       >
         New Chat
       </Button>
-      {DEBUG_ADD_MESSAGE &&
+      {DEBUG_ADD_MESSAGE && false &&
        (<Button
         onClick={addMsg}
         sx={{ width: '100%', maxWidth: 360 }}

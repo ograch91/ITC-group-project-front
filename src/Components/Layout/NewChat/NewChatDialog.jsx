@@ -5,11 +5,12 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Checkbox from '@mui/material/Checkbox';
 import Avatar from '@mui/material/Avatar';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Button } from '@mui/material';
 import ForumIcon from '@mui/icons-material/Forum';
 import AlertOnWindow from '../../Firebase/AlertOnWindow';
 import './NewChatDialog.css';
+import { UserAuthContext } from '../../../Context/UserAuthContext';
 
 export const NewChatDialog = props => {
   const { users } = props;
@@ -17,6 +18,7 @@ export const NewChatDialog = props => {
   const [message, setMessage] = useState('');
   const [alertType, setAlertType] = useState('info');
   const [open, setOpen] = openState;
+  const [auth, setAuth] = useContext(UserAuthContext);
 
   const showAlert = (message, type) => {
     setMessage(message);
@@ -58,8 +60,32 @@ export const NewChatDialog = props => {
     setChecked(newChecked);
   };
 
-  const getAllUsersForNewChat = () => {};
-  const startNew = () => {
+  const sendToServerNewChat = async user => {
+    const participants = [auth?.user?.id, user.id];
+    const created = Date.now();
+    console.log('sendToServerNewChat', user);
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: auth?.token || '',
+      },
+      body: JSON.stringify({
+        created: created,
+        participants: participants,
+      }),
+    };
+    const response = await fetch(
+      `http://localhost:4000/chats/startchat`,
+      options
+    );
+
+    const data = await response.json();
+    console.log('sendToServerNewChat data', data);
+    return data;
+  };
+
+  const startNew = async () => {
     console.log('start new chat with', checked);
     if (!checked || checked.length == 0) {
       return showAlert(
@@ -76,6 +102,8 @@ export const NewChatDialog = props => {
       // checked.length == 1
       // todo: add code here for backend "start new chat with 1:1 user"
       const user = users.find(u => u.id === checked[0]);
+      showAlert('Starting a new chat with ' + user?.name || 'Someone');
+      await sendToServerNewChat(user);
       return showAlert(
         'Starting a new chat with ' + user?.name || 'Someone',
         'success'
