@@ -77,7 +77,7 @@ export const ChatList = () => {
     <div className={styles.ChatList}>
       <SearchField />
       <ul className={styles.ChatListDisplay}>
-        <SubHeader text="Available Chats" />
+        <SubHeader text="Available Conversations" />
         {chatList ? (
           chatList.map(chat => {
             return <ChatListItem key={chat.id} chat={chat} />
@@ -86,6 +86,7 @@ export const ChatList = () => {
           <h3>loading...</h3>
         )}
       </ul>
+      <div className={styles.listButtons}>
       <Button
         onClick={modalToggle}
         sx={{ width: '100%', maxWidth: 360 }}
@@ -108,6 +109,7 @@ export const ChatList = () => {
       >
         add msg
       </Button>
+      </div>
       <Modal
         open={open}
         onClose={modalToggle}
