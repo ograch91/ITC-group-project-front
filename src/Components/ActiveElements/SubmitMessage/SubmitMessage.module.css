@@ -35,10 +35,11 @@
 }
 
 .SubmitMessage button {
+  display: flex;
   color: white;
-  position: relative;
-  left: 80%;
-  bottom: 42%;
+  position: absolute;
+  left: 70%;
+  bottom: 10%;
   height: 1.5rem;
   background-color: #0c78f3;
 }
