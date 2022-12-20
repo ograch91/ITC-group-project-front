@@ -1,9 +1,10 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { Message } from '../../StaticElements/Message/Message';
 import { SubHeader } from '../../StaticElements/SubHeader/SubHeader';
 import { currentChatContext } from '../../../Context/CurrentChatContext';
 import styles from './ChatWindow.module.css';
 import { MainDataContext } from '../../../Context/MainDataContext';
+import { ScrollToBottom } from './ScrollToHere';
 
 export const ChatWindow = () => {
   const { currentChat } = useContext(currentChatContext);
@@ -25,6 +26,12 @@ export const ChatWindow = () => {
     console.log('Modal pop up');
   };
 
+  const messagesEnd = useRef();
+
+  const scrollToBottom = () => {
+    messagesEnd.scrollIntoView({ behavior: "smooth" });
+  }
+
   return (
     <div className={styles.ChatWindow}>
       <SubHeader func={handleClick}>
@@ -43,9 +50,10 @@ export const ChatWindow = () => {
             ? 'No messages yet - start a conversation!'
             :
           messagesForCurrentChat?.map(message => {
-            return <Message key={message._id} {...message} />;
+            return <Message key={message.id} {...message} />;
           })
         }
+        <ScrollToBottom />
       </div>
     </div>
   );

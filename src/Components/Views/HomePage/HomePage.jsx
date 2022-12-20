@@ -3,7 +3,7 @@ import { ChatList } from '../../Layout/ChatList/ChatList';
 import { SubmitMessage } from '../../ActiveElements/SubmitMessage/SubmitMessage';
 import styles from './HomePage.module.css';
 import { CurrentChatProvider } from '../../../Context/CurrentChatContext';
-import { useContext, useEffect, useRef } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { UserAuthContext } from '../../../Context/UserAuthContext';
 import { AlertOnAppContext } from '../../../Context/AlertOnAppContext';
 import {
@@ -16,7 +16,7 @@ export const HomePage = () => {
   const [auth, setAuth] = useContext(UserAuthContext);
   const mainData = useContext(MainDataContext);
 
-  const ws = useRef();
+  const ws = useState();
 
   const connectToSocket = () => {
     if (!auth?.token) {
@@ -36,7 +36,7 @@ export const HomePage = () => {
     ws.current.onmessage = event => {
       console.log(event.data, auth);
       const data = JSON.parse(event.data);
-      console.log("WSSSS", mainData.data?.messagesPerChat, data)
+      console.log("WSSSS", mainData.data?.messagesPerChat, data, )
       updateChatMessages(data);
       // setMessages((_messages) => [..._messages, data]);
     };
@@ -45,23 +45,41 @@ export const HomePage = () => {
       console.log('Connection closed');
       // setConnectionOpen(false);
     };
+    console.log('ws.current', ws
+    );
   };
 
   const updateChatMessages = (newMessage) => {
-    const current = mainData.data?.messagesPerChat || [];
-    console.log(current,newMessage, mainData.data?.messagesPerChat);
+    // const [messagesPerChat, setMessagesPerChat] = mainData.data?.messagesPerChat.current;
+    // console.log(newMessage);
+    const messagesPerChat = mainData.refs?.messagesPerChat_valRef?.current;
+    const setMessagesPerChat = mainData.setters?.setMessagesPerChat;
+
+    const current = messagesPerChat || [];
+    // console.log(current);
+    // console.log(current,newMessage, mainData.data?.messagesPerChat);
     const chatIndex = current.findIndex(chat => chat.chatId === newMessage?.chatid);
     const chatMessagesObj = current?.[chatIndex] || null;
     if (!chatMessagesObj) {
       console.warn('chat not found, cannot add msg', newMessage);
       return;
     }
-    const updated = [...current]
-    updated.messages?.push(newMessage);
-    updated[chatIndex] = chatMessagesObj; // update the array
-    updated.messages?.sort((a, b) => a.id - b.id);
-    mainData.setters?.setMessagesPerChat(updated);
+
+    const currentMessageListForChat = messagesPerChat[chatIndex].messages;
+    // console.log(currentMessageListForChat);
+
+    const udpatedMessageList = [...currentMessageListForChat, newMessage];
+    udpatedMessageList.sort((a, b) => a.id - b.id);
+    // console.log(udpatedMessageList);
+
+    messagesPerChat[chatIndex].messages = udpatedMessageList;
+
+    const updated = [...messagesPerChat]
+    // console.log(current,updated);
+    setMessagesPerChat(updated);
+    mainData.refs.messagesPerChat_valRef.current = updated;
   }
+
 
   const disconnectFromSocket = () => {
     console.log('Cleaning up...');

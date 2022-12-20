@@ -13,8 +13,10 @@ export const MainDataProvider = ({ children }) => {
 
   const [chats, setChats] = useState([]);
   const [otherUsers, setOtherUsers] = useState([]);
-  const [messagesPerChat, setMessagesPerChat] = useState([]);
   // const [groups , setGroups] = useState([]);
+  const [messagesPerChat, setMessagesPerChat] = useState([]);
+  const messagesPerChat_valRef = useRef(messagesPerChat);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,6 +45,7 @@ export const MainDataProvider = ({ children }) => {
       setChats(data?.chats);
       setOtherUsers(data?.otherUsers);
       setMessagesPerChat(data?.messagesPerChat);
+      messagesPerChat_valRef.current = data?.messagesPerChat;
 
       console.log('data.messagesPerChat', data?.messagesPerChat);
 
@@ -101,6 +104,9 @@ export const MainDataProvider = ({ children }) => {
       setOtherUsers,
       setMessagesPerChat,
     },
+    refs: {
+      messagesPerChat_valRef,
+    }
   };
 
   return (
