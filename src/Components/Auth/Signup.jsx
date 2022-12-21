@@ -48,11 +48,13 @@ export const Signup = props => {
     },
     validationSchema: validationSchema,
     onSubmit: async values => {
+      // console.log('values formik',values);
       await sendToServer(values);
     },
   });
 
   const sendToServer = async values => {
+    // console.log('values sendto',values);
     const options = {
       method: userDetails ? 'PUT' : 'POST',
       headers: {
@@ -61,13 +63,12 @@ export const Signup = props => {
       },
       body: JSON.stringify(values),
     };
-    try {
       const resp = await fetch(
         `http://localhost:4000/users/${endpoint}`,
         options
       );
       const payload = await resp.json();
-
+        console.log('payload in signup update',payload.success);
       if (resp.ok && payload?.success) {
         const { data } = payload;
         showAppAlert(
@@ -75,13 +76,12 @@ export const Signup = props => {
           'success'
         );
         handleClose();
+        return props.setValue('1');
       } else {
         const { error } = payload;
         showAppAlert(`Error: ${error || 'action failed'}`, 'error');
       }
-    } catch (err) {
-      showAppAlert('Error: Server not available', 'error');
-    }
+   
   };
 
   return (

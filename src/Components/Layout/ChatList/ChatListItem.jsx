@@ -15,8 +15,6 @@ export const ChatListItem = ({ chat }) => {
 
   const otherUserId = mainData.getters.getOtherUserId(chat.id);
   const chatWithUser = mainData.getters.getOtherUserDetails(otherUserId);
-  console.log(chatWithUser, otherUserId);
-  console.log(mainData.data.otherUsers);
   const messages = mainData.getters.getMessagesForChat(chat.id);
   const lastMessage = messages[messages.length - 1];
 

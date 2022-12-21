@@ -7,12 +7,15 @@ import './Authed.css';
 import { useContext, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { UserAuthContext } from '../../Context/UserAuthContext';
+import { AlertOnAppContext } from '../../Context/AlertOnAppContext';
+
 
 
 export const Login = () => {
   const defUser = process.env.REACT_APP_defualt_user;
   const defPass = process.env.REACT_APP_defualt_pass;
   const [auth, setAuth] = useContext(UserAuthContext);
+  const { showAppAlert } = useContext(AlertOnAppContext);
   const [loged, setLoged] = useState(false);
   const navigate = useNavigate();
 
@@ -32,14 +35,28 @@ export const Login = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(values),
     };
+
+
+
+    try {
     const resp = await fetch('http://localhost:4000/users/login', options);
+
     if (resp.ok) {
       const data = (await resp.json())?.data;
       setAuth({ ...auth, isAuth: true, token: data.token, user: data.user });
-      // setLoged(true);
-      
+      showAppAlert(
+        `Success: ${data?.message || 'action succeded'}`,
+        'success'
+      );
       return navigate('/home', { replace: true });
+    }else {
+      const  error  = "Invalid Username or Password";
+      showAppAlert(`Error: ${error || 'action failed'}`, 'error');
     }
+  } catch (err) {
+    showAppAlert('Error: Server not available', 'error');
+  }
+
   };
  
 
