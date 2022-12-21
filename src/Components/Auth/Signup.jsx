@@ -63,6 +63,7 @@ export const Signup = props => {
       },
       body: JSON.stringify(values),
     };
+    try {
       const resp = await fetch(
         `http://localhost:4000/users/${endpoint}`,
         options
@@ -81,7 +82,9 @@ export const Signup = props => {
         const { error } = payload;
         showAppAlert(`Error: ${error || 'action failed'}`, 'error');
       }
-   
+    } catch (err) {
+      showAppAlert('Error: Server not available', 'error');
+    }
   };
 
   return (

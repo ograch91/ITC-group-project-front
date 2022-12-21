@@ -1,0 +1,12 @@
+.AppHeader{
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.AppHeader img{
+  height: 15vh;
+  width: auto;
+  margin-left: 4vw;
+}

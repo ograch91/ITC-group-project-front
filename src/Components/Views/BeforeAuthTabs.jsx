@@ -3,11 +3,15 @@ import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-import { useContext, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { Signup } from '../Auth/Signup';
 import { Login } from '../Auth/Login';
 import { UserAuthContext } from '../../Context/UserAuthContext';
 import { useNavigate } from 'react-router-dom';
+import { Header } from '../StaticElements/Header/Header';
+import logo from "../../Assets/NewLogo.png";
+import styles from "../Views/BeforeAuthTabs.module.css"
+
 
 export const BeforeAuthTabs = () => {
   const [auth, setAuth] = useContext(UserAuthContext);
@@ -21,7 +25,7 @@ export const BeforeAuthTabs = () => {
     width: 400,
     bgcolor: 'background.paper',
     boxShadow: 24,
-    p: 4,
+    p: 2,
   };
 
   const [value, setValue] = useState('1');
@@ -41,8 +45,12 @@ export const BeforeAuthTabs = () => {
     navigate("/home", { replace: true });
   }
   return (
-    // add welcome message bla bla
-    <Box sx={style}>
+    <>
+    {value === '1'? ( <> <div className={styles.AppHeader}>
+<Header title="Welcome to Messaging App"/>
+    <img src={logo} alt="logo" />
+     </div> </>):"" }
+<Box sx={style}>
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <TabList onChange={handleChange} aria-label="lab API tabs example">
@@ -58,5 +66,6 @@ export const BeforeAuthTabs = () => {
         </TabPanel>
       </TabContext>
     </Box>
+    </>
   );
 };
