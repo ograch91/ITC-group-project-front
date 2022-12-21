@@ -12,6 +12,7 @@ import { Tooltip } from '@mui/material';
 const { v4: uuidv4 } = require('uuid');
 
 export const FileUpload = props => {
+  const closeModal = props.closeModal;
   const [auth, setAuth] = React.useContext(UserAuthContext);
   const loadingState = React.useState(false);
   const successState = React.useState(false);
@@ -55,6 +56,7 @@ export const FileUpload = props => {
       case 'success':
         setLoading(false);
         setSuccess(true);
+        setTimeout(closeModal, 1000);
         break;
       case 'error':
         setLoading(false);

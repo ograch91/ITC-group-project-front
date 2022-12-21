@@ -100,14 +100,6 @@ export const SubmitMessage = () => {
       >
         Send
       </Button>
-      {/* <Stack direction="row" spacing={2}>
-      <Button variant="outlined" startIcon={<DeleteIcon />}>
-        Delete
-      </Button>
-      <Button variant="contained" endIcon={<SendIcon />}>
-        Send
-      </Button>
-    </Stack> */}
     </div>
     </div>
   );

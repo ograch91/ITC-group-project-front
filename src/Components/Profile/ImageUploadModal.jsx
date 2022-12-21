@@ -44,7 +44,7 @@ export const ImageUploadModal = props => {
             </TabList>
           </Box>
           <TabPanel value="1">
-            <FileUpload endpoint={'users/setimage'} />
+            <FileUpload endpoint={'users/setimage'} closeModal={handleClose} />
           </TabPanel>
         </TabContext>
         <Button

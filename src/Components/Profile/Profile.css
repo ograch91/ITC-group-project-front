@@ -14,6 +14,7 @@ img {
 .edit-profile{
   display: flex;
   justify-content: center;
+  
 }
 
 .hover:hover{
@@ -22,4 +23,5 @@ img {
 
 .edit-profile > button:hover {
   background-color: unset;
+  color: rgb(107, 43, 246);
 }

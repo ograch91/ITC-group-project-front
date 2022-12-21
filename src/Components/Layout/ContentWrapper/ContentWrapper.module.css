@@ -6,7 +6,9 @@
   align-items: center;
   margin-top: 3vh;
   width: 34vw;
-  height: 60%;
+  height: 60vh;
+  min-width: 60vh;
+  min-height: 60vh;
   padding: 10px;
   border-radius: 4px;
   box-shadow: var(--boxShadow);
