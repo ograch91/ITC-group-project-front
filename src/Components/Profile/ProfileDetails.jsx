@@ -27,15 +27,12 @@ export const ProfileDetails = (props) => {
 
   const handleOpenEdit = () => setEdit(true);
 
-  // let data, isLoading, err;
-  // useEffect(() => {
+  
+  useEffect(() => {
 
-  //   const {data_, isLoading_, err_} =  useApi('get', `users/${userId}`, 'user')
-  //   data = data_;
-  //   isLoading = isLoading_;
-  //   err = err_;
-  // }, []);
-  // //console.log(isLoading);
+
+
+  }, []);
 
   const ToClipboard = ({ text }) => {
     const handleClick = () => {

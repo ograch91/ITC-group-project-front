@@ -54,7 +54,7 @@ export const BeforeAuthTabs = () => {
           <Login />
         </TabPanel>
         <TabPanel value="2">
-          <Signup />
+          <Signup setValue={setValue} />
         </TabPanel>
       </TabContext>
     </Box>
