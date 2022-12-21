@@ -8,18 +8,19 @@
   align-items: center;
 }
 
-.Left{
+.left{
   display: flex;
   align-items: center;
   width: 70%;
   margin-right:auto;
 }
 
-.Right{
+.right{
+  min-width: fit-content;
   margin-right: 1vw;
 }
 
-.Left span , .Left img{
+.left span , .left img{
   margin-right: 1vw;
 }
 
@@ -27,4 +28,12 @@
   color:white;
   font-weight: bold;
   text-shadow: var(--textShadow);
+}
+
+
+@media ( max-width:1334px){
+
+
+
+
 }

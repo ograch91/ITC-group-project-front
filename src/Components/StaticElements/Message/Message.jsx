@@ -19,7 +19,7 @@ export const Message = messageObj => {
 
   return (
     <div className={styles.Message}>
-      <div className={styles.Left}>
+      <div className={styles.left}>
         <span className={styles.user}>{senderName}</span>
         <span>{content}</span>
       </div>

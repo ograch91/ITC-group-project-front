@@ -9,8 +9,10 @@ import { useState } from 'react';
 import { Button } from '@mui/material';
 import ForumIcon from '@mui/icons-material/Forum';
 import AlertOnWindow from '../../Firebase/AlertOnWindow';
+import './NewChatDialog.css';
 
-export const NewChatDialog = () => {
+export const NewChatDialog = props => {
+  const { users } = props;
   const openState = useState(false);
   const [message, setMessage] = useState('');
   const [alertType, setAlertType] = useState('info');
@@ -21,24 +23,25 @@ export const NewChatDialog = () => {
     setAlertType(type || 'info');
     setOpen(true);
   };
-  const users = [
-    {
-      name: 'oren',
-      phone: '0544000000',
-      email: 'admin@gmail.com',
-      password: '12121212',
-      id: 'b4ff715b-ac9f-4cc1-8ef8-34331abc1668',
-      photo: 'https://images.dog.ceo/breeds/chihuahua/n02085620_735.jpg',
-    },
-    {
-      name: 'tom',
-      phone: '0544000000',
-      email: 'tom@tom.com',
-      password: '12121212',
-      id: '0563b357-f5a2-49b9-b64b-33e1c2d13703',
-      photo: 'https://images.dog.ceo/breeds/chihuahua/n02085620_735.jpg',
-    },
-  ];
+
+  // const users = [
+  //   {
+  //     name: 'oren',
+  //     phone: '0544000000',
+  //     email: 'admin@gmail.com',
+  //     password: '12121212',
+  //     id: 'b4ff715b-ac9f-4cc1-8ef8-34331abc1668',
+  //     photo: 'https://images.dog.ceo/breeds/chihuahua/n02085620_735.jpg',
+  //   },
+  //   {
+  //     name: 'tom',
+  //     phone: '0544000000',
+  //     email: 'tom@tom.com',
+  //     password: '12121212',
+  //     id: '0563b357-f5a2-49b9-b64b-33e1c2d13703',
+  //     photo: 'https://images.dog.ceo/breeds/chihuahua/n02085620_735.jpg',
+  //   },
+  // ];
 
   const [checked, setChecked] = useState([]);
 
@@ -55,6 +58,7 @@ export const NewChatDialog = () => {
     setChecked(newChecked);
   };
 
+  const getAllUsersForNewChat = () => {};
   const startNew = () => {
     console.log('start new chat with', checked);
     if (!checked || checked.length == 0) {
@@ -85,49 +89,58 @@ export const NewChatDialog = () => {
 
   return (
     <div>
-      <List
-        dense
-        sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
-      >
-        {users.map(user => {
-          const labelId = `checkbox-list-secondary-label-${user.id}`;
-          return (
-            <ListItem
-              key={user.id}
-              secondaryAction={
-                <Checkbox
-                  edge="end"
-                  onChange={handleToggle(user.id)}
-                  checked={checked.indexOf(user.id) !== -1}
-                  inputProps={{ 'aria-labelledby': labelId }}
-                />
-              }
-              disablePadding
-            >
-              <ListItemButton onClick={handleToggle(user.id)}>
-                <ListItemAvatar>
-                  <Avatar alt={user.name || 'Avatar'} src={user.photo} />
-                </ListItemAvatar>
-                <ListItemText
-                  id={labelId}
-                  primary={user.name || user.email || 'Someone'}
-                />
-              </ListItemButton>
-            </ListItem>
-          );
-        })}
-      </List>
-      <Button
-        onClick={startNew}
-        sx={{ width: '100%', maxWidth: 360 }}
-        disabled={!checked || checked.length == 0}
-        variant="contained"
-        type="button"
-        size="large"
-        endIcon={<ForumIcon />}
-      >
-        Start New {checked.length >= 2 ? 'Group' : 'Chat'}
-      </Button>
+      <div className="users-list">
+        <List
+          dense
+          sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+        >
+          {users.map(user => {
+            const labelId = `checkbox-list-secondary-label-${user.id}`;
+            return (
+              <ListItem
+                key={user.id}
+                secondaryAction={
+                  <Checkbox
+                    edge="end"
+                    onChange={handleToggle(user.id)}
+                    checked={checked.indexOf(user.id) !== -1}
+                    inputProps={{ 'aria-labelledby': labelId }}
+                  />
+                }
+                disablePadding
+              >
+                <ListItemButton onClick={handleToggle(user.id)}>
+                  <ListItemAvatar>
+                    <Avatar alt={user.name || 'Avatar'} src={user.photo}>
+                      <img
+                        src={'./profile.png'}
+                        style={{ width: '40px', height: '40px' }}
+                      />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    id={labelId}
+                    primary={user.name || user.email || 'Someone'}
+                  />
+                </ListItemButton>
+              </ListItem>
+            );
+          })}
+        </List>
+      </div>
+      <div>
+        <Button
+          onClick={startNew}
+          sx={{ width: '100%', maxWidth: 360 }}
+          disabled={!checked || checked.length == 0}
+          variant="contained"
+          type="button"
+          size="large"
+          endIcon={<ForumIcon />}
+        >
+          Start New {checked.length >= 2 ? 'Group' : 'Chat'}
+        </Button>
+      </div>
       <AlertOnWindow
         openState={openState}
         message={message}

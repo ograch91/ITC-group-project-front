@@ -76,6 +76,7 @@ function App() {
       </Backdrop>
     );
   }
+
   return (
     <div className="App">
       {isAuth && <Navbar />}

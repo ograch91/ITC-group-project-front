@@ -50,8 +50,8 @@ export const useApi = (method, path, args) => {
           setIsLoading(false);
         })
         .catch(err => {
-          console.log(err);
           if (err.code !== 'ERR_CANCELED') {
+            console.log(err);
             setError(err.message);
           }
         });

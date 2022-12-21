@@ -8,6 +8,7 @@ import { MainDataContext } from '../../../Context/MainDataContext';
 import styles from '../ChatList/ChatList.module.css';
 import moment from 'moment';
 import { ChatListItem } from './ChatListItem';
+import { NewChatDataLoader } from '../NewChat/NewChatDataLoader';
 
 export const ChatList = () => {
   const [open, setOpen] = useState(false);
@@ -115,7 +116,7 @@ export const ChatList = () => {
         keepMounted
       >
         <Box sx={style}>
-          <NewChatDialog />
+          {open && (<NewChatDataLoader />)}
         </Box>
         {/* {!isoUser ? <BeforeAuthTabs /> : <EditAuthTabs />} */}
       </Modal>
