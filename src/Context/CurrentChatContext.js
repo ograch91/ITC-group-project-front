@@ -1,12 +1,11 @@
 import { createContext, useState } from 'react';
 export const currentChatContext = createContext();
 export const CurrentChatProvider = ({ children }) => {
-  
   const [currentChat, setCurrentChat] = useState({
-    chatid:"",
-    userName:"",
-    userPhoto:null,
-    chatDisplaying:false,
+    chatid: '',
+    userName: '',
+    userPhoto: null,
+    chatDisplaying: false,
   });
 
   const value = {

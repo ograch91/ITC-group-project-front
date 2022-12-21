@@ -16,9 +16,9 @@ root.render(
         <UserAuthProvider>
           <CurrentChatProvider>
             <MainDataProvider>
-            <CurrentPageProvider>
-              <App />
-            </CurrentPageProvider>
+              <CurrentPageProvider>
+                <App />
+              </CurrentPageProvider>
             </MainDataProvider>
           </CurrentChatProvider>
         </UserAuthProvider>

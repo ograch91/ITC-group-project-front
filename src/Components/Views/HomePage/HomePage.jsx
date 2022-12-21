@@ -9,13 +9,12 @@ import { MainDataContext } from '../../../Context/MainDataContext';
 import { Header } from '../../StaticElements/Header/Header';
 import { currentPageContext } from '../../../Context/CurrentPageContext';
 
-
 export const HomePage = () => {
   const { showAppAlert } = useContext(AlertOnAppContext);
   const { currentPage, setCurrentPage } = useContext(currentPageContext);
   const [auth, setAuth] = useContext(UserAuthContext);
   const mainData = useContext(MainDataContext);
-  
+
   useEffect(() => {
     setCurrentPage(currentPage => {
       return { ...currentPage, Chat: true };
@@ -41,7 +40,6 @@ export const HomePage = () => {
     ws.current.onopen = () => {
       console.log('Connection opened');
       showAppAlert('Connected to messaging server', 'success');
-      // setConnectionOpen(true);
     };
     // Listening on ws new added messages
     ws.current.onmessage = event => {
@@ -74,8 +72,6 @@ export const HomePage = () => {
         'error',
         120000
       );
-      // console.log('Connection closed');
-      // setConnectionOpen(false);
     };
     // console.log('ws.current', ws);
   };
@@ -124,11 +120,8 @@ export const HomePage = () => {
   const updatedNewChat = newChat => {
     const chats = mainData.refs?.chats_valRef?.current;
     const setChats = mainData.setters?.setChats;
-    // const [messagesPerChat, setMessagesPerChat] = mainData.data?.messagesPerChat.current;
-    // console.log(newMessage);
     const current = chats || [];
-    // console.log(current);
-    // console.log(current,newMessage, mainData.data?.messagesPerChat);
+
     const chatIndex = current.findIndex(chat => chat.id === newChat?.id);
 
     if (chatIndex == -1) {
@@ -163,10 +156,10 @@ export const HomePage = () => {
     const current = users || [];
     const otherUsers =
       newChat?.participants?.filter(userId => userId !== auth.user?.id) || [];
-    // console.log(otherUsers, auth.user?.id);
+
     const missingUserIds =
       otherUsers?.filter(userId => !current.includes(userId)) || [];
-    // console.log(missingUserIds);
+
     const fetchedUsers = [];
     for (const userId of missingUserIds) {
       const user = await getUserDetailsFromServer(userId);
@@ -216,7 +209,7 @@ export const HomePage = () => {
 
   return (
     <div className={styles.HomePage}>
-      <Header title={`Welcome ${auth.user.name}`} />
+      <Header title={`Hey ${auth.user.name}`} />
       <div className={styles.ChatWrapper}>
         <div className={styles.ChatSection}>
           <ChatWindow />
@@ -227,4 +220,3 @@ export const HomePage = () => {
     </div>
   );
 };
-

@@ -21,7 +21,7 @@ export default function AlertOnWindow(props) {
     clearTimeout(timer);
     const timeout = setTimeout(() => {
       setOpen(false);
-    },timeToDisp || 5000);
+    }, timeToDisp || 5000);
     setTimer(timeout);
     // Cleanup function
     return () => clearTimeout(timeout);

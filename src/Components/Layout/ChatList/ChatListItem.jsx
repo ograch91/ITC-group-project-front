@@ -39,7 +39,7 @@ export const ChatListItem = ({ chat }) => {
       key={id}
       onClick={() => changeChat(chatWithUser.photo, chatWithUser.name, chat.id)}
     >
-      <img src={chatWithUser.photo ||  "./profile.png"}></img>
+      <img src={chatWithUser.photo || './profile.png'}></img>
       <li>{chatWithUser.name}</li>
       <p>{timeToDisplay}</p>
     </div>

@@ -20,9 +20,6 @@ export const MainDataProvider = ({ children }) => {
   const [messagesPerChat, setMessagesPerChat] = useState([]);
   const messagesPerChat_valRef = useRef(messagesPerChat);
 
-  // const [groups , setGroups] = useState([]);
-  // const groups_valRef = useRef(groups);
-
   useEffect(() => {
     const fetchData = async () => {
       if (!auth?.isAuth || !auth.loadingDone) {
@@ -50,13 +47,12 @@ export const MainDataProvider = ({ children }) => {
       setChats(data?.chats);
       setOtherUsers(data?.otherUsers);
       setMessagesPerChat(data?.messagesPerChat);
-      
+
       messagesPerChat_valRef.current = data?.messagesPerChat;
       chats_valRef.current = data?.chats;
       users_valRef.current = data?.otherUsers;
-      // console.log('data.messagesPerChat', data?.messagesPerChat);
 
-      if(data?.messagesPerChat && data?.messagesPerChat.length > 0){
+      if (data?.messagesPerChat && data?.messagesPerChat.length > 0) {
         setCurrentChat(currentChat => {
           return {
             ...currentChat,
@@ -64,17 +60,15 @@ export const MainDataProvider = ({ children }) => {
             chatDisplaying: true,
           };
         });
-  
       }
     };
     fetchData();
   }, [auth]);
 
   const getMessagesForChat = chatId => {
-    const result = messagesPerChat?.find(chat => chat.chatId === chatId)?.messages || [];
-    //console.log('result', result, chatId);
-    
-    return result
+    const result =
+      messagesPerChat?.find(chat => chat.chatId === chatId)?.messages || [];
+    return result;
   };
 
   const getOtherUserDetails = userId => {
@@ -90,8 +84,7 @@ export const MainDataProvider = ({ children }) => {
 
   const getOtherUserId = chatId => {
     const participants = getChatParticipants(chatId);
-    const otherUserId = participants?.find(id => 
-       id !== auth?.user.id );
+    const otherUserId = participants?.find(id => id !== auth?.user.id);
     return otherUserId;
   };
 
@@ -105,9 +98,8 @@ export const MainDataProvider = ({ children }) => {
       getMessagesForChat,
       getOtherUserDetails,
       getOtherUserId,
-      // getChatParticipants,
     },
-    setters: {  // todo: create adding fncs
+    setters: {
       setChats,
       setOtherUsers,
       setMessagesPerChat,
@@ -116,7 +108,7 @@ export const MainDataProvider = ({ children }) => {
       messagesPerChat_valRef,
       chats_valRef,
       users_valRef,
-    }
+    },
   };
 
   return (

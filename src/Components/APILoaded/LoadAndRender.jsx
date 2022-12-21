@@ -1,4 +1,4 @@
-import { useApi } from "../../Hooks/UseApi";
+import { useApi } from '../../Hooks/UseApi';
 
 export const LoadAndRender = ({
   method = 'get',
@@ -17,7 +17,7 @@ export const LoadAndRender = ({
     }
     return <h4 style={{ color: 'red' }}>{err}</h4>;
   }
-  
+
   if (isLoading) {
     if (onLoading) {
       return onLoading();

@@ -3,15 +3,14 @@ import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-import { useContext, useRef, useState } from 'react';
+import { useContext, useState } from 'react';
 import { Signup } from '../Auth/Signup';
 import { Login } from '../Auth/Login';
 import { UserAuthContext } from '../../Context/UserAuthContext';
 import { useNavigate } from 'react-router-dom';
 import { Header } from '../StaticElements/Header/Header';
-import logo from "../../Assets/NewLogo.png";
-import styles from "../Views/BeforeAuthTabs.module.css"
-
+import logo from '../../Assets/NewLogo.png';
+import styles from '../Views/BeforeAuthTabs.module.css';
 
 export const BeforeAuthTabs = () => {
   const [auth, setAuth] = useContext(UserAuthContext);
@@ -33,39 +32,38 @@ export const BeforeAuthTabs = () => {
     setValue(newValue);
   };
 
-  //Routing for testing purposes
-  // const [auth, setAuth]= useContext(UserAuthContext);
-  // const navigate = useNavigate();
-
-  // const handleSubmit =()=>{
-  //   setAuth(true);
-  //   return navigate("/home", { replace: true });
-  // }
-  if(auth.isAuth){
-    navigate("/home", { replace: true });
+  if (auth.isAuth) {
+    navigate('/home', { replace: true });
   }
   return (
     <>
-    {value === '1'? ( <> <div className={styles.AppHeader}>
-<Header title="Welcome to Messaging App"/>
-    <img src={logo} alt="logo" />
-     </div> </>):"" }
-<Box sx={style}>
-      <TabContext value={value}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <TabList onChange={handleChange} aria-label="lab API tabs example">
-            <Tab label="Login" value="1" />
-            <Tab label="SignUp" value="2" />
-          </TabList>
-        </Box>
-        <TabPanel value="1">
-          <Login />
-        </TabPanel>
-        <TabPanel value="2">
-          <Signup setValue={setValue} />
-        </TabPanel>
-      </TabContext>
-    </Box>
+      {value === '1' ? (
+        <>
+          {' '}
+          <div className={styles.AppHeader}>
+            <Header title="Welcome to Messaging App" />
+            <img src={logo} alt="logo" />
+          </div>{' '}
+        </>
+      ) : (
+        ''
+      )}
+      <Box sx={style}>
+        <TabContext value={value}>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <TabList onChange={handleChange} aria-label="lab API tabs example">
+              <Tab label="Login" value="1" />
+              <Tab label="SignUp" value="2" />
+            </TabList>
+          </Box>
+          <TabPanel value="1">
+            <Login />
+          </TabPanel>
+          <TabPanel value="2">
+            <Signup setValue={setValue} />
+          </TabPanel>
+        </TabContext>
+      </Box>
     </>
   );
 };

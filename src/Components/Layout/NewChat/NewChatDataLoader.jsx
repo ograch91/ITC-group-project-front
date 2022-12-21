@@ -3,7 +3,7 @@ import { UserAuthContext } from '../../../Context/UserAuthContext';
 import { LoadAndRender } from '../../APILoaded/LoadAndRender';
 import { NewChatDialog } from './NewChatDialog';
 
-export const NewChatDataLoader = (props) => {
+export const NewChatDataLoader = props => {
   const { closeModal } = props;
   const [auth, setAuth] = useContext(UserAuthContext);
 

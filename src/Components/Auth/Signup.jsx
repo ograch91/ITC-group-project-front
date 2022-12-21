@@ -48,13 +48,11 @@ export const Signup = props => {
     },
     validationSchema: validationSchema,
     onSubmit: async values => {
-      // console.log('values formik',values);
       await sendToServer(values);
     },
   });
 
   const sendToServer = async values => {
-    // console.log('values sendto',values);
     const options = {
       method: userDetails ? 'PUT' : 'POST',
       headers: {
@@ -69,7 +67,7 @@ export const Signup = props => {
         options
       );
       const payload = await resp.json();
-        console.log('payload in signup update',payload.success);
+      console.log('payload in signup update', payload.success);
       if (resp.ok && payload?.success) {
         const { data } = payload;
         showAppAlert(

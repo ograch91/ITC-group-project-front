@@ -7,8 +7,6 @@ import { Modal } from '@mui/material';
 import { useState } from 'react';
 import { Signup } from '../Auth/Signup';
 export const EditProfileModal = props => {
-  // const [auth, setAuth] = useContext(UserAuthContext);
-  // const isUser = auth.isAuth;
 
   const [open, setOpen] = props.openState;
   const handleOpen = () => setOpen(true);

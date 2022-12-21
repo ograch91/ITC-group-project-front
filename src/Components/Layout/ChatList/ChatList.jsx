@@ -2,11 +2,9 @@ import { useState, useContext } from 'react';
 import { SubHeader } from '../../StaticElements/SubHeader/SubHeader';
 import { Button, Modal } from '@mui/material';
 import { Box } from '@mui/system';
-import { NewChatDialog } from '../NewChat/NewChatDialog';
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 import { MainDataContext } from '../../../Context/MainDataContext';
 import styles from '../ChatList/ChatList.module.css';
-import moment from 'moment';
 import { ChatListItem } from './ChatListItem';
 import { NewChatDataLoader } from '../NewChat/NewChatDataLoader';
 
@@ -34,14 +32,10 @@ export const ChatList = () => {
   };
 
   const updateChatMessages = newMessage => {
-    // const [messagesPerChat, setMessagesPerChat] = mainData.data?.messagesPerChat.current;
-    // console.log(newMessage);
     const messagesPerChat = mainData.refs?.messagesPerChat_valRef?.current;
     const setMessagesPerChat = mainData.setters?.setMessagesPerChat;
 
     const current = messagesPerChat || [];
-    // console.log(current);
-    // console.log(current,newMessage, mainData.data?.messagesPerChat);
     const chatIndex = current.findIndex(
       chat => chat.chatId === newMessage?.chatid
     );
@@ -52,16 +46,12 @@ export const ChatList = () => {
     }
 
     const currentMessageListForChat = messagesPerChat[chatIndex].messages;
-    // console.log(currentMessageListForChat);
-
     const udpatedMessageList = [...currentMessageListForChat, newMessage];
     udpatedMessageList.sort((a, b) => a.id - b.id);
-    // console.log(udpatedMessageList);
 
     messagesPerChat[chatIndex].messages = udpatedMessageList;
 
     const updated = [...messagesPerChat];
-    // console.log(current,updated);
     setMessagesPerChat(updated);
     mainData.refs.messagesPerChat_valRef.current = updated;
   };
@@ -93,7 +83,6 @@ export const ChatList = () => {
         <Button
           onClick={modalToggle}
           sx={{ width: '100%', maxWidth: 360 }}
-          // disabled={!checked || checked.length == 0}
           variant="contained"
           type="button"
           size="large"
@@ -105,7 +94,6 @@ export const ChatList = () => {
           <Button
             onClick={addMsg}
             sx={{ width: '100%', maxWidth: 360 }}
-            // disabled={!checked || checked.length == 0}
             variant="contained"
             type="button"
             size="large"
@@ -121,7 +109,9 @@ export const ChatList = () => {
           aria-describedby="modal-modal-description"
           keepMounted
         >
-          <Box sx={style}>{open && <NewChatDataLoader closeModal={closeModal} />}</Box>
+          <Box sx={style}>
+            {open && <NewChatDataLoader closeModal={closeModal} />}
+          </Box>
           {/* {!isoUser ? <BeforeAuthTabs /> : <EditAuthTabs />} */}
         </Modal>
       </div>

@@ -26,7 +26,6 @@ export const useApi = (method, path, args) => {
     const fetchData = () => {
       setIsLoading(true);
 
-      // const token = auth?.token; todo:
       const token = auth?.token;
       const options = {
         headers: {
@@ -35,8 +34,6 @@ export const useApi = (method, path, args) => {
         },
 
         validateStatus: status => status >= 200 && status < 300,
-
-        // body: JSON.stringify({ image: imgurl }),
         ...args,
       };
 
@@ -46,9 +43,6 @@ export const useApi = (method, path, args) => {
       })
         .then(resp => {
           const data = verifyPayload(resp);
-          // line 50 enables update also on header with new user name
-          // but creates undefined username when opening newChat
-          // setAuth({...auth,user:data});
           setData(data);
           setIsLoading(false);
         })

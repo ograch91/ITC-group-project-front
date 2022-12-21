@@ -1,18 +1,16 @@
-import { Button } from "@mui/material";
+import { Button } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { baseUrl } from "../../../Hooks/UseApi";
-import { currentChatContext } from "../../../Context/CurrentChatContext";
-import styles from "./SubmitMessage.module.css";
-import { UserAuthContext } from "../../../Context/UserAuthContext";
-// import { date } from 'yup/lib/locale';
-import { AlertOnAppContext } from "../../../Context/AlertOnAppContext";
-import { MainDataContext } from "../../../Context/MainDataContext";
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { baseUrl } from '../../../Hooks/UseApi';
+import { currentChatContext } from '../../../Context/CurrentChatContext';
+import styles from './SubmitMessage.module.css';
+import { UserAuthContext } from '../../../Context/UserAuthContext';
+import { AlertOnAppContext } from '../../../Context/AlertOnAppContext';
+import { MainDataContext } from '../../../Context/MainDataContext';
 
 export const SubmitMessage = () => {
   const { showAppAlert } = useContext(AlertOnAppContext);
   const { currentChat } = useContext(currentChatContext);
-  // //console.log('currentChat.chatid',currentChat.chatid);
   const [auth, setAuth] = useContext(UserAuthContext);
   const mainData = useContext(MainDataContext);
 
@@ -20,8 +18,6 @@ export const SubmitMessage = () => {
 
   useEffect(() => {
     if (currentChat.chatDisplaying) {
-    //console.log("currentChat.chatDisplaying",currentChat.chatDisplaying);
-    //console.log("isDisable.current",isDisable.current);
       isDisable.current = false;
     } else {
       isDisable.current = true;
@@ -35,15 +31,15 @@ export const SubmitMessage = () => {
     sender: auth?.user?.id,
     chatid: currentChat.chatid,
     datesent: Date.now(),
-    content: "",
+    content: '',
   });
 
   const handleSubmit = async (e, message) => {
     e.preventDefault();
     await sendToServer(message);
   };
-  
-  const sendToServer = async (message) => {
+
+  const sendToServer = async message => {
     const newMessage = {
       ...message,
       chatid: currentChat.chatid,
@@ -52,55 +48,55 @@ export const SubmitMessage = () => {
     console.log(newMessage, mainData.data?.messagesPerChat);
 
     const options = {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
-        Authorization: auth?.token || "",
+        'Content-Type': 'application/json',
+        Authorization: auth?.token || '',
       },
       body: JSON.stringify(newMessage),
     };
     try {
       const resp = await fetch(`${baseUrl}/messages/`, options);
       if (!resp.ok) {
-        showAppAlert("Couldnt send message apologies", "error");
+        showAppAlert('Couldnt send message apologies', 'error');
         return;
       }
-      setMessage({ ...message, datesent: "", content: "" });
+      setMessage({ ...message, datesent: '', content: '' });
     } catch (err) {
-      showAppAlert("Couldnt send message apologies", "error");
+      showAppAlert('Couldnt send message apologies', 'error');
       return;
     }
-  }
-  const onEnterPress = (e) => {
-    if(e.keyCode == 13 && e.shiftKey == false) {
+  };
+  const onEnterPress = e => {
+    if (e.keyCode == 13 && e.shiftKey == false) {
       e.preventDefault();
-      handleSubmit(e, message)
+      handleSubmit(e, message);
     }
-  }
+  };
   return (
     <div className={styles.SubmitMessage}>
-    <div className={styles.textArea}>
-      <textarea
-        className={styles.form}
-        placeholder="What you have in mind..."
-        value={message.content}
-        onChange={(e) =>
-          setMessage((message) => {
-            return { ...message, content: e.target.value };
-          })
-        }
-        onKeyDown={onEnterPress}
-      />
-      <Button
-        onClick={(e) => handleSubmit(e, message)}
-        disabled={
-          isDisable.current ? true : message.content.length > 0 ? false : true
-        }
-        endIcon={<SendIcon />}
-      >
-        Send
-      </Button>
-    </div>
+      <div className={styles.textArea}>
+        <textarea
+          className={styles.form}
+          placeholder="What you have in mind..."
+          value={message.content}
+          onChange={e =>
+            setMessage(message => {
+              return { ...message, content: e.target.value };
+            })
+          }
+          onKeyDown={onEnterPress}
+        />
+        <Button
+          onClick={e => handleSubmit(e, message)}
+          disabled={
+            isDisable.current ? true : message.content.length > 0 ? false : true
+          }
+          endIcon={<SendIcon />}
+        >
+          Send
+        </Button>
+      </div>
     </div>
   );
 };

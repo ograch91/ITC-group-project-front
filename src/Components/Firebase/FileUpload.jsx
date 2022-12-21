@@ -8,7 +8,6 @@ import UploadButton from './UploadButton';
 import AlertOnWindow from './AlertOnWindow';
 import { UserAuthContext } from '../../Context/UserAuthContext';
 import { Tooltip } from '@mui/material';
-// import { UserAuthContext } from '../Context/UserAuthContext';
 const { v4: uuidv4 } = require('uuid');
 
 export const FileUpload = props => {
@@ -19,8 +18,6 @@ export const FileUpload = props => {
   const openState = React.useState(false);
   const [message, setMessage] = useState('');
   const [alertType, setAlertType] = useState('info');
-
-  // const [auth, setAuth] = useContext(UserAuthContext);
 
   // State to store uploaded file
   const [file, setFile] = useState(null);
@@ -65,7 +62,7 @@ export const FileUpload = props => {
       case 'fileSelected':
         setLoading(false);
         setSuccess(false);
-        setOpen(false);  // close alert when file is selected
+        setOpen(false); // close alert when file is selected
         break;
       default:
         break;
@@ -96,14 +93,13 @@ export const FileUpload = props => {
 
   const updateToBackend = async imgurl => {
     const url = `http://localhost:4000/users/setphoto`;
-     // const token = auth?.token; todo:
     const token = auth?.token;
- 
+
     const options = {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: token|| '',
+        Authorization: token || '',
       },
       body: JSON.stringify({ photo: imgurl }),
     };
@@ -112,9 +108,6 @@ export const FileUpload = props => {
   };
 
   const handleUpload = () => {
-    // if (!file) {
-    //   alert('Please upload an image first!');
-    // }
     const storageRef = ref(
       storage,
       //use user uuid as filename
@@ -135,11 +128,10 @@ export const FileUpload = props => {
         console.log(url);
         const ok = await updateToBackend(url);
         if (!ok) {
-        updateUploadStatus('error');
+          updateUploadStatus('error');
           alert('Image upload failed');
           return;
         }
-        // setAuth({ ...auth, user: { ...auth.user, photo: url } });
         updateUploadStatus('success');
         setAuth({ ...auth, user: { ...auth.user, photo: url } });
       }
@@ -173,17 +165,16 @@ export const FileUpload = props => {
         />
       </Button>
       <Tooltip title="Click to save">
-      <div>
-      <UploadButton
-        handleButtonClick={handleUpload}
-        loadingState={loadingState}
-        successState={successState}
-        isButtonDisabled={isButtonDisabled}
-        label="click to upload"
-      />
-      </div>
+        <div>
+          <UploadButton
+            handleButtonClick={handleUpload}
+            loadingState={loadingState}
+            successState={successState}
+            isButtonDisabled={isButtonDisabled}
+            label="click to upload"
+          />
+        </div>
       </Tooltip>
-
       <AlertOnWindow
         openState={openState}
         message={message}

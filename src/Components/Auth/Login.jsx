@@ -9,8 +9,6 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import { UserAuthContext } from '../../Context/UserAuthContext';
 import { AlertOnAppContext } from '../../Context/AlertOnAppContext';
 
-
-
 export const Login = () => {
   const defUser = process.env.REACT_APP_defualt_user;
   const defPass = process.env.REACT_APP_defualt_pass;
@@ -36,40 +34,35 @@ export const Login = () => {
       body: JSON.stringify(values),
     };
 
-
-
     try {
-    const resp = await fetch('http://localhost:4000/users/login', options);
+      const resp = await fetch('http://localhost:4000/users/login', options);
 
-    if (resp.ok) {
-      const data = (await resp.json())?.data;
-      setAuth({ ...auth, isAuth: true, token: data.token, user: data.user });
-      showAppAlert(
-        `Success: ${data?.message || 'action succeded'}`,
-        'success'
-      );
-      return navigate('/home', { replace: true });
-    }else {
-      const  error  = "Invalid Username or Password";
-      showAppAlert(`Error: ${error || 'action failed'}`, 'error');
+      if (resp.ok) {
+        const data = (await resp.json())?.data;
+        setAuth({ ...auth, isAuth: true, token: data.token, user: data.user });
+        showAppAlert(
+          `Success: ${data?.message || 'action succeded'}`,
+          'success'
+        );
+        return navigate('/home', { replace: true });
+      } else {
+        const error = 'Invalid Username or Password';
+        showAppAlert(`Error: ${error || 'action failed'}`, 'error');
+      }
+    } catch (err) {
+      showAppAlert('Error: Server not available', 'error');
     }
-  } catch (err) {
-    showAppAlert('Error: Server not available', 'error');
-  }
-
   };
- 
 
   const formik = useFormik({
     initialValues: {
-      email: defUser ||'',
+      email: defUser || '',
       password: defPass || '',
     },
     validationSchema: validationSchema,
     onSubmit: sendToServer,
   });
 
-  
   return (
     <div>
       <h1>Login</h1>
@@ -108,16 +101,6 @@ export const Login = () => {
           >
             Login
           </Button>
-          {/* <Button
-            color="error"
-            variant="outlined"
-            size="large"
-            type="submit"
-            startIcon={<BackIcon />}
-            //  onClick={handleClose}
-          >
-            Cancel
-          </Button> */}
         </div>
       </form>
       {loged && <Navigate to="/home" />}

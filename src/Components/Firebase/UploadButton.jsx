@@ -7,11 +7,10 @@ import CheckIcon from '@mui/icons-material/Check';
 import SaveIcon from '@mui/icons-material/Save';
 
 export default function UploadButton(props) {
-  const {loadingState, successState, handleButtonClick, isButtonDisabled} = props;
+  const { loadingState, successState, handleButtonClick, isButtonDisabled } =
+    props;
   const [loading, setLoading] = loadingState;
   const [success, setSuccess] = successState;
-  
- 
 
   const buttonSx = {
     ...(success && {
@@ -22,9 +21,6 @@ export default function UploadButton(props) {
     }),
   };
 
- 
-
-  
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <Box sx={{ m: 1, position: 'relative' }}>
@@ -50,7 +46,6 @@ export default function UploadButton(props) {
           />
         )}
       </Box>
-      
     </Box>
   );
 }

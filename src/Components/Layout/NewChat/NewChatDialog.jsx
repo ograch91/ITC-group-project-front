@@ -28,25 +28,6 @@ export const NewChatDialog = props => {
     setOpen(true);
   };
 
-  // const users = [
-  //   {
-  //     name: 'oren',
-  //     phone: '0544000000',
-  //     email: 'admin@gmail.com',
-  //     password: '12121212',
-  //     id: 'b4ff715b-ac9f-4cc1-8ef8-34331abc1668',
-  //     photo: 'https://images.dog.ceo/breeds/chihuahua/n02085620_735.jpg',
-  //   },
-  //   {
-  //     name: 'tom',
-  //     phone: '0544000000',
-  //     email: 'tom@tom.com',
-  //     password: '12121212',
-  //     id: '0563b357-f5a2-49b9-b64b-33e1c2d13703',
-  //     photo: 'https://images.dog.ceo/breeds/chihuahua/n02085620_735.jpg',
-  //   },
-  // ];
-
   const [checked, setChecked] = useState([]);
 
   const handleToggle = value => () => {
@@ -58,14 +39,12 @@ export const NewChatDialog = props => {
     } else {
       newChecked.splice(currentIndex, 1);
     }
-
     setChecked(newChecked);
   };
 
   const sendToServerNewChat = async user => {
     const participants = [auth?.user?.id, user.id];
     const created = Date.now();
-    console.log('sendToServerNewChat', user);
     const options = {
       method: 'POST',
       headers: {
@@ -87,7 +66,6 @@ export const NewChatDialog = props => {
   };
 
   const startNew = async () => {
-    console.log('start new chat with', checked);
     if (!checked || checked.length == 0) {
       return showAlert(
         'please select at least one user to start a new chat with',
@@ -100,8 +78,6 @@ export const NewChatDialog = props => {
         'error'
       );
     } else {
-      // checked.length == 1
-      // todo: add code here for backend "start new chat with 1:1 user"
       const user = users.find(u => u.id === checked[0]);
       showAlert('Starting a new chat with ' + user?.name || 'Someone');
       const newId = await sendToServerNewChat(user);

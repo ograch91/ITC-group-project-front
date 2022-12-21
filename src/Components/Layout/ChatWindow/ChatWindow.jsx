@@ -37,7 +37,10 @@ export const ChatWindow = () => {
       <SubHeader func={handleClick}>
         {chatId ? (
           <>
-            <img src={headerDetails.photo ||  "./profile.png"} alt="user photo" ></img>
+            <img
+              src={headerDetails.photo || './profile.png'}
+              alt="user photo"
+            ></img>
             <span>{headerDetails.name}</span>
           </>
         ) : (
