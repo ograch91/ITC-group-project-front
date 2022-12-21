@@ -35,7 +35,10 @@ export const HomePage = () => {
     }
     // Setting the token in the cookie
     document.cookie = `token=${auth?.token}` || '';
-    ws.current = new WebSocket('ws://localhost:4000');
+    ws.current = new WebSocket(
+      'wss://group-messaging-app.herokuapp.com',
+      auth.token
+    );
     // Opening the ws connection
     ws.current.onopen = () => {
       console.log('Connection opened');
@@ -72,6 +75,10 @@ export const HomePage = () => {
         'error',
         120000
       );
+    };
+    ws.current.onerror = error => {
+      console.log(error);
+      showAppAlert('Error occured - Please refresh the page', 'error', 120000);
     };
     // console.log('ws.current', ws);
   };
@@ -182,7 +189,7 @@ export const HomePage = () => {
     try {
       console.log(userId);
       const resp = await fetch(
-        `http://localhost:4000/users/${userId}`,
+        `https://group-messaging-app.herokuapp.com/users/${userId}`,
         options
       );
       if (!resp.ok) {

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import { UserAuthContext } from '../Context/UserAuthContext';
 
-export const baseUrl = 'http://localhost:4000';
+export const baseUrl = 'https://group-messaging-app.herokuapp.com';
 
 export const useApi = (method, path, args) => {
   const [auth, setAuth] = useContext(UserAuthContext);

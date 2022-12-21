@@ -35,7 +35,7 @@ export const Login = () => {
     };
 
     try {
-      const resp = await fetch('http://localhost:4000/users/login', options);
+      const resp = await fetch('https://group-messaging-app.herokuapp.com/users/login', options);
 
       if (resp.ok) {
         const data = (await resp.json())?.data;

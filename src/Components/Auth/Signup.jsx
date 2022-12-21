@@ -63,7 +63,7 @@ export const Signup = props => {
     };
     try {
       const resp = await fetch(
-        `http://localhost:4000/users/${endpoint}`,
+        `https://group-messaging-app.herokuapp.com/users/${endpoint}`,
         options
       );
       const payload = await resp.json();

@@ -57,7 +57,7 @@ export const NewChatDialog = props => {
       }),
     };
     const response = await fetch(
-      `http://localhost:4000/chats/startchat`,
+      `https://group-messaging-app.herokuapp.com/chats/startchat`,
       options
     );
 

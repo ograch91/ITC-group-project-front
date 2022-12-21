@@ -44,7 +44,7 @@ function App() {
             Authorization: savedAuth.token,
           },
         };
-        const resp = await fetch('http://localhost:4000/users/ping', options);
+        const resp = await fetch('https://group-messaging-app.herokuapp.com/users/ping', options);
         if (!resp.ok) {
           setAuth({ ...auth, loadingDone: true });
           navigate('/welcome', { replace: true });

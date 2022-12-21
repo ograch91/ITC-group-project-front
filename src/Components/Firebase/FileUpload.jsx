@@ -92,7 +92,7 @@ export const FileUpload = props => {
   };
 
   const updateToBackend = async imgurl => {
-    const url = `http://localhost:4000/users/setphoto`;
+    const url = `https://group-messaging-app.herokuapp.com/users/setphoto`;
     const token = auth?.token;
 
     const options = {
